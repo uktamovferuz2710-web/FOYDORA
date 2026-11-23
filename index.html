@@ -3,410 +3,371 @@
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080b14">
-<title>FOYDORA — Intelligent Workspace</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#08090c">
+<title>FOYDORA — Beyond Ordinary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-
 :root{
-  --bg:#080b14;--panel:#101522;--panel2:#151c2c;--line:#252e43;
-  --text:#f5f7ff;--muted:#8e9ab2;--blue:#6c8cff;--purple:#9867ff;
-  --cyan:#62d9ff;--orange:#ff9866;--green:#53d6a0;
+ --bg:#08090c;--surface:#101216;--surface2:#15181e;
+ --white:#f4f2ed;--muted:#85878e;--gold:#d8b77a;
+ --gold2:#f2d7a0;--line:#ffffff12;--green:#9ac6a6;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;overflow-x:hidden}
-button,input{font:inherit}
-button{cursor:pointer}
-.app{min-height:100vh;display:flex}
-.sidebar{width:248px;background:#0b0f19;border-right:1px solid var(--line);padding:22px 15px;position:fixed;inset:0 auto 0 0;z-index:10;display:flex;flex-direction:column}
-.brand{display:flex;align-items:center;gap:11px;padding:4px 9px 27px}
-.logo{width:37px;height:37px;border-radius:12px;background:linear-gradient(135deg,#6b8cff,#a35dff);display:grid;place-items:center;font-weight:900;font-size:19px;box-shadow:0 0 28px #806cff66}
-.brand strong{font-size:19px;letter-spacing:1.5px}
-.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:2px;margin-top:3px}
-.nav-title{font-size:10px;letter-spacing:1.8px;color:#68748b;padding:15px 12px 8px}
-.nav button{width:100%;display:flex;align-items:center;gap:12px;border:0;background:transparent;color:#a6b0c5;padding:12px;border-radius:10px;text-align:left;margin:2px 0;font-size:13px;transition:.2s}
-.nav button:hover,.nav button.active{background:linear-gradient(90deg,#25325a88,#6f57a522);color:white}
-.nav button.active{box-shadow:inset 2px 0 #8c7bff}
-.nav .ico{width:20px;text-align:center;font-size:17px}
-.side-bottom{margin-top:auto}
-.profile{border-top:1px solid var(--line);padding:17px 5px 0;display:flex;align-items:center;gap:10px}
-.avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#ff9a75,#835eff);display:grid;place-items:center;font-weight:800}
-.profile small{display:block;color:var(--muted);font-size:10px;margin-top:4px}
-.main{margin-left:248px;width:calc(100% - 248px);padding:25px 32px 55px;max-width:1800px}
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:27px}
-.crumb{font-size:12px;color:var(--muted)}
-.crumb b{color:white;font-weight:600}
-.top-actions{display:flex;align-items:center;gap:10px}
-.search{background:#111827;border:1px solid var(--line);border-radius:10px;padding:10px 13px;color:white;width:220px;outline:none}
-.search:focus{border-color:var(--blue)}
-.icon-btn{width:38px;height:38px;border:1px solid var(--line);background:#111827;color:white;border-radius:10px}
-.icon-btn:hover{border-color:var(--purple);background:#1a2032}
-.page-title{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:23px}
-.eyebrow{color:#8c9cff;font-size:10px;letter-spacing:2.5px;font-weight:700}
-h1{font-size:30px;letter-spacing:-1.2px;margin:8px 0 7px}
-.subtitle{font-size:12px;color:var(--muted)}
-.primary{border:0;color:white;background:linear-gradient(110deg,#557dff,#9a61ef);padding:12px 17px;border-radius:10px;font-weight:700;font-size:12px;box-shadow:0 8px 28px #765dff33}
-.primary:hover{filter:brightness(1.15);transform:translateY(-1px)}
-.hero{min-height:300px;border:1px solid #303650;border-radius:20px;overflow:hidden;position:relative;background:radial-gradient(ellipse at 70% 50%,#273b68 0%,#141b31 34%,#0e1320 70%);display:grid;grid-template-columns:1fr 1fr;margin-bottom:20px}
-.hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(#ffffff08 1px,transparent 1px),linear-gradient(90deg,#ffffff08 1px,transparent 1px);background-size:38px 38px;mask-image:linear-gradient(90deg,transparent,#000)}
-.hero-copy{padding:34px 35px;position:relative;z-index:2;align-self:center}
-.hero-copy h2{font-size:34px;line-height:1.16;letter-spacing:-1.5px;margin:13px 0}
-.hero-copy h2 span{background:linear-gradient(90deg,#9dc7ff,#c39aff,#ffb68e);background-clip:text;color:transparent}
-.hero-copy p{color:#aab6ce;font-size:12px;line-height:1.8;max-width:390px}
-.hero-buttons{display:flex;gap:10px;margin-top:20px}
-.secondary{background:#ffffff0d;color:#e7edff;border:1px solid #ffffff25;border-radius:10px;padding:11px 15px;font-size:11px}
-.stage{position:relative;min-height:300px;overflow:hidden}
-#orb{position:absolute;inset:0;width:100%;height:100%}
-.orb-fallback{position:absolute;width:150px;height:150px;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#7abaff 12%,#5848ba 38%,#111b4a 68%,#ff9a5c 75%,transparent 78%);box-shadow:0 0 45px #6d8cff,0 0 100px #8063ff77;animation:float 5s ease-in-out infinite}
-@keyframes float{50%{transform:translate(-50%,-56%) rotate(12deg)}}
-.holo{position:absolute;border:1px solid #8dbbff55;background:#8cbaff0d;backdrop-filter:blur(8px);border-radius:9px;padding:10px 12px;color:#bcd5ff;font-size:9px;box-shadow:0 0 25px #75aaff22;animation:drift 6s ease-in-out infinite}
-.holo b{display:block;color:white;font-size:16px;margin-top:5px}
-.holo.one{top:22px;left:5%;animation-delay:-2s}
-.holo.two{right:5%;top:65px;animation-delay:-4s}
-.holo.three{bottom:24px;left:12%;animation-delay:-1s}
-@keyframes drift{50%{transform:translateY(-9px)}}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:20px}
-.stat{background:linear-gradient(145deg,#151c2c,#101522);border:1px solid var(--line);border-radius:14px;padding:17px;position:relative;overflow:hidden}
-.stat:after{content:"";position:absolute;width:90px;height:90px;border-radius:50%;right:-40px;top:-40px;background:#8a76ff18;filter:blur(5px)}
-.stat-head{display:flex;justify-content:space-between;color:var(--muted);font-size:11px}
-.stat-icon{font-size:18px}
-.stat strong{font-size:25px;display:block;margin:13px 0 6px;letter-spacing:-1px}
-.change{font-size:10px;color:var(--green)}
-.dashboard-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:14px}
-.panel{background:linear-gradient(145deg,#131a29,#0f1420);border:1px solid var(--line);border-radius:15px;padding:18px;min-width:0}
-.panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}
-.panel h3{font-size:13px;margin:0}
-.panel small{font-size:10px;color:var(--muted)}
-.chart-wrap{height:210px;position:relative}
-.activity{display:flex;flex-direction:column;gap:15px}
-.activity-row{display:flex;align-items:center;gap:11px}
-.activity-icon{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:#29355b;color:#a9baff}
-.activity-row strong{font-size:11px;display:block}
-.activity-row small{display:block;margin-top:4px}
-.activity-row time{margin-left:auto;color:var(--muted);font-size:9px}
-.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:14px}
-.quick{border:1px solid var(--line);border-radius:12px;background:#111827;color:white;padding:15px;text-align:left;transition:.2s}
-.quick:hover{transform:translateY(-3px);border-color:#8272ff;background:#1a2033}
-.quick span{font-size:20px;display:block;margin-bottom:12px}
-.quick b{font-size:11px;display:block}
-.quick small{font-size:9px;color:var(--muted);display:block;margin-top:5px}
-.section{display:none}
-.section.active{display:block}
-.tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
-.tool-card{padding:19px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(145deg,#161e30,#101522);cursor:pointer;transition:.2s}
-.tool-card:hover{border-color:#8876ff;transform:translateY(-3px)}
-.tool-card .tool-icon{font-size:25px}
-.tool-card h3{font-size:13px;margin:13px 0 7px}
-.tool-card p{font-size:10px;line-height:1.6;color:var(--muted)}
-.modal-bg{display:none;position:fixed;inset:0;background:#03050bd9;backdrop-filter:blur(8px);z-index:30;align-items:center;justify-content:center;padding:20px}
-.modal-bg.show{display:flex}
-.modal{width:min(520px,100%);background:#121a2a;border:1px solid #36415b;border-radius:17px;padding:23px;box-shadow:0 25px 100px #0009}
-.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-.modal-head h2{font-size:17px;margin:0}
-.close{background:#252d40;color:white;border:0;border-radius:8px;width:32px;height:32px}
-.field{width:100%;padding:12px;background:#0a101d;border:1px solid #303b55;border-radius:9px;color:white;margin:7px 0 13px;outline:none}
-.field:focus{border-color:#8c78ff}
-label{font-size:10px;color:#aebbd1}
-.result{background:#0b1220;border:1px solid #2d3b58;padding:13px;border-radius:9px;margin-top:12px;font-size:12px;line-height:1.7;white-space:pre-wrap;min-height:40px}
-.chat-area{height:210px;overflow:auto;background:#0a101d;border:1px solid var(--line);border-radius:10px;padding:12px;font-size:11px;line-height:1.7;margin-bottom:10px}
-.chat-msg{margin:8px 0;padding:9px 11px;border-radius:9px;background:#202b45;max-width:90%}
-.chat-msg.user{margin-left:auto;background:#493b7c}
-.toast{position:fixed;bottom:22px;right:22px;background:#1d2940;border:1px solid #53648a;padding:12px 17px;border-radius:10px;font-size:11px;z-index:50;opacity:0;transform:translateY(10px);transition:.25s;pointer-events:none}
-.toast.show{opacity:1;transform:translateY(0)}
-footer{padding:25px 0;color:#56627a;font-size:10px;text-align:center}
-@media(max-width:1050px){.sidebar{width:210px}.main{margin-left:210px;width:calc(100% - 210px);padding:22px}.stats{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:760px){.sidebar{width:65px;padding:15px 7px}.brand{padding:3px 6px 25px}.brand strong,.brand small,.nav button .nav-label,.nav-title,.profile>div:last-child{display:none}.nav button{justify-content:center;padding:13px 5px}.nav .ico{font-size:19px}.profile{justify-content:center;padding-top:13px}.main{margin-left:65px;width:calc(100% - 65px);padding:16px}.search{width:125px}.hero{grid-template-columns:1fr}.hero-copy{padding:27px}.hero-copy h2{font-size:28px}.stage{min-height:220px}.dashboard-grid{grid-template-columns:1fr}.quick-grid{grid-template-columns:repeat(2,1fr)}.tool-grid{grid-template-columns:repeat(2,1fr)}.page-title{align-items:flex-start;flex-direction:column}}
-@media(max-width:430px){.stats{grid-template-columns:1fr 1fr;gap:8px}.stat{padding:12px}.stat strong{font-size:20px}.topbar{align-items:flex-start}.search{width:105px}.tool-grid{grid-template-columns:1fr}.hero-copy h2{font-size:25px}}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--white);font-family:"DM Sans",sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.13;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.17'/%3E%3C/svg%3E")}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+.container{width:min(1220px,calc(100% - 64px));margin:auto;position:relative;z-index:1}
+header{height:82px;display:flex;align-items:center;border-bottom:1px solid var(--line);position:relative;z-index:10;background:#08090ce8;backdrop-filter:blur(20px)}
+.nav{display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-mark{width:39px;height:39px;border:1px solid #d8b77a80;border-radius:12px;display:grid;place-items:center;color:var(--gold2);font-family:Manrope;font-size:23px;font-weight:800;box-shadow:0 0 25px #d8b77a18}
+.brand-name{font-family:Manrope;font-size:18px;letter-spacing:3px;font-weight:800}
+.brand-sub{font-size:8px;letter-spacing:3px;color:var(--muted);margin-top:4px}
+.nav-links{display:flex;gap:33px;align-items:center;color:#aaa;font-size:12px}
+.nav-links a{transition:.25s}
+.nav-links a:hover{color:var(--gold2)}
+.nav-right{display:flex;align-items:center;gap:15px}
+.lang{font-size:11px;color:#aaa}
+.btn{border:1px solid #d8b77a75;background:linear-gradient(120deg,#e0c28c,#b28b50);color:#17130d;padding:13px 20px;border-radius:5px;font-size:11px;font-weight:800;letter-spacing:.3px;transition:.3s}
+.btn:hover{transform:translateY(-3px);box-shadow:0 10px 35px #d8b77a35}
+.btn-outline{border:1px solid #ffffff30;background:#ffffff06;color:#eee;padding:13px 20px;border-radius:5px;font-size:11px;transition:.3s}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold2)}
+.menu-btn{display:none;background:none;border:0;color:white;font-size:24px}
+.hero{min-height:690px;display:grid;grid-template-columns:1fr 1fr;align-items:center;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;width:620px;height:620px;right:0;top:10px;background:radial-gradient(circle,#a37d4122,transparent 68%);pointer-events:none}
+.hero-copy{padding:55px 0 75px;position:relative;z-index:2}
+.eyebrow{display:flex;align-items:center;gap:12px;color:var(--gold);font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase}
+.eyebrow:before{content:"";width:29px;height:1px;background:var(--gold)}
+h1{font-family:Manrope,sans-serif;font-size:clamp(48px,6.1vw,82px);line-height:1.04;letter-spacing:-5px;margin:27px 0 22px;font-weight:600}
+h1 span{color:var(--gold2);font-family:Georgia,serif;font-style:italic;font-weight:400}
+.hero-desc{max-width:445px;color:#999ba3;font-size:14px;line-height:1.9}
+.hero-actions{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
+.hero-meta{display:flex;gap:30px;margin-top:54px}
+.meta strong{display:block;font-family:Manrope;font-size:19px;font-weight:600}
+.meta small{color:#777b84;font-size:9px;letter-spacing:1px;margin-top:5px;display:block}
+.hero-visual{height:570px;position:relative;display:grid;place-items:center}
+#scene{width:100%;height:100%;position:absolute;inset:0}
+.visual-label{position:absolute;border:1px solid #d8b77a3b;background:#11130fc9;backdrop-filter:blur(14px);padding:13px 16px;min-width:135px;box-shadow:0 12px 40px #0008}
+.visual-label small{font-size:8px;color:#999;letter-spacing:2px}
+.visual-label b{display:block;color:var(--gold2);font-size:14px;margin-top:7px;font-family:Manrope}
+.label-a{top:100px;right:0}
+.label-b{bottom:112px;left:0}
+.visual-caption{position:absolute;bottom:20px;right:10px;color:#666;font-size:8px;letter-spacing:2px}
+.scroll-note{position:absolute;bottom:22px;left:0;color:#696b70;font-size:9px;letter-spacing:2px;display:flex;align-items:center;gap:13px}
+.scroll-note:before{content:"";width:38px;height:1px;background:#777}
+.section{padding:105px 0;border-top:1px solid var(--line)}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:42px}
+.section-kicker{font-size:9px;color:var(--gold);letter-spacing:3px;font-weight:700}
+h2{font-family:Manrope;font-size:clamp(30px,4vw,48px);font-weight:500;letter-spacing:-2px;margin:13px 0}
+.section-intro{color:var(--muted);font-size:12px;line-height:1.8;max-width:390px}
+.experience{display:grid;grid-template-columns:1.15fr .85fr;gap:17px}
+.experience-main{min-height:440px;background:linear-gradient(145deg,#191a1c,#0d0f12);border:1px solid #ffffff17;border-radius:10px;position:relative;overflow:hidden;padding:35px}
+.experience-main:after{content:"";position:absolute;width:430px;height:430px;border-radius:50%;right:-100px;bottom:-170px;background:radial-gradient(circle,#b18b4d35,transparent 70%)}
+.experience-main h3{font-family:Manrope;font-size:30px;font-weight:500;max-width:300px;line-height:1.3}
+.experience-main p{color:#898b91;font-size:12px;line-height:1.8;max-width:310px}
+.experience-main .mini-orb{position:absolute;width:220px;height:220px;right:55px;bottom:25px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#fff5d5,#c9a86e 13%,#6e5737 35%,#1b1b1b 62%,#b58b4e 70%,#161719 78%);box-shadow:inset -20px -20px 50px #000,0 0 70px #c39a5330;animation:orbfloat 7s ease-in-out infinite}
+@keyframes orbfloat{50%{transform:translateY(-16px) rotate(9deg)}}
+.experience-side{display:grid;gap:17px}
+.feature{border:1px solid var(--line);background:linear-gradient(140deg,#15171b,#0d0f12);border-radius:9px;padding:26px;position:relative;overflow:hidden;transition:.35s}
+.feature:hover{border-color:#d8b77a77;transform:translateY(-4px)}
+.feature-number{font-size:9px;color:var(--gold);letter-spacing:2px}
+.feature h3{font-family:Manrope;font-size:20px;font-weight:500;margin:17px 0 8px}
+.feature p{font-size:11px;color:#888b92;line-height:1.8;max-width:330px}
+.feature-icon{position:absolute;right:23px;top:22px;color:var(--gold);font-size:25px}
+.feature-arrow{position:absolute;bottom:22px;right:25px;color:var(--gold);font-size:18px}
+.showcase{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.showcase-card{background:#101216;border:1px solid var(--line);border-radius:9px;overflow:hidden;transition:.35s}
+.showcase-card:hover{transform:translateY(-6px);border-color:#d8b77a70}
+.showcase-art{height:200px;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 50%,#6d54372b,transparent 70%),#121417;display:grid;place-items:center}
+.art-ring{width:125px;height:125px;border:1px solid #d8b77a99;border-radius:50%;position:relative;box-shadow:0 0 50px #d8b77a20,inset 0 0 35px #d8b77a12;animation:spin 18s linear infinite}
+.art-ring:before,.art-ring:after{content:"";position:absolute;inset:12px;border:1px solid #e5c99466;border-radius:50%;transform:rotateX(65deg) scaleY(.55)}
+.art-ring:after{transform:rotateY(65deg) scaleX(.55)}
+.art-ring.alt{border-color:#94b8c6;box-shadow:0 0 45px #94b8c622}
+.art-ring.alt:before,.art-ring.alt:after{border-color:#94b8c688}
+.art-core{position:absolute;width:49px;height:49px;border-radius:50%;background:radial-gradient(circle at 30% 25%,white,#c9a56c 22%,#4e3b25 70%);box-shadow:0 0 35px #d8b77a55}
+@keyframes spin{to{transform:rotate(360deg)}}
+.showcase-body{padding:21px}
+.showcase-body small{color:var(--gold);font-size:8px;letter-spacing:2px}
+.showcase-body h3{font-family:Manrope;font-size:17px;font-weight:500;margin:10px 0}
+.showcase-body p{font-size:10px;color:#898b92;line-height:1.8}
+.dashboard{border:1px solid #ffffff18;border-radius:12px;background:#101216;padding:24px;box-shadow:0 30px 100px #0008}
+.dash-top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:18px}
+.dash-brand{font-family:Manrope;letter-spacing:2px;font-size:13px}
+.dash-tag{font-size:9px;color:var(--green);border:1px solid #9ac6a633;padding:7px 10px;border-radius:30px}
+.dash-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:19px 0}
+.dash-stat{background:#171a20;border:1px solid #ffffff0b;padding:18px;border-radius:7px}
+.dash-stat small{color:#8d9098;font-size:9px}
+.dash-stat strong{display:block;font-family:Manrope;font-size:24px;margin-top:12px;font-weight:500}
+.dash-stat em{font-style:normal;font-size:9px;color:var(--green)}
+.dash-bottom{display:grid;grid-template-columns:1.3fr .7fr;gap:13px}
+.dash-chart,.dash-list{background:#15181e;border:1px solid #ffffff0b;padding:18px;border-radius:7px}
+.dash-chart h4,.dash-list h4{font-size:11px;font-weight:500;margin:0 0 15px}
+.bars{height:130px;display:flex;align-items:end;gap:10px;border-bottom:1px solid #ffffff16;padding:0 7px}
+.bar{flex:1;border-radius:3px 3px 0 0;background:linear-gradient(0deg,#967445,#e2c28d);opacity:.8;animation:grow 1.3s ease-out both;transform-origin:bottom}
+@keyframes grow{from{transform:scaleY(.05)}to{transform:scaleY(1)}}
+.bar:nth-child(1){height:35%}.bar:nth-child(2){height:53%}.bar:nth-child(3){height:44%}.bar:nth-child(4){height:70%}.bar:nth-child(5){height:61%}.bar:nth-child(6){height:88%}.bar:nth-child(7){height:77%}
+.dash-list-row{display:flex;align-items:center;gap:9px;margin:14px 0;font-size:9px;color:#aeb0b5}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.dash-list-row span:last-child{margin-left:auto;color:#777}
+.cta{padding:80px 40px;text-align:center;border:1px solid #d8b77a40;border-radius:12px;background:radial-gradient(ellipse at 50% 100%,#a17c4024,transparent 65%),#101216;position:relative;overflow:hidden}
+.cta h2{font-size:clamp(34px,5vw,57px)}
+.cta p{color:#92949a;font-size:12px;line-height:1.8;max-width:470px;margin:15px auto 26px}
+footer{border-top:1px solid var(--line);padding:35px 0 28px}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;gap:20px}
+.footer-copy{font-size:10px;color:#747780}
+.footer-links{display:flex;gap:22px;color:#888;font-size:10px}
+.reveal{opacity:0;transform:translateY(25px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.cursor-glow{position:fixed;width:260px;height:260px;border-radius:50%;background:#d8b77a0a;filter:blur(40px);pointer-events:none;z-index:0;transform:translate(-50%,-50%)}
+@media(max-width:850px){
+ .nav-links{gap:15px}.hero{grid-template-columns:1fr;min-height:auto}.hero-copy{padding:75px 0 15px}.hero-visual{height:450px}.hero-meta{margin-top:35px}
+ .experience{grid-template-columns:1fr}.experience-main{min-height:360px}.showcase{grid-template-columns:1fr 1fr}
+}
+@media(max-width:620px){
+ .container{width:calc(100% - 36px)}header{height:70px}.brand-name{font-size:15px}.nav-links{display:none;position:absolute;top:69px;left:0;right:0;background:#101216;padding:22px;flex-direction:column;align-items:flex-start;border-bottom:1px solid var(--line)}
+ .nav-links.open{display:flex}.nav-right .lang{display:none}.nav-right .btn{padding:10px 12px;font-size:9px}.menu-btn{display:block}
+ h1{font-size:52px;letter-spacing:-3px}.hero-copy{padding-top:60px}.hero-visual{height:360px}.label-a{right:0;top:45px}.label-b{bottom:55px}
+ .section{padding:70px 0}.section-head{display:block}.section-intro{margin-top:12px}.showcase{grid-template-columns:1fr}.showcase-art{height:180px}
+ .dash-grid{grid-template-columns:1fr 1fr}.dash-bottom{grid-template-columns:1fr}.dash-stat:last-child{grid-column:span 2}
+ .dashboard{padding:13px}.cta{padding:55px 20px}.footer-inner{align-items:flex-start;flex-direction:column}.footer-links{flex-wrap:wrap}
+ .experience-main .mini-orb{width:170px;height:170px;right:20px}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
-<div class="app">
-<aside class="sidebar">
-  <div class="brand"><div class="logo">F</div><div><strong>FOYDORA</strong><small>INTELLIGENT WORKSPACE</small></div></div>
-  <div class="nav">
-    <div class="nav-title">WORKSPACE</div>
-    <button class="active" data-page="dashboard"><span class="ico">◫</span><span class="nav-label">Dashboard</span></button>
-    <button data-page="assistant"><span class="ico">✧</span><span class="nav-label">AI Assistant</span></button>
-    <button data-page="analytics"><span class="ico">▥</span><span class="nav-label">Analytics</span></button>
-    <div class="nav-title">TOOLS</div>
-    <button data-page="business"><span class="ico">◈</span><span class="nav-label">Business Studio</span></button>
-    <button data-page="content"><span class="ico">✎</span><span class="nav-label">Content Studio</span></button>
-    <button data-page="finance"><span class="ico">＄</span><span class="nav-label">Finance Center</span></button>
-    <button data-page="documents"><span class="ico">▤</span><span class="nav-label">Documents</span></button>
-    <div class="nav-title">PERSONAL</div>
-    <button data-page="settings"><span class="ico">⚙</span><span class="nav-label">Settings</span></button>
+<div class="cursor-glow" id="glow"></div>
+<header>
+ <div class="container nav">
+  <a class="brand" href="#">
+   <div class="brand-mark">F</div>
+   <div><div class="brand-name">FOYDORA</div><div class="brand-sub">BEYOND ORDINARY</div></div>
+  </a>
+  <nav class="nav-links" id="links">
+   <a href="#experience">Platform</a>
+   <a href="#solutions">Solutions</a>
+   <a href="#workspace">Workspace</a>
+   <a href="#about">About</a>
+  </nav>
+  <div class="nav-right">
+   <span class="lang">UZ / EN</span>
+   <a href="#workspace" class="btn">Explore platform ↗</a>
+   <button class="menu-btn" id="menu">☰</button>
   </div>
-  <div class="side-bottom"><div class="profile"><div class="avatar">F</div><div><b style="font-size:11px">My Workspace</b><small>Free account · Demo</small></div></div></div>
-</aside>
+ </div>
+</header>
 
-<main class="main">
-  <header class="topbar">
-    <div class="crumb">FOYDORA <span style="color:#53617b">/</span> <b id="crumb">Dashboard</b></div>
-    <div class="top-actions">
-      <input class="search" id="globalSearch" placeholder="⌕  Search tools...">
-      <button class="icon-btn" id="notify" title="Notifications">♧</button>
-      <button class="icon-btn" id="theme" title="Change theme">☼</button>
-    </div>
-  </header>
+<main>
+<section class="container hero">
+ <div class="hero-copy">
+  <div class="eyebrow">THE FUTURE OF YOUR WORK</div>
+  <h1>Make room<br>for <span>greatness.</span></h1>
+  <p class="hero-desc">Fikrlaringiz, biznesingiz va kundalik ishlaringiz uchun yangi raqamli makon. Murakkab vazifalarni soddalashtiring. Katta g‘oyalarni haqiqatga aylantiring.</p>
+  <div class="hero-actions">
+   <a class="btn" href="#experience">Discover FOYDORA ↗</a>
+   <a class="btn-outline" href="#workspace">Explore workspace</a>
+  </div>
+  <div class="hero-meta">
+   <div class="meta"><strong>01</strong><small>ONE WORKSPACE</small></div>
+   <div class="meta"><strong>∞</strong><small>NEW POSSIBILITIES</small></div>
+   <div class="meta"><strong>360°</strong><small>YOUR WORLD</small></div>
+  </div>
+ </div>
+ <div class="hero-visual">
+  <canvas id="scene"></canvas>
+  <div class="visual-label label-a"><small>DESIGNED FOR EXCELLENCE</small><b>Beyond limits.</b></div>
+  <div class="visual-label label-b"><small>INTELLIGENT ECOSYSTEM</small><b>One powerful space</b></div>
+  <div class="visual-caption">FOYDORA / DIGITAL EXPERIENCE</div>
+ </div>
+ <div class="scroll-note">SCROLL TO EXPLORE</div>
+</section>
 
-  <section class="section active" id="dashboard">
-    <div class="page-title">
-      <div><div class="eyebrow">YOUR INTELLIGENT WORKSPACE</div><h1>Build something <span style="color:#a991ff">extraordinary.</span></h1><div class="subtitle">Barcha ishlaringizni bitta aqlli platformada boshqaring.</div></div>
-      <button class="primary" onclick="openPage('assistant')">✧ AI bilan ishlash</button>
-    </div>
-    <div class="hero">
-      <div class="hero-copy">
-        <div class="eyebrow">MEET YOUR NEW WORKSPACE</div>
-        <h2>Work smarter.<br><span>Think beyond.</span></h2>
-        <p>Biznes, ijod va kundalik ishlaringiz uchun aqlli vositalar. G‘oyalarni natijaga aylantiring.</p>
-        <div class="hero-buttons"><button class="primary" onclick="openPage('business')">Explore workspace ↗</button><button class="secondary" onclick="openPage('assistant')">Meet AI assistant</button></div>
-      </div>
-      <div class="stage">
-        <canvas id="orb"></canvas><div class="orb-fallback" id="fallback"></div>
-        <div class="holo one">LIVE ANALYTICS<b>+24.8%</b></div>
-        <div class="holo two">AI PERFORMANCE<b>98.6%</b></div>
-        <div class="holo three">SMART SYSTEM<b>ACTIVE ●</b></div>
-      </div>
-    </div>
-    <div class="stats">
-      <div class="stat"><div class="stat-head">Workspace activity <span class="stat-icon">◈</span></div><strong>1,284</strong><span class="change">↗ 12.8% this month</span></div>
-      <div class="stat"><div class="stat-head">Tasks completed <span class="stat-icon">✓</span></div><strong>86.4%</strong><span class="change">↗ 8.2% this month</span></div>
-      <div class="stat"><div class="stat-head">Time saved <span class="stat-icon">◷</span></div><strong>24.5h</strong><span class="change">↗ 5.4h this week</span></div>
-      <div class="stat"><div class="stat-head">AI interactions <span class="stat-icon">✧</span></div><strong>342</strong><span class="change">↗ Demo statistics</span></div>
-    </div>
-    <div class="dashboard-grid">
-      <div class="panel"><div class="panel-head"><div><h3>Workspace overview</h3><small>Faollik ko‘rsatkichi · Demo data</small></div><small>Last 7 days</small></div><div class="chart-wrap"><canvas id="mainChart"></canvas></div></div>
-      <div class="panel"><div class="panel-head"><div><h3>Recent activity</h3><small>Oxirgi harakatlar</small></div><small>View all</small></div>
-        <div class="activity">
-          <div class="activity-row"><div class="activity-icon">✧</div><div><strong>AI assistant opened</strong><small>Yangi suhbat oynasi</small></div><time>Now</time></div>
-          <div class="activity-row"><div class="activity-icon">▤</div><div><strong>Document studio</strong><small>Hujjat yaratish vositasi</small></div><time>Today</time></div>
-          <div class="activity-row"><div class="activity-icon">▥</div><div><strong>Analytics dashboard</strong><small>Demo ko‘rsatkichlar</small></div><time>Today</time></div>
-          <div class="activity-row"><div class="activity-icon">◈</div><div><strong>Business workspace</strong><small>Vositalar ko‘rib chiqildi</small></div><time>Today</time></div>
-        </div>
-      </div>
-    </div>
-    <div class="panel" style="margin-top:14px"><div class="panel-head"><div><h3>Quick access</h3><small>Eng kerakli vositalar</small></div><small>4 tools</small></div>
-      <div class="quick-grid">
-        <button class="quick" onclick="openPage('assistant')"><span>✧</span><b>AI Assistant</b><small>G‘oyalar va yordam</small></button>
-        <button class="quick" onclick="openPage('content')"><span>✎</span><b>Content Studio</b><small>Matn va kontent</small></button>
-        <button class="quick" onclick="openPage('finance')"><span>＄</span><b>Finance Center</b><small>Foyda va xarajat</small></button>
-        <button class="quick" onclick="openPage('documents')"><span>▤</span><b>Documents</b><small>Hujjatlar yaratish</small></button>
-      </div>
-    </div>
-  </section>
+<section class="section" id="experience">
+ <div class="container">
+  <div class="section-head reveal">
+   <div><div class="section-kicker">01 / THE EXPERIENCE</div><h2>More than a platform.<br><span style="color:var(--gold);font-family:Georgia;font-style:italic">A new standard.</span></h2></div>
+   <p class="section-intro">FOYDORA — ish, ijod va biznes uchun yaratilayotgan yagona ekotizim. Har bir detal aniqlik, qulaylik va estetikani birlashtiradi.</p>
+  </div>
+  <div class="experience">
+   <div class="experience-main reveal">
+    <div class="feature-number">FOYDORA / 001</div>
+    <h3>Designed to make every moment count.</h3>
+    <p>Vaqtingizni tejaydigan, fikringizni tartibga soladigan va imkoniyatlaringizni kengaytiradigan tajriba.</p>
+    <div class="mini-orb"></div>
+   </div>
+   <div class="experience-side">
+    <div class="feature reveal"><div class="feature-number">01 — INTELLIGENCE</div><div class="feature-icon">✧</div><h3>Think with intelligence.</h3><p>Kelajakdagi AI yordamchi va aqlli ish jarayonlari uchun yagona makon.</p><div class="feature-arrow">↗</div></div>
+    <div class="feature reveal"><div class="feature-number">02 — PRODUCTIVITY</div><div class="feature-icon">◈</div><h3>Everything in harmony.</h3><p>Vazifalar, hujjatlar, rejalashtirish va biznes jarayonlarini birlashtirish.</p><div class="feature-arrow">↗</div></div>
+   </div>
+  </div>
+ </div>
+</section>
 
-  <section class="section" id="assistant">
-    <div class="page-title"><div><div class="eyebrow">YOUR AI WORK PARTNER</div><h1>AI Assistant</h1><div class="subtitle">Savolingizni yozing. Demo yordamchi sizga yo‘l-yo‘riq beradi.</div></div></div>
-    <div class="panel">
-      <div class="panel-head"><h3>✧ Foydora AI</h3><small><span style="color:#53d6a0">●</span> Demo mode</small></div>
-      <div class="chat-area" id="chat"><div class="chat-msg">Salom! Men Foydora yordamchisining demo versiyasiman. Biznes reja, marketing, kontent yoki ish g‘oyalari haqida so‘rashingiz mumkin.</div></div>
-      <form id="chatForm" style="display:flex;gap:8px"><input class="field" id="chatInput" placeholder="Savolingizni yozing..." style="margin:0"><button class="primary">Yuborish ↗</button></form>
-      <small style="display:block;margin-top:10px;color:var(--muted)">Eslatma: bu hozircha namunaviy javob beruvchi demo. Haqiqiy AI uchun server va AI API ulanishi kerak.</small>
-    </div>
-  </section>
+<section class="section" id="solutions">
+ <div class="container">
+  <div class="section-head reveal">
+   <div><div class="section-kicker">02 / THE ECOSYSTEM</div><h2>One vision.<br>Multiple possibilities.</h2></div>
+   <p class="section-intro">Har xil ehtiyojlar uchun yaratiladigan, yagona tajribaga birlashadigan platforma bo‘limlari.</p>
+  </div>
+  <div class="showcase">
+   <article class="showcase-card reveal"><div class="showcase-art"><div class="art-ring"><div class="art-core"></div></div></div><div class="showcase-body"><small>01 / INTELLIGENCE</small><h3>AI Intelligence</h3><p>G‘oyalar, tahlil, ijod va aqlli yordamchi uchun kelajakdagi ish maydoni.</p></div></article>
+   <article class="showcase-card reveal"><div class="showcase-art"><div class="art-ring alt"><div class="art-core" style="background:radial-gradient(circle at 30% 25%,#fff,#8eb8c2 22%,#283d48 70%)"></div></div></div><div class="showcase-body"><small>02 / BUSINESS</small><h3>Business Suite</h3><p>Biznes boshqaruvi, moliya, mijozlar va ish jarayonlari uchun markaz.</p></div></article>
+   <article class="showcase-card reveal"><div class="showcase-art"><div class="art-ring" style="border-color:#b7a5d7"><div class="art-core" style="background:radial-gradient(circle at 30% 25%,#fff,#b9a4dc 22%,#423257 70%)"></div></div></div><div class="showcase-body"><small>03 / CREATION</small><h3>Creative Studio</h3><p>Kontent, hujjatlar, taqdimotlar va yangi g‘oyalarni yaratish maydoni.</p></div></article>
+  </div>
+ </div>
+</section>
 
-  <section class="section" id="analytics">
-    <div class="page-title"><div><div class="eyebrow">DATA & INSIGHTS</div><h1>Analytics Center</h1><div class="subtitle">Namunaviy biznes ko‘rsatkichlari va grafiklar.</div></div></div>
-    <div class="stats">
-      <div class="stat"><div class="stat-head">Total revenue</div><strong>$8,420</strong><span class="change">Demo metric</span></div>
-      <div class="stat"><div class="stat-head">New customers</div><strong>128</strong><span class="change">Demo metric</span></div>
-      <div class="stat"><div class="stat-head">Conversion</div><strong>4.8%</strong><span class="change">Demo metric</span></div>
-      <div class="stat"><div class="stat-head">Growth</div><strong>+18%</strong><span class="change">Demo metric</span></div>
-    </div>
-    <div class="panel"><div class="panel-head"><h3>Revenue overview</h3><small>Sample data · not real revenue</small></div><div class="chart-wrap"><canvas id="revenueChart"></canvas></div></div>
-  </section>
+<section class="section" id="workspace">
+ <div class="container">
+  <div class="section-head reveal">
+   <div><div class="section-kicker">03 / YOUR WORKSPACE</div><h2>Clarity in every detail.</h2></div>
+   <p class="section-intro">Professional boshqaruv interfeysi. Har bir element aniq, sodda va chiroyli joylashtirilgan.</p>
+  </div>
+  <div class="dashboard reveal">
+   <div class="dash-top"><div class="dash-brand">FOYDORA <span style="color:var(--gold)">/</span> OVERVIEW</div><div class="dash-tag">● SYSTEM PREVIEW</div></div>
+   <div class="dash-grid">
+    <div class="dash-stat"><small>Workspace activity</small><strong>1,284</strong><em>↗ 12.8%</em></div>
+    <div class="dash-stat"><small>Projects overview</small><strong>24</strong><em>↗ Active</em></div>
+    <div class="dash-stat"><small>Time efficiency</small><strong>86.4%</strong><em>↗ Optimized</em></div>
+   </div>
+   <div class="dash-bottom">
+    <div class="dash-chart"><h4>Performance overview <span style="color:#777">· Sample design</span></h4><div class="bars"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div><div style="display:flex;justify-content:space-between;color:#777;font-size:8px;margin-top:10px"><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span></div></div>
+    <div class="dash-list"><h4>Workspace modules</h4><div class="dash-list-row"><i class="dot"></i> Intelligence <span>01</span></div><div class="dash-list-row"><i class="dot" style="background:#91aeb9"></i> Business <span>02</span></div><div class="dash-list-row"><i class="dot" style="background:#b49ad6"></i> Creative <span>03</span></div><div class="dash-list-row"><i class="dot" style="background:#a5b99a"></i> Productivity <span>04</span></div></div>
+   </div>
+  </div>
+ </div>
+</section>
 
-  <section class="section" id="business">
-    <div class="page-title"><div><div class="eyebrow">GROW YOUR BUSINESS</div><h1>Business Studio</h1><div class="subtitle">Biznesingiz uchun amaliy vositalar.</div></div></div>
-    <div class="tool-grid">
-      <div class="tool-card" onclick="openTool('idea')"><div class="tool-icon">💡</div><h3>Business idea planner</h3><p>Biznes g‘oyangizni tartibga solish uchun reja shabloni.</p></div>
-      <div class="tool-card" onclick="openTool('profit')"><div class="tool-icon">📈</div><h3>Profit calculator</h3><p>Mahsulot narxi, xarajat va foydani hisoblash.</p></div>
-      <div class="tool-card" onclick="openTool('customer')"><div class="tool-icon">👥</div><h3>Customer profile</h3><p>Maqsadli mijozingizni aniqlash uchun savollar.</p></div>
-      <div class="tool-card" onclick="openTool('plan')"><div class="tool-icon">🗓️</div><h3>Weekly planner</h3><p>Haftalik ish rejasini tuzish va nusxalash.</p></div>
-      <div class="tool-card" onclick="openTool('price')"><div class="tool-icon">🏷️</div><h3>Pricing calculator</h3><p>Ustama foiz bilan sotuv narxini hisoblash.</p></div>
-      <div class="tool-card" onclick="openTool('checklist')"><div class="tool-icon">☑️</div><h3>Launch checklist</h3><p>Yangi loyihani ishga tushirish uchun ro‘yxat.</p></div>
-    </div>
-  </section>
-
-  <section class="section" id="content">
-    <div class="page-title"><div><div class="eyebrow">CREATE & COMMUNICATE</div><h1>Content Studio</h1><div class="subtitle">Kontent g‘oyalari va matn shablonlari.</div></div></div>
-    <div class="tool-grid">
-      <div class="tool-card" onclick="openTool('post')"><div class="tool-icon">✍️</div><h3>Social post planner</h3><p>Ijtimoiy tarmoqlar uchun post rejasini tayyorlash.</p></div>
-      <div class="tool-card" onclick="openTool('headline')"><div class="tool-icon">📰</div><h3>Headline generator</h3><p>Mavzu asosida sarlavha variantlarini taklif qilish.</p></div>
-      <div class="tool-card" onclick="openTool('product')"><div class="tool-icon">🛍️</div><h3>Product description</h3><p>Mahsulot tavsifi uchun shablon yaratish.</p></div>
-    </div>
-  </section>
-
-  <section class="section" id="finance">
-    <div class="page-title"><div><div class="eyebrow">MONEY & PERFORMANCE</div><h1>Finance Center</h1><div class="subtitle">Moliyaviy hisob-kitoblaringizni bajaring.</div></div></div>
-    <div class="tool-grid">
-      <div class="tool-card" onclick="openTool('profit')"><div class="tool-icon">💰</div><h3>Profit calculator</h3><p>Sof foyda va foyda marjasini hisoblash.</p></div>
-      <div class="tool-card" onclick="openTool('price')"><div class="tool-icon">🧾</div><h3>Pricing calculator</h3><p>Mahsulotning sotuv narxini aniqlash.</p></div>
-      <div class="tool-card" onclick="openTool('budget')"><div class="tool-icon">📊</div><h3>Monthly budget</h3><p>Daromad va xarajatlar farqini hisoblash.</p></div>
-    </div>
-  </section>
-
-  <section class="section" id="documents">
-    <div class="page-title"><div><div class="eyebrow">YOUR DOCUMENT WORKSPACE</div><h1>Documents</h1><div class="subtitle">Matnli hujjat shablonlarini yarating va nusxalang.</div></div></div>
-    <div class="tool-grid">
-      <div class="tool-card" onclick="openTool('invoice')"><div class="tool-icon">🧾</div><h3>Invoice template</h3><p>Hisob-faktura uchun matn shabloni.</p></div>
-      <div class="tool-card" onclick="openTool('proposal')"><div class="tool-icon">📄</div><h3>Business proposal</h3><p>Hamkorlik taklifi uchun boshlang‘ich shablon.</p></div>
-      <div class="tool-card" onclick="openTool('letter')"><div class="tool-icon">✉️</div><h3>Business letter</h3><p>Rasmiy murojaat matni uchun shablon.</p></div>
-    </div>
-  </section>
-
-  <section class="section" id="settings">
-    <div class="page-title"><div><div class="eyebrow">PREFERENCES</div><h1>Settings</h1><div class="subtitle">Platforma haqida va ko‘rinish sozlamalari.</div></div></div>
-    <div class="panel"><h3>FOYDORA workspace</h3><p style="font-size:12px;color:var(--muted);line-height:1.8">Bu FOYDORA’ning birinchi frontend prototipi. Hozircha akkaunt, server, haqiqiy AI va to‘lov tizimi ulanmagan. Barcha demo ko‘rsatkichlar namunaviy.</p><button class="secondary" onclick="toast('FOYDORA demo versiyasi · v1.0')">Versiya haqida</button></div>
-  </section>
-  <footer>FOYDORA © 2026 · Intelligent Workspace · Prototype v1.0</footer>
+<section class="section" id="about">
+ <div class="container">
+  <div class="cta reveal">
+   <div class="section-kicker">THE NEXT CHAPTER STARTS HERE</div>
+   <h2>Think bigger.<br><span style="color:var(--gold);font-family:Georgia;font-style:italic">Build beyond.</span></h2>
+   <p>Bu hali boshlanishi. FOYDORA — har bir g‘oya va imkoniyat uchun yaratilayotgan yangi raqamli dunyo.</p>
+   <a class="btn" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false">Back to the top ↑</a>
+  </div>
+ </div>
+</section>
 </main>
-</div>
 
-<div class="modal-bg" id="modalBg"><div class="modal"><div class="modal-head"><h2 id="modalTitle">Tool</h2><button class="close" onclick="closeModal()">✕</button></div><div id="modalBody"></div></div></div>
-<div class="toast" id="toast"></div>
+<footer>
+ <div class="container footer-inner">
+  <a class="brand" href="#"><div class="brand-mark">F</div><div><div class="brand-name">FOYDORA</div><div class="brand-sub">BEYOND ORDINARY</div></div></a>
+  <div class="footer-copy">© 2026 FOYDORA. An ambitious work in progress.</div>
+  <div class="footer-links"><a href="#experience">Platform</a><a href="#solutions">Solutions</a><a href="#about">About</a></div>
+ </div>
+</footer>
 
 <script>
-const pages={
- dashboard:"Dashboard",assistant:"AI Assistant",analytics:"Analytics Center",
- business:"Business Studio",content:"Content Studio",finance:"Finance Center",
- documents:"Documents",settings:"Settings"
-};
-function openPage(id){
- document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
- document.getElementById(id)?.classList.add("active");
- document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
- document.getElementById("crumb").textContent=pages[id]||id;
- window.scrollTo({top:0,behavior:"smooth"});
-}
-document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>openPage(b.dataset.page)));
-let toastTimer;
-function toast(msg){
- const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");
- clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("show"),2600);
-}
-document.getElementById("notify").onclick=()=>toast("Hozircha yangi bildirishnomalar yo‘q.");
-document.getElementById("theme").onclick=()=>{
- document.body.classList.toggle("light");
- if(document.body.classList.contains("light")){
- document.documentElement.style.setProperty("--bg","#eef2fb");
- document.documentElement.style.setProperty("--text","#182033");
- document.querySelectorAll(".panel,.stat,.tool-card").forEach(x=>x.style.filter="brightness(1.35)");
- toast("Yorug‘ rejim yoqildi");
- }else{
- document.documentElement.style.setProperty("--bg","#080b14");
- document.documentElement.style.setProperty("--text","#f5f7ff");
- document.querySelectorAll(".panel,.stat,.tool-card").forEach(x=>x.style.filter="none");
- toast("Qorong‘i rejim yoqildi");
- }
-};
-document.getElementById("globalSearch").addEventListener("keydown",e=>{
- if(e.key==="Enter"){
- const q=e.target.value.toLowerCase().trim();
- const found=[...document.querySelectorAll(".tool-card")].find(c=>c.innerText.toLowerCase().includes(q));
- if(found){found.scrollIntoView({behavior:"smooth",block:"center"});found.click();}
- else if(q)toast("Mos vosita topilmadi.");
- }
-});
+const menu=document.getElementById("menu");
+const links=document.getElementById("links");
+menu.addEventListener("click",()=>links.classList.toggle("open"));
+links.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>links.classList.remove("open")));
 
-const toolInfo={
- idea:["Business idea planner","G‘oya nomi","Muammo, yechim, mijozlar va daromad modelini yozing."],
- customer:["Customer profile","Mijoz turi","Mijozingiz kim? U qanday muammoga duch keladi?"],
- plan:["Weekly planner","Haftalik reja","Dushanba:\nSeshanba:\nChorshanba:\nPayshanba:\nJuma:\nShanba:\nYakshanba:"],
- checklist:["Launch checklist","Loyiha nomi","Bozorni o‘rganish\nMijozni aniqlash\nMahsulotni tayyorlash\nNarxni belgilash\nMarketing rejasini tuzish"],
- post:["Social post planner","Post mavzusi","Auditoriya:\nMaqsad:\nAsosiy xabar:\nHarakatga chaqiriq:"],
- headline:["Headline generator","Mavzu","Mavzuni kiriting. Men sizga sarlavha shablonlarini taklif qilaman."],
- product:["Product description","Mahsulot nomi","Afzalliklar:\nXususiyatlar:\nKimlar uchun:\nBuyurtma qilish usuli:"],
- invoice:["Invoice template","Sotuvchi / mijoz","HISOB-FAKTURA\nSana:\nSotuvchi:\nMijoz:\nMahsulot/xizmat:\nMiqdor:\nNarx:\nJami:"],
- proposal:["Business proposal","Loyiha nomi","HAMKORLIK TAKLIFI\nLoyiha:\nMaqsad:\nTaklif:\nKutilayotgan natija:\nAloqa:"],
- letter:["Business letter","Kimga","Hurmatli ...\n\nMurojaat mavzusi:\n\nAsosiy matn:\n\nHurmat bilan,"]
-};
-function openTool(type){
- const bg=document.getElementById("modalBg"),body=document.getElementById("modalBody");
- document.getElementById("modalTitle").textContent=toolInfo[type]?.[0]||"Calculator";
- let html="";
- if(type==="profit"||type==="price"||type==="budget"){
- html=`<label>${type==="budget"?"Oylik daromad":"Mahsulot tannarxi"} (so‘m)</label><input class="field" id="a" type="number" placeholder="Masalan: 100000">
- <label>${type==="budget"?"Oylik xarajat":"Sotuv narxi yoki ustama foiz"} ${type==="price"?"(foiz)":"(so‘m)"}</label><input class="field" id="b" type="number" placeholder="Masalan: 150000">
- <button class="primary" onclick="calculate('${type}')">Hisoblash</button><div class="result" id="toolResult">Natija shu yerda chiqadi.</div>`;
- }else{
- const info=toolInfo[type]||["Tool","Nomi",""];
- html=`<label>${info[1]}</label><textarea class="field" id="toolText" rows="8" placeholder="${info[2].replace(/"/g,"&quot;")}"></textarea>
- <button class="primary" onclick="copyToolText()">Matnni nusxalash ↗</button><div class="result" id="toolResult">Yozgan matningizni nusxalashingiz mumkin.</div>`;
- }
- body.innerHTML=html;bg.classList.add("show");
-}
-function calculate(type){
- const a=Number(document.getElementById("a").value),b=Number(document.getElementById("b").value);
- if(!Number.isFinite(a)||!Number.isFinite(b)||a<0||b<0){toast("Iltimos, to‘g‘ri musbat son kiriting.");return}
- let result="";
- if(type==="profit")result=`Sof foyda: ${(b-a).toLocaleString("uz-UZ")} so‘m\nFoyda marjasi: ${b?((b-a)/b*100).toFixed(2):0}%`;
- if(type==="price")result=`Tavsiya etilgan sotuv narxi: ${(a+(a*b/100)).toLocaleString("uz-UZ")} so‘m\nUstama: ${b}%`;
- if(type==="budget")result=`Oylik qoldiq: ${(a-b).toLocaleString("uz-UZ")} so‘m\n${a>=b?"Byudjet ijobiy.":"Xarajat daromaddan ko‘p."}`;
- document.getElementById("toolResult").textContent=result;
-}
-function copyToolText(){
- const text=document.getElementById("toolText").value;
- if(!text.trim()){toast("Avval matn kiriting.");return}
- navigator.clipboard?.writeText(text).then(()=>toast("Matn nusxalandi.")).catch(()=>toast("Nusxalash uchun matnni belgilang."));
-}
-function closeModal(){document.getElementById("modalBg").classList.remove("show")}
-document.getElementById("modalBg").addEventListener("click",e=>{if(e.target.id==="modalBg")closeModal()});
+const glow=document.getElementById("glow");
+window.addEventListener("pointermove",e=>{
+ glow.style.left=e.clientX+"px";
+ glow.style.top=e.clientY+"px";
+},{passive:true});
 
-document.getElementById("chatForm").addEventListener("submit",e=>{
- e.preventDefault();
- const input=document.getElementById("chatInput"),q=input.value.trim();if(!q)return;
- const chat=document.getElementById("chat");
- const user=document.createElement("div");user.className="chat-msg user";user.textContent=q;chat.appendChild(user);
- const reply=document.createElement("div");reply.className="chat-msg";
- const lower=q.toLowerCase();
- if(lower.includes("biznes")||lower.includes("business"))reply.textContent="Biznes g‘oyangizni tekshirish uchun avval mijoz muammosini aniqlang. Keyin yechim, raqobatchilar, narx va mijoz topish kanalini belgilang. Bu demo javob; haqiqiy bozor tahlili emas.";
- else if(lower.includes("marketing")||lower.includes("reklama"))reply.textContent="Marketingni boshlash uchun auditoriya, taklif va asosiy reklama xabarini aniqlang. Bir nechta xabar variantini kichik auditoriyada sinab, natijalarni solishtiring.";
- else if(lower.includes("post")||lower.includes("kontent"))reply.textContent="Kontent uchun oddiy formula: muammo → foydali maslahat → misol → harakatga chaqiriq. Auditoriyangiz va mahsulotingizni aniqlasangiz, aniqroq reja tuzishingiz mumkin.";
- else reply.textContent="Savolingizni tushundim. Bu hozircha demo yordamchi, shuning uchun umumiy yo‘l-yo‘riq bera olaman. Haqiqiy AI imkoniyatlari uchun keyingi bosqichda xavfsiz server orqali AI xizmatini ulaymiz.";
- chat.appendChild(reply);chat.scrollTop=chat.scrollHeight;input.value="";
-});
+const observer=new IntersectionObserver(entries=>{
+ entries.forEach(entry=>{
+  if(entry.isIntersecting){entry.target.classList.add("visible");observer.unobserve(entry.target)}
+ });
+},{threshold:.12});
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
 
-function makeChart(id,labels,data,color){
- const el=document.getElementById(id);if(!el||!window.Chart)return;
- new Chart(el,{type:"line",data:{labels,datasets:[{data,borderColor:color,backgroundColor:color+"22",fill:true,tension:.42,borderWidth:2,pointRadius:3,pointBackgroundColor:color}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:"#ffffff0a"},ticks:{color:"#8290aa",font:{size:9}}},y:{grid:{color:"#ffffff0a"},ticks:{color:"#8290aa",font:{size:9}}}}}});
-}
-makeChart("mainChart",["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],[24,39,31,55,43,68,78],"#8c79ff");
-makeChart("revenueChart",["Jan","Feb","Mar","Apr","May","Jun","Jul"],[1200,1800,1500,2800,2400,3600,4200],"#65baff");
-
-document.getElementById("fallback").style.display="block";
 (async()=>{
+ const canvas=document.getElementById("scene");
  try{
   const THREE=await import("https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js");
-  const canvas=document.getElementById("orb");
   const scene=new THREE.Scene();
-  const camera=new THREE.PerspectiveCamera(42,1,.1,100);
-  camera.position.z=5.5;
+  const camera=new THREE.PerspectiveCamera(38,1,.1,100);
+  camera.position.set(0,0,6.2);
   const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
   renderer.setPixelRatio(Math.min(devicePixelRatio,2));
-  const group=new THREE.Group();scene.add(group);
-  const geometry=new THREE.IcosahedronGeometry(1.05,5);
-  const material=new THREE.MeshPhysicalMaterial({color:0x647dff,metalness:.65,roughness:.16,transmission:.18,thickness:1,clearcoat:1,clearcoatRoughness:.08,emissive:0x1d2c75,emissiveIntensity:.3});
-  const sphere=new THREE.Mesh(geometry,material);group.add(sphere);
-  const wire=new THREE.Mesh(new THREE.IcosahedronGeometry(1.12,2),new THREE.MeshBasicMaterial({color:0x9abaff,wireframe:true,transparent:true,opacity:.16}));group.add(wire);
-  const ring1=new THREE.Mesh(new THREE.TorusGeometry(1.48,.012,12,140),new THREE.MeshBasicMaterial({color:0x71c9ff,transparent:true,opacity:.8}));ring1.rotation.x=1.12;group.add(ring1);
-  const ring2=new THREE.Mesh(new THREE.TorusGeometry(1.68,.009,12,140),new THREE.MeshBasicMaterial({color:0xb08aff,transparent:true,opacity:.55}));ring2.rotation.x=.55;ring2.rotation.y=.5;group.add(ring2);
-  scene.add(new THREE.AmbientLight(0xffffff,1.3));
-  const light1=new THREE.PointLight(0x6e9cff,45);light1.position.set(3,3,4);scene.add(light1);
-  const light2=new THREE.PointLight(0xff895e,30);light2.position.set(-3,-2,2);scene.add(light2);
-  const stars=new THREE.Group();
-  for(let i=0;i<120;i++){const dot=new THREE.Mesh(new THREE.SphereGeometry(.012,6,6),new THREE.MeshBasicMaterial({color:i%3?0x83baff:0xffa47c}));dot.position.set((Math.random()-.5)*5,(Math.random()-.5)*3.5,(Math.random()-.5)*2);stars.add(dot)}
-  scene.add(stars);
-  let mx=0,my=0;
-  canvas.addEventListener("pointermove",e=>{const r=canvas.getBoundingClientRect();mx=(e.clientX-r.left)/r.width-.5;my=(e.clientY-r.top)/r.height-.5});
-  function resize(){const w=canvas.clientWidth,h=canvas.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix()}
-  new ResizeObserver(resize).observe(canvas);resize();
-  function animate(t){requestAnimationFrame(animate);group.rotation.y=t*.00025+mx*.35;group.rotation.x=Math.sin(t*.00035)*.12+my*.25;sphere.rotation.y=t*.00018;wire.rotation.y=-t*.00012;ring1.rotation.z=t*.00018;ring2.rotation.z=-t*.00015;stars.rotation.y=t*.000025;renderer.render(scene,camera)}
-  document.getElementById("fallback").style.display="none";
+  renderer.outputColorSpace=THREE.SRGBColorSpace;
+  renderer.toneMapping=THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure=1.35;
+  const root=new THREE.Group();scene.add(root);
+
+  const coreGeo=new THREE.IcosahedronGeometry(1.13,5);
+  const coreMat=new THREE.MeshPhysicalMaterial({
+   color:0xc5a36a,metalness:.82,roughness:.19,
+   clearcoat:1,clearcoatRoughness:.09,
+   emissive:0x493116,emissiveIntensity:.22
+  });
+  const core=new THREE.Mesh(coreGeo,coreMat);root.add(core);
+
+  const inner=new THREE.Mesh(
+   new THREE.IcosahedronGeometry(1.08,2),
+   new THREE.MeshBasicMaterial({color:0xf1d6a0,wireframe:true,transparent:true,opacity:.15})
+  );root.add(inner);
+
+  const ringMaterial=new THREE.MeshStandardMaterial({
+   color:0xe0c18b,metalness:.95,roughness:.2
+  });
+  const ringA=new THREE.Mesh(new THREE.TorusGeometry(1.62,.018,16,160),ringMaterial);
+  ringA.rotation.x=1.08;root.add(ringA);
+  const ringB=new THREE.Mesh(new THREE.TorusGeometry(1.86,.012,12,160),
+   new THREE.MeshStandardMaterial({color:0x94a8bd,metalness:.9,roughness:.24}));
+  ringB.rotation.y=1.15;ringB.rotation.x=.35;root.add(ringB);
+  const ringC=new THREE.Mesh(new THREE.TorusGeometry(1.36,.009,10,140),
+   new THREE.MeshBasicMaterial({color:0xffdca0,transparent:true,opacity:.7}));
+  ringC.rotation.y=.8;root.add(ringC);
+
+  const ambient=new THREE.AmbientLight(0xffffff,1.2);scene.add(ambient);
+  const goldLight=new THREE.PointLight(0xffc879,55,20);goldLight.position.set(3,3,4);scene.add(goldLight);
+  const blueLight=new THREE.PointLight(0x7da9d9,38,20);blueLight.position.set(-3,-2,3);scene.add(blueLight);
+  const whiteLight=new THREE.PointLight(0xffffff,20,20);whiteLight.position.set(0,4,-2);scene.add(whiteLight);
+
+  const particles=new THREE.Group();
+  for(let i=0;i<180;i++){
+   const size=Math.random()*.018+.004;
+   const particle=new THREE.Mesh(new THREE.SphereGeometry(size,6,6),
+    new THREE.MeshBasicMaterial({color:i%4===0?0xf1d19a:0x9aaec0}));
+   particle.position.set((Math.random()-.5)*6,(Math.random()-.5)*5,(Math.random()-.5)*3);
+   particles.add(particle);
+  }
+  scene.add(particles);
+
+  let mouseX=0,mouseY=0;
+  window.addEventListener("pointermove",e=>{
+   mouseX=(e.clientX/innerWidth-.5)*.55;
+   mouseY=(e.clientY/innerHeight-.5)*.4;
+  },{passive:true});
+
+  function resize(){
+   const w=canvas.clientWidth,h=canvas.clientHeight;
+   if(!w||!h)return;
+   renderer.setSize(w,h,false);
+   camera.aspect=w/h;
+   camera.updateProjectionMatrix();
+  }
+  new ResizeObserver(resize).observe(canvas);
+  resize();
+
+  function animate(t){
+   requestAnimationFrame(animate);
+   root.rotation.y+=(mouseX-root.rotation.y)*.018;
+   root.rotation.x+=(-mouseY-root.rotation.x)*.018;
+   core.rotation.y=t*.00012;
+   inner.rotation.y=-t*.00018;
+   ringA.rotation.z=t*.00012;
+   ringB.rotation.z=-t*.00009;
+   ringC.rotation.x=Math.sin(t*.0003)*.3;
+   particles.rotation.y=t*.000018;
+   renderer.render(scene,camera);
+  }
   animate(0);
- }catch(err){console.warn("3D engine unavailable; CSS fallback active.",err)}
+ }catch(error){
+  console.warn("3D rendering unavailable",error);
+  canvas.style.background="radial-gradient(circle,#92713b33,transparent 65%)";
+ }
 })();
 </script>
 </body>
