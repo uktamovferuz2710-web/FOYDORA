@@ -4,507 +4,198 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080d19">
-<meta name="description" content="FOYDORA — barcha foydali online vositalar bir platformada.">
-<title>FOYDORA — Everything in One Place</title>
-
+<title>FOYDORA — Barcha vositalar bir joyda</title>
 <style>
-:root{
- --bg:#080d19;
- --panel:#111a2c;
- --panel2:#17233a;
- --text:#f5f7ff;
- --muted:#94a3bd;
- --accent:#6b8cff;
- --purple:#a477ff;
- --border:#263650;
- --shadow:0 15px 50px #0004;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
- background:var(--bg);color:var(--text);
- font-family:Inter,Arial,sans-serif;
- min-height:100vh;overflow-x:hidden;
- transition:background .3s,color .3s;
-}
-body.light{
- --bg:#f1f4fb;--panel:#fff;--panel2:#e8edfa;
- --text:#17223b;--muted:#65728c;
- --border:#dce3f0;--shadow:0 15px 40px #26365016;
-}
-button,input,textarea,select{font:inherit}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+:root{--bg:#080d1b;--panel:#10182b;--panel2:#151f36;--text:#f4f6ff;--muted:#8c98b5;--line:#26324d;--blue:#6678ff;--purple:#9b65ff;--green:#45d6a0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;min-height:100vh;transition:.3s}
+body.light{--bg:#f2f5fc;--panel:#fff;--panel2:#f5f7ff;--text:#17213a;--muted:#66718c;--line:#dfe5f2}
+button,input,select,textarea{font:inherit}
 button{cursor:pointer}
-a{color:inherit;text-decoration:none}
-header{
- height:75px;padding:0 7%;
- display:flex;align-items:center;justify-content:space-between;
- border-bottom:1px solid var(--border);
- background:color-mix(in srgb,var(--bg) 90%,transparent);
- position:sticky;top:0;z-index:20;
- backdrop-filter:blur(18px);
-}
-.logo{
- font-size:27px;font-weight:900;letter-spacing:2px;
- background:linear-gradient(110deg,#72a5ff,#b58aff);
- -webkit-background-clip:text;color:transparent;
-}
-.nav{display:flex;align-items:center;gap:12px}
-.nav button,.icon-btn{
- border:1px solid var(--border);color:var(--text);
- background:var(--panel);padding:10px 14px;border-radius:11px;
-}
-.hero{
- text-align:center;padding:100px 20px 65px;
- position:relative;overflow:hidden;
-}
-.hero:before{
- content:"";position:absolute;width:500px;height:400px;
- background:#654bff25;filter:blur(100px);
- left:50%;top:0;transform:translateX(-50%);
- pointer-events:none;
-}
-.eyebrow{
- display:inline-block;padding:9px 16px;border-radius:30px;
- border:1px solid #6b8cff55;color:#91aaff;
- background:#6b8cff12;font-size:12px;letter-spacing:2px;
- margin-bottom:25px;
-}
-.hero h1{
- font-size:clamp(42px,7vw,76px);
- line-height:1.12;font-weight:900;
- position:relative;
-}
-.gradient{
- background:linear-gradient(100deg,#78a7ff,#bd8bff,#6ee5d2);
- -webkit-background-clip:text;color:transparent;
-}
-.hero p{
- color:var(--muted);font-size:17px;
- margin:23px auto;max-width:610px;line-height:1.7;
-}
-.search{
- max-width:620px;margin:35px auto 0;
- display:flex;padding:7px;border:1px solid var(--border);
- background:var(--panel);border-radius:16px;
- box-shadow:var(--shadow);position:relative;
-}
-.search input{
- flex:1;min-width:0;border:0;outline:0;
- background:transparent;color:var(--text);padding:13px;
-}
-.primary{
- background:linear-gradient(110deg,#557cff,#9a68ed);
- color:white;border:0;padding:13px 22px;
- border-radius:11px;font-weight:bold;
- transition:.2s;
-}
-.primary:hover{transform:translateY(-2px);filter:brightness(1.12)}
-.container{max-width:1200px;margin:auto;padding:20px 25px 80px}
-.section-head{
- display:flex;align-items:center;justify-content:space-between;
- margin:35px 0 20px;gap:15px;
-}
-.section-head h2{font-size:25px}
-.section-head p{font-size:13px;color:var(--muted);margin-top:6px}
-.grid{
- display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
- gap:17px;
-}
-.card{
- background:var(--panel);border:1px solid var(--border);
- border-radius:18px;padding:23px;
- position:relative;overflow:hidden;
- transition:transform .25s,border .25s,box-shadow .25s;
- animation:appear .6s both;
-}
-.card:hover{
- transform:translateY(-7px);border-color:#7898ff;
- box-shadow:var(--shadow);
-}
-.card-icon{
- width:53px;height:53px;display:grid;place-items:center;
- border-radius:15px;background:#728cff20;
- font-size:26px;margin-bottom:19px;
-}
-.card h3{font-size:17px;margin-bottom:9px}
-.card p{font-size:13px;color:var(--muted);line-height:1.6;min-height:42px}
-.card button{
- background:transparent;color:#8daaff;
- border:0;margin-top:19px;font-weight:bold;
-}
-.card button:hover{color:var(--purple)}
-.card.hidden{display:none}
-.tool-area{
- margin-top:55px;background:var(--panel);
- border:1px solid var(--border);border-radius:22px;
- padding:30px;min-height:250px;
-}
-.tool-area h2{font-size:25px;margin-bottom:10px}
-.tool-area .sub{color:var(--muted);margin-bottom:22px;font-size:14px}
-.tool-fields{max-width:650px}
-.field{
- display:block;width:100%;padding:14px;
- background:var(--bg);color:var(--text);
- border:1px solid var(--border);border-radius:11px;
- outline:none;margin:12px 0;
-}
-.field:focus{border-color:var(--accent)}
-textarea.field{min-height:135px;resize:vertical}
-.result{
- margin-top:20px;padding:16px;
- border:1px solid #6b8cff55;background:#6b8cff12;
- border-radius:12px;line-height:1.7;overflow-wrap:anywhere;
-}
-.result:empty{display:none}
-.tool-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-.secondary{
- padding:12px 18px;border:1px solid var(--border);
- border-radius:10px;background:var(--panel2);color:var(--text);
-}
-.features{
- margin-top:65px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
-}
-.feature{
- padding:25px;background:var(--panel);border:1px solid var(--border);
- border-radius:17px;
-}
-.feature div{font-size:28px;margin-bottom:15px}
-.feature p{font-size:13px;color:var(--muted);line-height:1.6;margin-top:8px}
-footer{
- border-top:1px solid var(--border);padding:40px 20px;
- text-align:center;color:var(--muted);
-}
-footer strong{font-size:24px;color:var(--text);letter-spacing:2px}
-.toast{
- position:fixed;bottom:25px;left:50%;
- transform:translate(-50%,100px);
- opacity:0;background:#202d47;color:white;
- border:1px solid #50658b;padding:13px 20px;
- border-radius:12px;z-index:100;transition:.3s;
-}
-.toast.show{transform:translate(-50%,0);opacity:1}
-@keyframes appear{
- from{opacity:0;transform:translateY(18px)}
- to{opacity:1;transform:translateY(0)}
-}
-@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:550px){
- header{padding:0 15px;height:65px}
- .logo{font-size:22px}
- .nav{gap:6px}
- .nav button{padding:9px}
- .hero{padding:70px 17px 45px}
- .hero p{font-size:15px}
- .container{padding:15px 15px 55px}
- .grid{grid-template-columns:1fr 1fr;gap:10px}
- .card{padding:16px}
- .card-icon{width:43px;height:43px;font-size:22px}
- .card h3{font-size:15px}
- .card p{font-size:12px}
- .tool-area{padding:20px 15px}
- .features{grid-template-columns:1fr}
-}
-@media(max-width:360px){.grid{grid-template-columns:1fr}}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:245px;background:var(--panel);border-right:1px solid var(--line);padding:25px 17px;position:fixed;inset:0 auto 0 0;z-index:5;display:flex;flex-direction:column}
+.logo{font-size:25px;font-weight:900;letter-spacing:1px;padding:4px 12px 35px}
+.logo span{color:#8290ff}
+.logo small{display:block;color:var(--muted);font-size:10px;letter-spacing:3px;margin-top:5px}
+.nav-title{font-size:10px;color:var(--muted);font-weight:800;letter-spacing:2px;padding:12px}
+.nav{display:flex;align-items:center;gap:13px;width:100%;border:0;background:none;color:var(--muted);padding:13px 14px;border-radius:12px;text-align:left;margin:3px 0;transition:.2s}
+.nav:hover,.nav.active{background:linear-gradient(100deg,#5268ed33,#9b65ff22);color:var(--text)}
+.nav.active{border:1px solid #7183ff44}
+.nav .ico{font-size:18px;width:22px}
+.sidebar-bottom{margin-top:auto;border:1px solid var(--line);padding:15px;border-radius:14px;background:var(--panel2)}
+.sidebar-bottom p{font-size:12px;color:var(--muted);line-height:1.6}
+.main{margin-left:245px;width:calc(100% - 245px);padding:27px 4vw 60px;max-width:1700px}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:38px}
+.breadcrumb{color:var(--muted);font-size:13px}
+.top-actions{display:flex;gap:10px;align-items:center}
+.icon-btn{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:12px;padding:11px 14px}
+.avatar{width:40px;height:40px;border-radius:13px;background:linear-gradient(135deg,#637cff,#a65dff);display:grid;place-items:center;font-weight:900}
+.hero{border:1px solid #7183ff44;border-radius:25px;padding:38px 40px;background:radial-gradient(circle at 85% 25%,#8755ff55,transparent 35%),radial-gradient(circle at 65% 100%,#2879ff33,transparent 40%),linear-gradient(120deg,#111d3b,#17183d 65%,#26184b);position:relative;overflow:hidden;margin-bottom:35px;min-height:240px}
+.hero:after{content:"";position:absolute;width:260px;height:260px;border:1px solid #a5aaff44;border-radius:50%;right:7%;top:-25px;box-shadow:0 0 0 25px #9b65ff0c,0 0 0 55px #9b65ff0a}
+.hero-content{position:relative;z-index:1;max-width:650px}
+.eyebrow{color:#aeb8ff;font-size:11px;letter-spacing:3px;font-weight:800}
+.hero h1{font-size:clamp(29px,4vw,48px);margin:16px 0 12px;line-height:1.13}
+.hero h1 span{background:linear-gradient(90deg,#92a2ff,#d19aff);background-clip:text;color:transparent}
+.hero p{color:#bac4e1;line-height:1.7;font-size:14px;max-width:560px}
+.hero-btn{margin-top:13px;padding:13px 20px;border:0;border-radius:11px;background:linear-gradient(100deg,#637cff,#a35eff);color:white;font-weight:800;box-shadow:0 8px 30px #647aff44}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:15px;margin:30px 0 18px}
+.section-head h2{font-size:21px;margin:0}
+.section-head p{color:var(--muted);font-size:12px;margin:6px 0 0}
+.search-wrap{position:relative;margin:0 0 18px}
+.search-wrap input{width:100%;padding:17px 20px 17px 50px;background:var(--panel);border:1px solid var(--line);border-radius:14px;color:var(--text);outline:none}
+.search-wrap input:focus{border-color:var(--blue);box-shadow:0 0 0 3px #6678ff22}
+.search-icon{position:absolute;left:18px;top:14px;font-size:20px}
+.filters{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:22px}
+.filter{border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:9px 15px;border-radius:30px;font-size:12px}
+.filter.active,.filter:hover{background:#6578ff;color:white;border-color:#6578ff}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.tool{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:19px;transition:.25s;cursor:pointer;position:relative;min-height:155px}
+.tool:hover{transform:translateY(-5px);border-color:#7183ff;box-shadow:0 15px 35px #0003}
+.tool-icon{width:43px;height:43px;border-radius:13px;display:grid;place-items:center;font-size:22px;background:linear-gradient(135deg,#6678ff33,#a65eff33);margin-bottom:15px}
+.tool h3{font-size:14px;margin:0 0 7px}
+.tool p{font-size:11px;color:var(--muted);line-height:1.6;margin:0}
+.star{position:absolute;right:14px;top:14px;background:none;border:0;color:#7e89a8;font-size:20px}
+.star.on{color:#ffc65c}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:35px}
+.stat{padding:19px;border:1px solid var(--line);background:var(--panel);border-radius:15px}
+.stat strong{font-size:24px;display:block;margin-bottom:5px}
+.stat span{font-size:11px;color:var(--muted)}
+.footer{text-align:center;color:var(--muted);font-size:11px;margin-top:50px}
+.modal{position:fixed;inset:0;background:#030713cc;backdrop-filter:blur(8px);z-index:20;display:none;align-items:center;justify-content:center;padding:18px}
+.modal.show{display:flex}
+.modal-box{width:min(550px,100%);max-height:90vh;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:25px;box-shadow:0 25px 90px #0008}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.modal-head h2{font-size:21px;margin:0}
+.close{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:10px;padding:8px 12px}
+.field{margin:14px 0}
+.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:8px}
+.field input,.field textarea,.field select{width:100%;padding:13px;border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:11px;outline:none}
+.field textarea{min-height:100px;resize:vertical}
+.action{background:linear-gradient(100deg,#637cff,#a35eff);color:white;border:0;padding:12px 18px;border-radius:11px;font-weight:800;margin-top:8px}
+.result{margin-top:17px;padding:15px;border:1px solid #6678ff55;background:#6678ff13;border-radius:12px;overflow-wrap:anywhere;line-height:1.7}
+.empty{grid-column:1/-1;color:var(--muted);padding:35px;text-align:center;border:1px dashed var(--line);border-radius:15px}
+@media(max-width:1050px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.sidebar{width:65px;padding:18px 8px}.logo{font-size:0;padding:5px 7px 30px}.logo:before{content:"F";font-size:25px;color:#8290ff}.logo small,.nav-title,.nav span:not(.ico),.sidebar-bottom{display:none}.nav{justify-content:center;padding:13px 5px}.nav .ico{width:auto}.main{margin-left:65px;width:calc(100% - 65px);padding:20px 14px}.hero{padding:25px 22px}.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.topbar{margin-bottom:23px}}
 </style>
 </head>
-
 <body>
-
-<header>
- <a href="#" class="logo">FOYDORA.</a>
- <div class="nav">
-  <button onclick="toggleTheme()" title="Mavzuni almashtirish">🌙 / ☀️</button>
-  <button onclick="goTools()">Vositalar</button>
- </div>
-</header>
-
-<section class="hero">
- <div class="eyebrow">✦ YOUR DIGITAL WORLD</div>
- <h1>Hammasi <span class="gradient">bir joyda.</span></h1>
- <p>
-  Vaqtingizni tejang. Ishlaringizni osonlashtiring.
-  Sizga kerak bo‘lgan foydali vositalar bitta platformada.
- </p>
- <div class="search">
-  <input id="search" placeholder="Kerakli xizmatni qidiring..." oninput="searchTools()">
-  <button class="primary" onclick="searchTools()">Qidirish</button>
- </div>
-</section>
-
-<main class="container">
-
- <div class="section-head" id="tools">
-  <div>
-   <h2>✦ Mashhur vositalar</h2>
-   <p>Kerakli xizmatni tanlang va foydalanishni boshlang.</p>
-  </div>
- </div>
-
- <div class="grid" id="grid">
-
-  <article class="card" data-name="kalkulyator hisob matematika">
-   <div class="card-icon">🧮</div>
-   <h3>Kalkulyator</h3>
-   <p>Matematik amallarni tez va oson bajaring.</p>
-   <button onclick="openTool('calc')">Foydalanish →</button>
-  </article>
-
-  <article class="card" data-name="foiz hisoblash foiz">
-   <div class="card-icon">📊</div>
-   <h3>Foiz hisoblagich</h3>
-   <p>Istalgan sonning foiz miqdorini hisoblang.</p>
-   <button onclick="openTool('percent')">Foydalanish →</button>
-  </article>
-
-  <article class="card" data-name="yosh tugilgan sana">
-   <div class="card-icon">🎂</div>
-   <h3>Yosh hisoblagich</h3>
-   <p>Tug‘ilgan sanangiz asosida yoshingizni biling.</p>
-   <button onclick="openTool('age')">Foydalanish →</button>
-  </article>
-
-  <article class="card" data-name="matn soz belgi sanash">
-   <div class="card-icon">📝</div>
-   <h3>Matn tahlilchisi</h3>
-   <p>So‘z, belgi va qatorlarni sanang.</p>
-   <button onclick="openTool('text')">Foydalanish →</button>
-  </article>
-
-  <article class="card" data-name="parol generator xavfsizlik">
-   <div class="card-icon">🔐</div>
-   <h3>Parol generatori</h3>
-   <p>Murakkab va tasodifiy parollar yarating.</p>
-   <button onclick="openTool('password')">Foydalanish →</button>
-  </article>
-
-  <article class="card" data-name="uzunlik metr santimetr km">
-   <div class="card-icon">📏</div>
-   <h3>Uzunlik konvertori</h3>
-   <p>Metr, kilometr va santimetrni aylantiring.</p>
-   <button onclick="openTool('convert')">Foydalanish →</button>
-  </article>
-
- </div>
-
- <section class="tool-area" id="workspace">
-  <h2>🚀 FOYDORA xizmatlari</h2>
-  <p class="sub">Yuqoridagi vositalardan birini tanlang.</p>
-  <div class="result">Siz uchun qulay, tez va sodda xizmatlar shu yerda ishlaydi.</div>
+<div class="layout">
+<aside class="sidebar">
+ <div class="logo">FOY<span>DORA</span><small>SMART TOOLBOX</small></div>
+ <div class="nav-title">ASOSIY</div>
+ <button class="nav active" onclick="showPage('home',this)"><span class="ico">⌂</span><span>Bosh sahifa</span></button>
+ <button class="nav" onclick="showPage('all',this)"><span class="ico">▦</span><span>Barcha vositalar</span></button>
+ <button class="nav" onclick="showPage('favorites',this)"><span class="ico">☆</span><span>Sevimlilar</span></button>
+ <div class="nav-title" style="margin-top:20px">SOZLAMALAR</div>
+ <button class="nav" onclick="toggleTheme()"><span class="ico">◐</span><span>Rejimni almashtirish</span></button>
+ <div class="sidebar-bottom"><b>FOYDORA PRO</b><p>Vaqtingizni tejang. Kerakli vositalar bir joyda!</p></div>
+</aside>
+<main class="main">
+ <div class="topbar"><div class="breadcrumb">FOYDORA / <b id="crumb">Bosh sahifa</b></div><div class="top-actions"><button class="icon-btn" onclick="toggleTheme()" title="Rejim">◐</button><div class="avatar">F</div></div></div>
+ <section class="hero" id="hero">
+  <div class="hero-content"><div class="eyebrow">✦ YANGI AVLOD ONLAYN VOSITALARI</div><h1>Bir joyda <span>ming imkoniyat.</span></h1><p>Hisoblang, yarating, o‘zgartiring va ishingizni osonlashtiring. Kerakli barcha vositalar endi bitta platformada.</p><button class="hero-btn" onclick="document.getElementById('search').focus()">Vositalarni ko‘rish ↗</button></div>
  </section>
-
- <div class="section-head">
-  <div>
-   <h2>Nega FOYDORA?</h2>
-   <p>Bizning asosiy tamoyillarimiz.</p>
-  </div>
+ <div class="section-head"><div><h2 id="heading">Ommabop vositalar</h2><p>O‘zingizga kerakli vositani tanlang</p></div></div>
+ <div class="search-wrap"><span class="search-icon">⌕</span><input id="search" placeholder="Vosita qidirish..." oninput="render()"></div>
+ <div class="filters" id="filters"></div>
+ <div class="grid" id="tools"></div>
+ <div class="stats">
+  <div class="stat"><strong>12+</strong><span>Foydali vositalar</span></div>
+  <div class="stat"><strong>100%</strong><span>Bepul foydalanish</span></div>
+  <div class="stat"><strong>24/7</strong><span>Doim foydalanish mumkin</span></div>
  </div>
-
- <section class="features">
-  <div class="feature">
-   <div>⚡</div>
-   <h3>Tezkor</h3>
-   <p>Kerakli xizmatlardan ortiqcha kutishlarsiz foydalaning.</p>
-  </div>
-  <div class="feature">
-   <div>🔒</div>
-   <h3>Maxfiylik</h3>
-   <p>Ushbu dastlabki vositalar hisob-kitoblarni brauzeringizda bajaradi.</p>
-  </div>
-  <div class="feature">
-   <div>🌍</div>
-   <h3>Hamma uchun</h3>
-   <p>O‘zbek tilidan boshlab xalqaro foydalanuvchilargacha.</p>
-  </div>
- </section>
+ <div class="footer">© 2026 FOYDORA. Barcha huquqlar himoyalangan.</div>
 </main>
-
-<footer>
- <strong>FOYDORA.</strong>
- <p style="margin-top:12px">Everything you need, in one place.</p>
- <p style="margin-top:20px;font-size:12px">© 2026 FOYDORA. All rights reserved.</p>
-</footer>
-
-<div class="toast" id="toast"></div>
-
+</div>
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+ <div class="modal-box"><div class="modal-head"><h2 id="modalTitle">Vosita</h2><button class="close" onclick="closeModal()">✕</button></div><div id="modalBody"></div></div>
+</div>
 <script>
-const workspace=document.getElementById("workspace");
-const toast=document.getElementById("toast");
-
-function notify(message){
- toast.textContent=message;
- toast.classList.add("show");
- setTimeout(()=>toast.classList.remove("show"),2500);
+const data=[
+{id:'calc',name:'Kalkulyator',desc:'Oddiy matematik amallarni bajaring',icon:'🧮',cat:'Hisoblash'},
+{id:'percent',name:'Foiz kalkulyatori',desc:'Sonning foizini tez hisoblang',icon:'％',cat:'Hisoblash'},
+{id:'age',name:'Yosh kalkulyatori',desc:'Tug‘ilgan sana bo‘yicha yoshingiz',icon:'🎂',cat:'Hisoblash'},
+{id:'text',name:'Matn analizatori',desc:'So‘z, belgi va qatorlarni sanang',icon:'📝',cat:'Matn'},
+{id:'case',name:'Matn formatlagich',desc:'Katta va kichik harflarga o‘tkazing',icon:'🔠',cat:'Matn'},
+{id:'reverse',name:'Teskari matn',desc:'Matnni teskari tartibda yozing',icon:'🔄',cat:'Matn'},
+{id:'password',name:'Parol generatori',desc:'Tasodifiy mustahkam parol yarating',icon:'🔐',cat:'Xavfsizlik'},
+{id:'length',name:'Uzunlik konvertori',desc:'Metr, kilometr va santimetr',icon:'📏',cat:'Konvertor'},
+{id:'weight',name:'Og‘irlik konvertori',desc:'Kilogramm, gramm va tonna',icon:'⚖️',cat:'Konvertor'},
+{id:'bmi',name:'BMI kalkulyatori',desc:'Tana massa indeksini hisoblang',icon:'💪',cat:'Hisoblash'},
+{id:'binary',name:'Sanoq sistemalari',desc:'2, 8, 10 va 16 lik sanoq',icon:'💻',cat:'Dasturlash'},
+{id:'json',name:'JSON formatlagich',desc:'JSON matnni tekshiring va tartiblang',icon:'{ }',cat:'Dasturlash'}
+];
+let category='Barchasi',page='home',favorites=JSON.parse(localStorage.getItem('foydora-favs')||'[]');
+const cats=['Barchasi','Hisoblash','Matn','Xavfsizlik','Konvertor','Dasturlash'];
+function renderFilters(){
+ document.getElementById('filters').innerHTML=cats.map(c=>`<button class="filter ${category===c?'active':''}" onclick="category='${c}';renderFilters();render()">${c}</button>`).join('');
 }
-
-function goTools(){
- document.getElementById("tools").scrollIntoView({behavior:"smooth"});
+function render(){
+ const q=document.getElementById('search').value.toLowerCase();
+ let list=data.filter(t=>(category==='Barchasi'||t.cat===category)&&(`${t.name} ${t.desc} ${t.cat}`.toLowerCase().includes(q)));
+ if(page==='favorites')list=list.filter(t=>favorites.includes(t.id));
+ document.getElementById('tools').innerHTML=list.length?list.map(t=>`<div class="tool" onclick="openTool('${t.id}')"><button class="star ${favorites.includes(t.id)?'on':''}" onclick="event.stopPropagation();toggleFav('${t.id}')">${favorites.includes(t.id)?'★':'☆'}</button><div class="tool-icon">${t.icon}</div><h3>${t.name}</h3><p>${t.desc}</p></div>`).join(''):'<div class="empty">Hozircha vosita topilmadi.</div>';
 }
-
-function searchTools(){
- const query=document.getElementById("search").value.toLowerCase().trim();
- let count=0;
- document.querySelectorAll(".card").forEach(card=>{
-  const match=card.dataset.name.toLowerCase().includes(query);
-  card.classList.toggle("hidden",!match);
-  if(match)count++;
- });
- if(query && count===0)notify("Bu nomdagi xizmat topilmadi.");
+function showPage(p,el){
+ page=p;document.querySelectorAll('.nav').forEach(n=>n.classList.remove('active'));el.classList.add('active');
+ document.getElementById('crumb').textContent=p==='home'?'Bosh sahifa':p==='all'?'Barcha vositalar':'Sevimlilar';
+ document.getElementById('heading').textContent=p==='favorites'?'Sevimli vositalar':p==='all'?'Barcha vositalar':'Ommabop vositalar';
+ document.getElementById('hero').style.display=p==='home'?'block':'none';
+ render();
 }
-
-function toggleTheme(){
- document.body.classList.toggle("light");
- localStorage.setItem("foydora-theme",
-  document.body.classList.contains("light")?"light":"dark");
-}
-if(localStorage.getItem("foydora-theme")==="light"){
- document.body.classList.add("light");
-}
-
-function showTool(title,description,html){
- workspace.innerHTML=`
- <h2>${title}</h2>
- <p class="sub">${description}</p>
- <div class="tool-fields">${html}</div>`;
- workspace.scrollIntoView({behavior:"smooth"});
-}
-
-function output(text){
- const r=document.getElementById("result");
- if(r)r.textContent=text;
-}
-
-function openTool(type){
- if(type==="calc"){
-  showTool("🧮 Kalkulyator","Oddiy matematik hisob-kitoblar.",`
-   <input class="field" id="a" type="number" placeholder="Birinchi son">
-   <select class="field" id="op">
-    <option value="+">Qo‘shish (+)</option>
-    <option value="-">Ayirish (-)</option>
-    <option value="*">Ko‘paytirish (×)</option>
-    <option value="/">Bo‘lish (÷)</option>
-   </select>
-   <input class="field" id="b" type="number" placeholder="Ikkinchi son">
-   <button class="primary" onclick="calculate()">Hisoblash</button>
-   <div class="result" id="result"></div>`);
+function toggleFav(id){favorites=favorites.includes(id)?favorites.filter(x=>x!==id):[...favorites,id];localStorage.setItem('foydora-favs',JSON.stringify(favorites));render()}
+function toggleTheme(){document.body.classList.toggle('light');localStorage.setItem('foydora-theme',document.body.classList.contains('light')?'light':'dark')}
+if(localStorage.getItem('foydora-theme')==='light')document.body.classList.add('light');
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+function openTool(id){
+ const t=data.find(x=>x.id===id);document.getElementById('modalTitle').textContent=t.icon+' '+t.name;
+ let html='';
+ const field=(label,id,type='number',placeholder='')=>`<div class="field"><label>${label}</label><input id="${id}" type="${type}" placeholder="${placeholder}"></div>`;
+ const area=(label,id)=>`<div class="field"><label>${label}</label><textarea id="${id}" placeholder="Matnni shu yerga kiriting..."></textarea></div>`;
+ const btn=(label,fn)=>`<button class="action" onclick="${fn}">${label}</button>`;
+ switch(id){
+ case'calc':html=field('Birinchi son','a')+field('Ikkinchi son','b')+`<div class="field"><label>Amal</label><select id="op"><option value="+">Qo‘shish (+)</option><option value="-">Ayirish (-)</option><option value="*">Ko‘paytirish (×)</option><option value="/">Bo‘lish (÷)</option></select></div>`+btn('Hisoblash','calculate()');break;
+ case'percent':html=field('Son','a')+field('Foiz (%)','b')+btn('Hisoblash','calculate()');break;
+ case'age':html=`<div class="field"><label>Tug‘ilgan sanangiz</label><input id="date" type="date"></div>`+btn('Yoshimni hisoblash','calculate()');break;
+ case'text':html=area('Matningiz','txt')+btn('Tahlil qilish','calculate()');break;
+ case'case':html=area('Matningiz','txt')+`<div class="field"><label>Format</label><select id="caseop"><option value="upper">KATTA HARF</option><option value="lower">kichik harf</option><option value="title">Har Bir So‘z</option></select></div>`+btn('O‘zgartirish','calculate()');break;
+ case'reverse':html=area('Matningiz','txt')+btn('Teskari qilish','calculate()');break;
+ case'password':html=field('Parol uzunligi','len')+`<div class="field"><label><input id="symbols" type="checkbox" checked style="width:auto"> Belgilar ham ishlatilsin (!@#$)</label></div>`+btn('Parol yaratish','calculate()');break;
+ case'length':html=field('Qiymat','a')+`<div class="field"><label>Birlik</label><select id="unit"><option value="m">Metr</option><option value="km">Kilometr</option><option value="cm">Santimetr</option><option value="mm">Millimetr</option></select></div>`+btn('Konvertatsiya','calculate()');break;
+ case'weight':html=field('Qiymat','a')+`<div class="field"><label>Birlik</label><select id="unit"><option value="kg">Kilogramm</option><option value="g">Gramm</option><option value="t">Tonna</option></select></div>`+btn('Konvertatsiya','calculate()');break;
+ case'bmi':html=field('Vazn (kg)','a')+field('Bo‘y (sm)','b')+btn('BMI hisoblash','calculate()');break;
+ case'binary':html=field('O‘nlik sanoqdagi son','a')+btn('O‘tkazish','calculate()');break;
+ case'json':html=area('JSON matn','txt')+btn('Tekshirish va formatlash','calculate()');break;
  }
- if(type==="percent"){
-  showTool("📊 Foiz hisoblagich","Sonning necha foizini topamiz?",`
-   <input class="field" id="num" type="number" placeholder="Asosiy son">
-   <input class="field" id="pct" type="number" placeholder="Foiz miqdori">
-   <button class="primary" onclick="percentCalc()">Hisoblash</button>
-   <div class="result" id="result"></div>`);
- }
- if(type==="age"){
-  showTool("🎂 Yosh hisoblagich","Tug‘ilgan sanangizni tanlang.",`
-   <input class="field" id="birth" type="date">
-   <button class="primary" onclick="ageCalc()">Yoshimni hisobla</button>
-   <div class="result" id="result"></div>`);
- }
- if(type==="text"){
-  showTool("📝 Matn tahlilchisi","Matningizni kiriting.",`
-   <textarea class="field" id="txt" oninput="countText()" placeholder="Matningizni shu yerga yozing..."></textarea>
-   <div class="result" id="result">Matnni kiriting.</div>`);
- }
- if(type==="password"){
-  showTool("🔐 Parol generatori","Tasodifiy parol yarating.",`
-   <label>Parol uzunligi: <strong id="len">16</strong></label>
-   <input class="field" type="range" id="length" min="8" max="40" value="16" oninput="document.getElementById('len').textContent=this.value">
-   <label><input type="checkbox" id="symbols" checked> Maxsus belgilar</label>
-   <div class="tool-actions">
-    <button class="primary" onclick="generatePassword()">Parol yaratish</button>
-    <button class="secondary" onclick="copyPassword()">Nusxalash</button>
-   </div>
-   <div class="result" id="result">Parolingiz shu yerda paydo bo‘ladi.</div>`);
- }
- if(type==="convert"){
-  showTool("📏 Uzunlik konvertori","Metr, kilometr va santimetr.",`
-   <input class="field" type="number" id="distance" placeholder="Qiymat kiriting">
-   <select class="field" id="from">
-    <option value="m">Metr</option><option value="km">Kilometr</option><option value="cm">Santimetr</option>
-   </select>
-   <select class="field" id="to">
-    <option value="km">Kilometr</option><option value="m">Metr</option><option value="cm">Santimetr</option>
-   </select>
-   <button class="primary" onclick="convertLength()">Aylantirish</button>
-   <div class="result" id="result"></div>`);
- }
+ html+='<div id="result"></div>';
+ document.getElementById('modalBody').innerHTML=html;
+ document.getElementById('modal').classList.add('show');
 }
-
+function out(v){document.getElementById('result').innerHTML=`<div class="result">${v}</div>`}
 function calculate(){
- const av=document.getElementById("a").value;
- const bv=document.getElementById("b").value;
- const op=document.getElementById("op").value;
- if(av===""||bv===""){output("Ikkala sonni ham kiriting.");return;}
- const a=Number(av),b=Number(bv);
- if(op==="/"&&b===0){output("Nolga bo‘lish mumkin emas.");return;}
- const result=op==="+"?a+b:op==="-"?a-b:op==="*"?a*b:a/b;
- output("Natija: "+result);
-}
-
-function percentCalc(){
- const n=document.getElementById("num").value;
- const p=document.getElementById("pct").value;
- if(n===""||p===""){output("Ikkala qiymatni kiriting.");return;}
- output(p+"% = "+(Number(n)*Number(p)/100));
-}
-
-function ageCalc(){
- const value=document.getElementById("birth").value;
- if(!value){output("Tug‘ilgan sanangizni tanlang.");return;}
- const birth=new Date(value+"T00:00:00");
- const now=new Date();
- if(birth>now){output("Kelajakdagi sanani tanlab bo‘lmaydi.");return;}
- let years=now.getFullYear()-birth.getFullYear();
- let months=now.getMonth()-birth.getMonth();
- let days=now.getDate()-birth.getDate();
- if(days<0){
-  months--;
-  days+=new Date(now.getFullYear(),now.getMonth(),0).getDate();
+ const val=id=>document.getElementById(id)?.value;
+ const num=id=>Number(val(id));
+ let r='';
+ try{
+ switch(document.getElementById('modalTitle').textContent.split(' ').slice(1).join(' ')){
+ case'Kalkulyator':{let a=num('a'),b=num('b'),op=val('op');if(op==='/'&&b===0)throw Error('Nolga bo‘lish mumkin emas');r=a+op+b+' = <b>'+(op==='+'?a+b:op==='-'?a-b:op==='*'?a*b:a/b)+'</b>';break}
+ case'Foiz kalkulyatori':r=`${num('a')} sonining ${num('b')} foizi: <b>${num('a')*num('b')/100}</b>`;break;
+ case'Yosh kalkulyatori':{let d=new Date(val('date'));if(!val('date')||d>new Date())throw Error('To‘g‘ri sana kiriting');let n=new Date(),age=n.getFullYear()-d.getFullYear();if(n.getMonth()<d.getMonth()||(n.getMonth()===d.getMonth()&&n.getDate()<d.getDate()))age--;r=`Siz <b>${age} yoshdasiz</b>.`;break}
+ case'Matn analizatori':{let s=val('txt');r=`Belgilar: <b>${s.length}</b><br>So‘zlar: <b>${s.trim()?s.trim().split(/\s+/).length:0}</b><br>Qatorlar: <b>${s?s.split('\n').length:0}</b>`;break}
+ case'Matn formatlagich':{let s=val('txt'),o=val('caseop');r=`<textarea style="width:100%;min-height:100px" readonly>${o==='upper'?s.toUpperCase():o==='lower'?s.toLowerCase():s.toLowerCase().replace(/\b\w/g,c=>c.toUpperCase())}</textarea>`;break}
+ case'Teskari matn':r=`<b>${[...val('txt')].reverse().join('')}</b>`;break;
+ case'Parol generatori':{let n=Math.max(4,Math.min(100,num('len')||16)),chars='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'+(document.getElementById('symbols').checked?'!@#$%^&*()_+-':'');let p='';for(let i=0;i<n;i++)p+=chars[Math.floor(Math.random()*chars.length)];r=`<b style="font-size:18px">${p}</b><br><button class="action" onclick="navigator.clipboard.writeText('${p}')">Nusxalash</button>`;break}
+ case'Uzunlik konvertori':{let m=num('a')*({m:1,km:1000,cm:.01,mm:.001}[val('unit')]);r=`Metr: <b>${m}</b><br>Kilometr: ${m/1000}<br>Santimetr: ${m*100}<br>Millimetr: ${m*1000}`;break}
+ case'Og‘irlik konvertori':{let kg=num('a')*({kg:1,g:.001,t:1000}[val('unit')]);r=`Kilogramm: <b>${kg}</b><br>Gramm: ${kg*1000}<br>Tonna: ${kg/1000}`;break}
+ case'BMI kalkulyatori':{let h=num('b')/100;if(h<=0||num('a')<=0)throw Error('Qiymatlarni tekshiring');let bmi=num('a')/(h*h);r=`BMI: <b>${bmi.toFixed(1)}</b><br>${bmi<18.5?'Vazn me’yordan past':bmi<25?'Me’yoriy oraliq':bmi<30?'Ortiqcha vazn':'Semizlik toifasi'}`;break}
+ case'Sanoq sistemalari':{let n=num('a');if(!Number.isInteger(n)||n<0)throw Error('Musbat butun son kiriting');r=`Ikkilik: <b>${n.toString(2)}</b><br>Sakkizlik: ${n.toString(8)}<br>O‘nlik: ${n}<br>O‘n oltilik: ${n.toString(16).toUpperCase()}`;break}
+ case'JSON formatlagich':{let j=JSON.parse(val('txt'));r=`<textarea style="width:100%;min-height:180px" readonly>${JSON.stringify(j,null,2)}</textarea><b>JSON to‘g‘ri!</b>`;break}
  }
- if(months<0){years--;months+=12;}
- output(`Yoshingiz: ${years} yil, ${months} oy, ${days} kun.`);
+ }catch(e){r='<span style="color:#ff7777">Xatolik: '+e.message+'</span>'}
+ out(r);
 }
-
-function countText(){
- const t=document.getElementById("txt").value;
- const words=t.trim()?t.trim().split(/\s+/).length:0;
- const lines=t.length?t.split(/\n/).length:0;
- output(`So‘zlar: ${words} | Belgilar: ${t.length} | Qatorlar: ${lines}`);
-}
-
-function generatePassword(){
- const length=Number(document.getElementById("length").value);
- let chars="ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789";
- if(document.getElementById("symbols").checked){
-  chars+="!@#$%^&*()-_=+?";
- }
- let password="";
- const random=new Uint32Array(length);
- crypto.getRandomValues(random);
- for(let i=0;i<length;i++)password+=chars[random[i]%chars.length];
- output(password);
-}
-
-function copyPassword(){
- const r=document.getElementById("result");
- if(!r||!r.textContent||r.textContent.includes("Parolingiz")){
-  notify("Avval parol yarating.");return;
- }
- navigator.clipboard.writeText(r.textContent)
- .then(()=>notify("Parol nusxalandi!"))
- .catch(()=>notify("Nusxalash imkoni bo‘lmadi."));
-}
-
-function convertLength(){
- const val=document.getElementById("distance").value;
- if(val===""){output("Qiymatni kiriting.");return;}
- const units={m:1,km:1000,cm:0.01};
- const from=document.getElementById("from").value;
- const to=document.getElementById("to").value;
- const result=Number(val)*units[from]/units[to];
- output("Natija: "+result+" "+to);
-}
+renderFilters();render();
 </script>
 </body>
 </html>
