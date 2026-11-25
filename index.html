@@ -43,4 +43,213 @@ if(auth)auth.onAuthStateChanged(u=>{user=u;document.getElementById('authNav').te
 window.addEventListener('load',()=>{let id=new URLSearchParams(location.search).get('listing');if(id)setTimeout(()=>{let p=listings.find(x=>x.id===id);if(p)details(id)},1200)});
 // Tools accessible from Studio/profile; calculator and assistant pages.
 </script>
+  
+<!-- FOYDORA: VIDEO REKLAMA TO'LOV TIZIMI -->
+<style>
+#foydoraPayModal .modalbox{max-width:520px}
+.pay-info{background:#f6f7fb;border:1px solid #e7e8ef;border-radius:14px;padding:15px;margin:12px 0}
+.pay-price{font-size:25px;font-weight:900;color:#6457f5}
+</style>
+
+<div class="modal" id="foydoraPayModal">
+  <div class="modalbox">
+    <button class="close" onclick="closeModal('foydoraPayModal')">×</button>
+    <h2>🎬 Video reklama uchun to‘lov</h2>
+    <p>30 kunlik video reklama joylashtirish narxi:</p>
+    <div class="pay-price">10 000 so‘m</div>
+    <div class="pay-info">
+      <strong>To‘lov uchun HUMO karta</strong>
+      <p id="foydoraCardNumber">KARTA_RAQAMI</p>
+      <p id="foydoraCardOwner">KARTA_EGASINING_ISMI</p>
+      <button class="outline" onclick="foydoraCopyCard()">Karta raqamini nusxalash</button>
+    </div>
+    <p class="muted">Pulni o‘tkazgandan so‘ng chekdagi tranzaksiya raqamini kiriting. To‘lov tekshirilgach reklama faollashadi.</p>
+    <div class="stack">
+      <input id="foydoraPayerName" placeholder="To‘lov qilgan shaxs ismi">
+      <input id="foydoraTransaction" placeholder="Chekdagi tranzaksiya raqami">
+      <button class="btn" onclick="foydoraSendPayment()">To‘lov ma’lumotlarini yuborish</button>
+      <button class="outline" onclick="closeModal('foydoraPayModal')">Bekor qilish</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const FOYDORA_CARD_NUMBER = "9860 1606 2742 4312";
+const FOYDORA_CARD_OWNER = "Firdavs Uktamov";
+
+document.getElementById('foydoraCardNumber').textContent = FOYDORA_CARD_NUMBER;
+document.getElementById('foydoraCardOwner').textContent = FOYDORA_CARD_OWNER;
+
+let foydoraPendingVideo = null;
+
+async function foydoraCopyCard(){
+  try{
+    await navigator.clipboard.writeText(FOYDORA_CARD_NUMBER);
+    toast('Karta raqami nusxalandi');
+  }catch(e){
+    toast('Karta raqamini qo‘lda nusxalang');
+  }
+}
+
+const foydoraOriginalCreateListing = window.createListing;
+
+window.createListing = async function(){
+  if(!user){
+    toast('Avval hisobga kiring');
+    authOpen();
+    return;
+  }
+
+  const file = document.getElementById('sellMedia').files[0];
+
+  // Rasmli e'lonlarning eski ishlash tartibi saqlanadi.
+  if(!file || !file.type.startsWith('video/')){
+    return foydoraOriginalCreateListing();
+  }
+
+  const title = document.getElementById('sellTitle').value.trim();
+  const price = Number(document.getElementById('sellPrice').value);
+  const description = document.getElementById('sellDesc').value.trim();
+
+  if(!title || !price || price <= 0 || !description){
+    toast('Nom, narx va tavsifni kiriting');
+    return;
+  }
+
+  if(file.size > 450 * 1024){
+    toast('Hozircha video hajmi 450 KB dan oshmasin. Kattaroq videolar uchun alohida fayl saqlash xizmati kerak.');
+    return;
+  }
+
+  if(!db){
+    toast('Firebase bilan aloqa yo‘q');
+    return;
+  }
+
+  try{
+    const media = await fileToData(file);
+
+    foydoraPendingVideo = {
+      title,
+      price,
+      category: document.getElementById('sellCat').value,
+      location: document.getElementById('sellLocation').value.trim(),
+      phone: document.getElementById('sellPhone').value.trim(),
+      description,
+      media,
+      mediaType:'video',
+      sellerId:user.uid,
+      sellerName:user.email || 'Sotuvchi',
+      verified:false,
+      premium:false,
+      videoAd:true,
+      durationDays:30,
+      createdAt:Date.now(),
+      expiresAt:Date.now() + 30 * 86400000
+    };
+
+    document.getElementById('foydoraPayModal').classList.add('show');
+  }catch(e){
+    console.error(e);
+    toast('Videoni tayyorlashda xatolik yuz berdi');
+  }
+};
+
+async function foydoraSendPayment(){
+  if(!user || !db || !foydoraPendingVideo){
+    toast('E’lon ma’lumotlari topilmadi');
+    return;
+  }
+
+  const payer = document.getElementById('foydoraPayerName').value.trim();
+  const transaction = document.getElementById('foydoraTransaction').value.trim();
+
+  if(!payer || !transaction){
+    toast('Ism va tranzaksiya raqamini kiriting');
+    return;
+  }
+
+  try{
+    await db.collection('paymentRequests').add({
+      sellerId:user.uid,
+      sellerEmail:user.email || '',
+      payerName:payer,
+      transactionId:transaction,
+      amount:10000,
+      currency:'UZS',
+      status:'pending',
+      listingData:foydoraPendingVideo,
+      createdAt:Date.now()
+    });
+
+    foydoraPendingVideo = null;
+    closeModal('foydoraPayModal');
+    closeModal('sellModal');
+
+    document.getElementById('foydoraPayerName').value='';
+    document.getElementById('foydoraTransaction').value='';
+
+    toast('To‘lov so‘rovi yuborildi. Tekshiruv kutilmoqda.');
+  }catch(e){
+    console.error(e);
+    toast('To‘lov so‘rovi yuborilmadi: '+e.message);
+  }
+}
+
+/*
+  ADMIN FIREBASE FIRESTORE'DA status qiymatini
+  "pending" dan "approved" ga o'zgartirgach,
+  reklama foydalanuvchining products kolleksiyasiga
+  joylanadi.
+*/
+let foydoraApprovalUnsub = null;
+
+function foydoraWatchApprovals(currentUser){
+  if(foydoraApprovalUnsub) foydoraApprovalUnsub();
+
+  if(!currentUser || !db) return;
+
+  foydoraApprovalUnsub = db.collection('paymentRequests')
+    .where('sellerId','==',currentUser.uid)
+    .where('status','==','approved')
+    .onSnapshot(async snapshot=>{
+      for(const doc of snapshot.docs){
+        try{
+          const productRef = db.collection('products').doc(doc.id);
+          const existing = await productRef.get();
+
+          if(existing.exists) continue;
+
+          const request = doc.data();
+          const listing = request.listingData;
+
+          if(!listing || listing.sellerId !== currentUser.uid) continue;
+
+          await productRef.set({
+            ...listing,
+            paymentRequestId:doc.id,
+            paymentVerified:true,
+            createdAt:Date.now(),
+            expiresAt:Date.now() + 30 * 86400000
+          });
+
+          toast('To‘lov tasdiqlandi! Video reklamangiz joylandi.');
+        }catch(e){
+          console.error('Reklamani faollashtirish xatosi:',e);
+          toast('Reklamani faollashtirib bo‘lmadi. Firebase qoidalarini tekshiring.');
+        }
+      }
+    },error=>{
+      console.error(error);
+    });
+}
+
+if(auth){
+  auth.onAuthStateChanged(u=>{
+    foydoraWatchApprovals(u);
+  });
+}
+</script>
+<!-- FOYDORA VIDEO TO'LOV TIZIMI TUGADI -->
+
 </body></html>
