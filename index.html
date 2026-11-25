@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="uz">
 <head>
@@ -115,308 +114,1584 @@ footer{border-top:1px solid var(--line);padding:30px 0;color:#777;font-size:10px
 .toast.show{display:block;animation:appear .3s}
 @media(max-width:950px){.navlinks{display:none;position:absolute;top:78px;left:0;right:0;background:#101216;padding:22px;flex-direction:column;align-items:flex-start;border-bottom:1px solid var(--line)}.navlinks.open{display:flex}.menu-toggle{display:block}.hero-inner{grid-template-columns:1fr}.hero-art{height:300px}.gold-orb{width:170px;height:170px}.cards{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.container{width:calc(100% - 30px)}header{height:68px}.logo{font-size:16px}.navlinks{top:68px}.nav-actions select{max-width:90px;padding:8px;font-size:10px}.nav-actions>.btn{display:none}.hero-inner{padding:75px 0 35px}.hero h1{font-size:52px;letter-spacing:-3px}.hero-art{height:250px}.section{padding:65px 0}.section-heading{display:block}.section-heading p{margin-top:15px}.cards{grid-template-columns:1fr}.form-layout{grid-template-columns:1fr}.field-row{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.tool-grid{grid-template-columns:1fr}.panel{padding:18px}.searchbar{flex-wrap:wrap}.searchbar input{flex-basis:100%}}
+
+/* FOYDORA LIGHT PREMIUM UPDATE */
+:root{--bg:#fbfaf7;--panel:#fff;--panel2:#f6f4ef;--white:#202124;--muted:#73757b;--line:#17171718;--green:#47865a}
+body{background:var(--bg);color:var(--white)} header{background:#ffffffed;border-bottom:1px solid #00000012}
+.navlinks a{color:#555} .hero{background:radial-gradient(ellipse at 75% 45%,#e9d8b455,transparent 40%),linear-gradient(110deg,#fff,#f8f6f0 65%,#fff)}
+.hero:before{background-image:linear-gradient(#b58c460b 1px,transparent 1px),linear-gradient(90deg,#b58c460b 1px,transparent 1px)}
+.hero p,.section-heading p{color:#6c6d72}.gold-orb{box-shadow:inset -25px -25px 45px #0003,0 0 75px #c6a05a22}
+.art-tag,.panel,.card,.tool,.stat{background:#fff;color:#222;border-color:#00000012;box-shadow:0 8px 28px #00000006}
+select,.select,.btn:not(.btn-gold),.field input,.field textarea,.field select,.searchbar input,.chip,.price-option{background:#fff;color:#242424;border-color:#00000020}
+.field label{color:#444}.card-meta{color:#6b6b72}.notice{background:#f8f2e5;color:#735c32;border-color:#d8b87950}
+.preview-box{background:#f8f8f8;color:#777;border-color:#aaa}.empty{border-color:#bbb;color:#666}.navlinks{background:#fff}
+.dollar-float{position:fixed;z-index:0;pointer-events:none;color:#c6a05a18;font-weight:800;font-size:clamp(22px,4vw,48px);animation:dollarDrift 18s linear infinite;user-select:none}
+@keyframes dollarDrift{0%{transform:translateY(105vh) rotate(-12deg)}100%{transform:translateY(-120vh) rotate(18deg)}}
+.favorite-btn{border:1px solid #d8b879;background:#fff;color:#a47a32;border-radius:5px;padding:10px;cursor:pointer}
+.favorite-btn.active{background:#fff2d6}
 </style>
 </head>
 <body>
+
+<div class="dollar-float" style="left:8%;animation-delay:0s">$</div>
+<div class="dollar-float" style="left:24%;animation-delay:5s">$</div>
+<div class="dollar-float" style="left:48%;animation-delay:2s">$</div>
+<div class="dollar-float" style="left:70%;animation-delay:8s">$</div>
+<div class="dollar-float" style="left:91%;animation-delay:3s">$</div>
+
 <header>
  <div class="container nav">
-  <a class="logo" href="#" onclick="showPage('home');return false"><span class="logo-symbol">✳</span> FOYDORA</a>
+  <a href="#" class="logo" onclick="showPage('home')">
+   <span class="logo-symbol">F</span> FOYDORA
+  </a>
+
   <nav class="navlinks" id="navlinks">
-   <a href="#" data-page="home" data-i18n="home">Home</a>
-   <a href="#" data-page="market" data-i18n="market">Marketplace</a>
-   <a href="#" data-page="post" data-i18n="post">Post an ad</a>
-   <a href="#" data-page="studio" data-i18n="studio">Business Studio</a>
-   <a href="#" data-page="ai" data-i18n="ai">AI Assistant</a>
-   <a href="#" data-page="finance" data-i18n="finance">Finance</a>
+   <a href="#" onclick="showPage('home')" data-i="home">Bosh sahifa</a>
+   <a href="#" onclick="showPage('market')" data-i="market">Marketplace</a>
+   <a href="#" onclick="showPage('sell')" data-i="sell">Sotish</a>
+   <a href="#" onclick="showPage('studio')" data-i="studio">Business Studio</a>
+   <a href="#" onclick="showPage('tools')" data-i="tools">Tools</a>
+   <a href="#" onclick="showPage('favorites')" data-i="favorites">Sevimlilar</a>
   </nav>
+
   <div class="nav-actions">
-   <select id="language" aria-label="Language">
-    <option value="uz">🇺🇿 UZ</option><option value="en">🇬🇧 EN</option>
-    <option value="ru">🇷🇺 RU</option><option value="tr">🇹🇷 TR</option>
-    <option value="ar">🇸🇦 AR</option><option value="de">🇩🇪 DE</option>
-    <option value="fr">🇫🇷 FR</option><option value="es">🇪🇸 ES</option>
-    <option value="zh">🇨🇳 ZH</option><option value="kk">🇰🇿 KK</option>
+   <select id="language" onchange="changeLanguage(this.value)">
+    <option value="uz">UZ</option>
+    <option value="en">EN</option>
+    <option value="ru">RU</option>
+    <option value="tr">TR</option>
+    <option value="ar">AR</option>
+    <option value="de">DE</option>
+    <option value="fr">FR</option>
+    <option value="es">ES</option>
+    <option value="zh">ZH</option>
+    <option value="kk">KK</option>
    </select>
-   <button class="btn btn-gold" onclick="openLogin()" data-i18n="login">Login / Sign up</button>
-   <button class="menu-toggle" id="menuToggle">☰</button>
+   <button class="btn" onclick="openAuth()">Kirish</button>
+   <button class="btn btn-gold" onclick="showPage('sell')">+ E'lon</button>
+   <button class="menu-toggle" onclick="toggleMenu()">☰</button>
   </div>
  </div>
 </header>
 
 <main>
-<section class="page active" id="home">
+
+<!-- HOME -->
+<section class="page active" id="page-home">
+
  <div class="hero">
   <div class="container hero-inner">
+
    <div>
-    <div class="eyebrow" data-i18n="heroeyebrow">THE NEW WORLD OF BUSINESS</div>
-    <h1 data-i18n="heroTitle">Your business.<br><em>Without limits.</em></h1>
-    <p data-i18n="heroText">Discover a smarter way to showcase products, connect with customers and grow your business — all in one place.</p>
+    <div class="eyebrow">GLOBAL BUSINESS PLATFORM</div>
+
+    <h1>Business<br><em>Without Limits.</em></h1>
+
+    <p>
+     FOYDORA — mahsulotlar, biznes va imkoniyatlar
+     uchrashadigan premium marketplace.
+     O'z biznesingizni boshlang, rivojlantiring
+     va yangi bozorlarni kashf eting.
+    </p>
+
     <div class="hero-buttons">
-     <button class="btn btn-gold" onclick="showPage('market')" data-i18n="explore">Explore marketplace ↗</button>
-     <button class="btn" onclick="showPage('post')" data-i18n="sell">Start selling</button>
+     <button class="btn btn-gold" onclick="showPage('market')">
+      Marketplace →
+     </button>
+
+     <button class="btn" onclick="showPage('sell')">
+      E'lon joylashtirish
+     </button>
     </div>
    </div>
-   <div class="hero-art"><div class="gold-orb"></div><div class="art-tag one">FOYDORA · BUSINESS ECOSYSTEM</div><div class="art-tag two">IDEAS INTO IMPACT ↗</div></div>
+
+   <div class="hero-art">
+    <div class="gold-orb"></div>
+
+    <div class="art-tag one">
+     <span class="gold">◆</span> GLOBAL MARKET
+    </div>
+
+    <div class="art-tag two">
+     <span class="gold">↗</span> BUSINESS GROWTH
+    </div>
+   </div>
+
   </div>
  </div>
+
  <div class="container section">
-  <div class="section-heading"><div><div class="eyebrow">01 — FOYDORA ECOSYSTEM</div><h2 data-i18n="ecosystem">Everything your business needs.</h2></div><p data-i18n="ecosystemText">Tools and opportunities designed to help entrepreneurs move forward.</p></div>
+
+  <div class="section-heading">
+   <div>
+    <div class="eyebrow">EXPLORE</div>
+    <h2>Biznes imkoniyatlari</h2>
+   </div>
+
+   <p>
+    O'z mahsulotingizni sotish yoki
+    yangi imkoniyatlarni topish.
+   </p>
+  </div>
+
   <div class="cards">
-   <div class="card"><div class="card-body"><div class="tool-icon">◇</div><h3>Marketplace</h3><p data-i18n="marketDesc">Showcase your products and connect with buyers.</p><button class="btn" onclick="showPage('market')" data-i18n="discover">Discover →</button></div></div>
-   <div class="card"><div class="card-body"><div class="tool-icon">✳</div><h3>Business Studio</h3><p data-i18n="studioDesc">Manage your listings and follow your business.</p><button class="btn" onclick="showPage('studio')" data-i18n="discover">Discover →</button></div></div>
-   <div class="card"><div class="card-body"><div class="tool-icon">⌘</div><h3>AI Assistant</h3><p data-i18n="aiDesc">Get help with ideas, product descriptions and marketing.</p><button class="btn" onclick="showPage('ai')" data-i18n="discover">Discover →</button></div></div>
+
+   <div class="card">
+    <div class="card-body">
+     <div class="tool-icon">◇</div>
+     <h3>Marketplace</h3>
+     <p>
+      Mahsulotlar, xizmatlar va
+      biznes takliflarini ko'ring.
+     </p>
+     <button class="btn btn-gold"
+      onclick="showPage('market')">
+      Ko'rish →
+     </button>
+    </div>
+   </div>
+
+   <div class="card">
+    <div class="card-body">
+     <div class="tool-icon">↗</div>
+     <h3>Biznesingizni soting</h3>
+     <p>
+      Mahsulotlaringizni platformaga
+      joylashtiring va xaridor toping.
+     </p>
+     <button class="btn btn-gold"
+      onclick="showPage('sell')">
+      E'lon joylash →
+     </button>
+    </div>
+   </div>
+
+   <div class="card">
+    <div class="card-body">
+     <div class="tool-icon">◈</div>
+     <h3>Business Studio</h3>
+     <p>
+      E'lonlaringizni kuzating,
+      biznesingizni tahlil qiling.
+     </p>
+     <button class="btn btn-gold"
+      onclick="showPage('studio')">
+      Studio →
+     </button>
+    </div>
+   </div>
+
   </div>
+
  </div>
+
 </section>
 
-<section class="page" id="market">
+
+<!-- MARKETPLACE -->
+<section class="page" id="page-market">
+
  <div class="container section">
-  <div class="section-heading"><div><div class="eyebrow">02 — DISCOVER & SHOP</div><h2 data-i18n="marketTitle">FOYDORA Marketplace</h2></div><button class="btn btn-gold" onclick="showPage('post')" data-i18n="postProduct">+ Post a product</button></div>
-  <div class="searchbar"><input id="searchProducts" placeholder="Search products, shops..."><button class="btn" onclick="renderProducts()" data-i18n="search">Search</button></div>
-  <div class="category-row" id="categories">
-   <button class="chip active" data-category="all" data-i18n="all">All</button>
-   <button class="chip" data-category="electronics">Electronics</button>
-   <button class="chip" data-category="fashion">Fashion</button>
-   <button class="chip" data-category="home">Home</button>
-   <button class="chip" data-category="other">Other</button>
+
+  <div class="section-heading">
+   <div>
+    <div class="eyebrow">MARKETPLACE</div>
+    <h2>Mahsulotlar</h2>
+   </div>
+   <p>
+    Barcha e'lonlarni qidiring va
+    o'zingizga kerakli mahsulotni toping.
+   </p>
   </div>
-  <div class="cards" id="productGrid"></div>
-  <div class="empty hidden" id="emptyProducts" data-i18n="empty">No products yet. Be the first to post one!</div>
+
+  <div class="searchbar">
+   <input id="searchInput"
+    placeholder="Mahsulot, xizmat yoki kalit so'z..."
+    oninput="renderProducts()">
+
+   <button class="btn btn-gold"
+    onclick="renderProducts()">
+    Qidirish
+   </button>
+  </div>
+
+  <div class="category-row" id="categoryRow">
+   <button class="chip active"
+    onclick="setCategory('all',this)">
+    Barchasi
+   </button>
+
+   <button class="chip"
+    onclick="setCategory('Elektronika',this)">
+    Elektronika
+   </button>
+
+   <button class="chip"
+    onclick="setCategory('Transport',this)">
+    Transport
+   </button>
+
+   <button class="chip"
+    onclick="setCategory('Kiyim',this)">
+    Kiyim
+   </button>
+
+   <button class="chip"
+    onclick="setCategory('Uy',this)">
+    Uy
+   </button>
+
+   <button class="chip"
+    onclick="setCategory('Biznes',this)">
+    Biznes
+   </button>
+
+   <button class="chip"
+    onclick="setCategory('Xizmatlar',this)">
+    Xizmatlar
+   </button>
+
+   <button class="chip"
+    onclick="setCategory('Boshqa',this)">
+    Boshqa
+   </button>
+  </div>
+
+  <div id="productsGrid" class="cards"></div>
+
+  <div id="emptyProducts" class="empty hidden">
+   <h3>Hozircha mahsulotlar topilmadi</h3>
+   <p style="margin-top:10px">
+    Birinchi e'lonni siz joylashtiring!
+   </p>
+   <button class="btn btn-gold"
+    style="margin-top:15px"
+    onclick="showPage('sell')">
+    E'lon joylashtirish
+   </button>
+  </div>
+
  </div>
+
 </section>
 
-<section class="page" id="post">
+
+<!-- SELL -->
+<section class="page" id="page-sell">
+
  <div class="container section">
-  <div class="section-heading"><div><div class="eyebrow">03 — SELL WITH FOYDORA</div><h2 data-i18n="postTitle">Publish your product.</h2></div><p data-i18n="postSub">Add your product details and let customers discover it.</p></div>
-  <div class="form-layout">
-   <form class="panel" id="productForm">
-    <h3 data-i18n="productDetails">Product details</h3>
-    <div class="field"><label data-i18n="productName">Product name *</label><input id="productName" required maxlength="90" placeholder="Example: Premium watch"></div>
-    <div class="field-row">
-     <div class="field"><label data-i18n="productPrice">Price (UZS) *</label><input id="productPrice" type="number" min="0" required placeholder="450000"></div>
-     <div class="field"><label data-i18n="category">Category</label><select id="productCategory"><option value="electronics">Electronics</option><option value="fashion">Fashion</option><option value="home">Home</option><option value="other">Other</option></select></div>
-    </div>
-    <div class="field"><label data-i18n="description">Description *</label><textarea id="productDescription" required maxlength="1200" placeholder="Describe your product..."></textarea></div>
-    <div class="field"><label data-i18n="phone">Seller phone number *</label><input id="productPhone" type="tel" required placeholder="+998 90 123 45 67"></div>
-    <div class="field"><label data-i18n="media">Product photo or video *</label><input id="productMedia" type="file" accept="image/*,video/mp4,video/webm,video/quicktime" required></div>
-    <div class="field" id="videoPlans" style="display:none">
-     <label data-i18n="videoPlan">Choose video listing period</label>
-     <div class="price-options">
-      <label class="price-option"><input type="radio" name="videoPlan" value="10000" checked><strong>10 000 UZS</strong><small data-i18n="sevenDays">7 days</small></label>
-      <label class="price-option"><input type="radio" name="videoPlan" value="30000"><strong>30 000 UZS</strong><small data-i18n="thirtyDays">30 days</small></label>
-     </div>
-     <div class="notice" data-i18n="paymentNote">This is a price preview. Online payment will be connected in a later version.</div>
-    </div>
-    <div class="notice" data-i18n="freePhoto">Photo listings are free. Video listings: 10,000 UZS for 7 days or 30,000 UZS for 30 days.</div>
-    <button class="btn btn-gold" style="width:100%" type="submit" data-i18n="publish">Publish listing</button>
-   </form>
-   <div class="panel">
-    <h3 data-i18n="preview">Preview</h3>
-    <div class="preview-box" id="mediaPreview" data-i18n="mediaPreview">Your photo or video will appear here.</div>
-    <div class="notice" data-i18n="phoneNote">Your phone number will be shown on the product listing so buyers can contact you directly.</div>
+
+  <div class="section-heading">
+   <div>
+    <div class="eyebrow">CREATE LISTING</div>
+    <h2>E'lon joylashtirish</h2>
    </div>
   </div>
+
+  <div class="form-layout">
+
+   <div class="panel">
+
+    <h3>Mahsulot ma'lumotlari</h3>
+
+    <form id="productForm">
+
+     <div class="field">
+      <label>Mahsulot nomi</label>
+      <input id="productName"
+       required
+       maxlength="100"
+       placeholder="Masalan: iPhone 16 Pro">
+     </div>
+
+     <div class="field">
+      <label>Kategoriya</label>
+      <select id="productCategory" required>
+       <option value="">Tanlang</option>
+       <option>Elektronika</option>
+       <option>Transport</option>
+       <option>Kiyim</option>
+       <option>Uy</option>
+       <option>Biznes</option>
+       <option>Xizmatlar</option>
+       <option>Boshqa</option>
+      </select>
+     </div>
+
+     <div class="field">
+      <label>Narxi (UZS)</label>
+      <input id="productPrice"
+       type="number"
+       min="0"
+       required
+       placeholder="Masalan: 5000000">
+     </div>
+
+     <div class="field">
+      <label>Shahar</label>
+      <input id="productCity"
+       placeholder="Masalan: Toshkent">
+     </div>
+
+     <div class="field">
+      <label>Telefon raqami</label>
+      <input id="productPhone"
+       type="tel"
+       placeholder="+998..."
+       required>
+     </div>
+
+     <div class="field">
+      <label>Mahsulot haqida</label>
+      <textarea id="productDescription"
+       maxlength="2000"
+       placeholder="Mahsulot haqida batafsil ma'lumot..."></textarea>
+     </div>
+
+     <div class="field">
+      <label>Rasm yoki video</label>
+      <input id="productMedia"
+       type="file"
+       accept="image/*,video/*"
+       multiple>
+      <small class="muted">
+       Rasm yoki video tanlang.
+      </small>
+     </div>
+
+     <div class="notice">
+      E'lon joylashtirish muddati:<br>
+      <b>7 kun — 10 000 UZS</b><br>
+      <b>30 kun — 30 000 UZS</b>
+     </div>
+
+     <div class="field">
+      <label>E'lon muddati</label>
+
+      <div class="price-options">
+
+       <label class="price-option">
+        <input type="radio"
+         name="listingDuration"
+         value="7"
+         checked>
+        <small>7 kun</small>
+        <strong>10 000</strong>
+        <small>UZS</small>
+       </label>
+
+       <label class="price-option">
+        <input type="radio"
+         name="listingDuration"
+         value="30">
+        <small>30 kun</small>
+        <strong>30 000</strong>
+        <small>UZS</small>
+       </label>
+
+      </div>
+     </div>
+
+     <button class="btn btn-gold"
+      style="width:100%"
+      type="submit">
+      E'lonni yaratish →
+     </button>
+
+    </form>
+
+   </div>
+
+   <div class="panel">
+
+    <h3>Media ko'rinishi</h3>
+
+    <div class="preview-box" id="mediaPreview">
+     <div>
+      <div style="font-size:35px;margin-bottom:10px">▧</div>
+      Rasm yoki video tanlang
+     </div>
+    </div>
+
+    <div class="notice">
+     <b>FOYDORA premium</b><br>
+     Xaridorlar sizning mahsulotingizni
+     marketplace orqali ko'rishlari mumkin.
+    </div>
+
+   </div>
+
+  </div>
+
  </div>
+
 </section>
 
-<section class="page" id="studio">
+
+<!-- FAVORITES -->
+<section class="page" id="page-favorites">
+
  <div class="container section">
-  <div class="eyebrow">04 — YOUR BUSINESS SPACE</div><h2 style="font:600 42px Manrope;margin:14px 0" data-i18n="studioTitle">Business Studio</h2>
-  <p class="muted" style="font-size:12px" data-i18n="studioIntro">Your products and business overview in one place.</p>
+
+  <div class="section-heading">
+   <div>
+    <div class="eyebrow">SAVED ITEMS</div>
+    <h2>Sevimli mahsulotlar</h2>
+   </div>
+  </div>
+
+  <div id="favoritesGrid" class="cards"></div>
+
+  <div id="emptyFavorites" class="empty hidden">
+   Sevimli mahsulotlaringiz hozircha yo'q.
+  </div>
+
+ </div>
+
+</section>
+
+
+<!-- BUSINESS STUDIO -->
+<section class="page" id="page-studio">
+
+ <div class="container section">
+
+  <div class="section-heading">
+   <div>
+    <div class="eyebrow">BUSINESS STUDIO</div>
+    <h2>Biznes boshqaruvi</h2>
+   </div>
+   <p>
+    E'lonlaringiz va biznes faoliyatingiz
+    haqida ma'lumot.
+   </p>
+  </div>
+
   <div class="stats">
-   <div class="stat"><small data-i18n="myListings">My listings</small><strong id="listingCount">0</strong></div>
-   <div class="stat"><small data-i18n="photoAds">Free photo ads</small><strong id="photoCount">0</strong></div>
-   <div class="stat"><small data-i18n="videoAds">Video ads</small><strong id="videoCount">0</strong></div>
+
+   <div class="stat">
+    <small>Jami e'lonlar</small>
+    <strong id="statListings">0</strong>
+   </div>
+
+   <div class="stat">
+    <small>Sevimlilar</small>
+    <strong id="statFavorites">0</strong>
+   </div>
+
+   <div class="stat">
+    <small>Faol e'lonlar</small>
+    <strong id="statActive">0</strong>
+   </div>
+
   </div>
-  <div class="section-heading"><h2 style="font:600 23px Manrope" data-i18n="yourProducts">Your products</h2><button class="btn btn-gold" onclick="showPage('post')" data-i18n="addNew">+ Add new</button></div>
-  <div class="cards" id="myProducts"></div>
-  <div class="empty hidden" id="emptyMine" data-i18n="noMine">You haven't published any products yet.</div>
+
+  <div class="panel">
+
+   <h3>Mening e'lonlarim</h3>
+
+   <div id="myListings"></div>
+
+  </div>
+
  </div>
+
 </section>
 
-<section class="page" id="ai">
+
+<!-- TOOLS -->
+<section class="page" id="page-tools">
+
  <div class="container section">
-  <div class="eyebrow">05 — YOUR CREATIVE PARTNER</div><h2 style="font:600 42px Manrope;margin:14px 0" data-i18n="aiTitle">AI Assistant</h2>
-  <p class="muted" style="font-size:12px;margin-bottom:25px" data-i18n="aiIntro">Get a head start on your business content.</p>
-  <div class="panel" style="max-width:750px">
-   <h3 data-i18n="marketingHelper">Product description helper</h3>
-   <div class="field"><label data-i18n="whatProduct">What are you selling?</label><input id="aiProduct" placeholder="Example: Handmade leather bag"></div>
-   <div class="field"><label data-i18n="details">Key details</label><textarea id="aiDetails" placeholder="Material, features, benefits..."></textarea></div>
-   <button class="btn btn-gold" onclick="generateDescription()" data-i18n="generate">Create description</button>
-   <div class="field" style="margin-top:20px"><label data-i18n="result">Suggested description</label><textarea id="aiResult" readonly placeholder="Your suggested text will appear here..."></textarea></div>
-   <div class="notice" data-i18n="aiNote">This is a basic local writing helper demo, not a connected AI service yet.</div>
+
+  <div class="section-heading">
+   <div>
+    <div class="eyebrow">SMART TOOLS</div>
+    <h2>Biznes vositalari</h2>
+   </div>
+   <p>
+    Biznesingiz uchun foydali
+    yordamchi funksiyalar.
+   </p>
   </div>
+
+  <div class="tool-grid">
+
+   <div class="tool">
+    <div class="tool-icon">✦</div>
+    <h4>AI Business Assistant</h4>
+    <p>
+     Biznes g'oyalar, reklama va
+     mahsulot tavsiflari uchun yordamchi.
+    </p>
+    <button class="btn btn-gold"
+     style="margin-top:15px"
+     onclick="showPage('ai')">
+     AI yordamchi →
+    </button>
+   </div>
+
+   <div class="tool">
+    <div class="tool-icon">◎</div>
+    <h4>Finance Calculator</h4>
+    <p>
+     Daromad, xarajat va foydani
+     hisoblash vositasi.
+    </p>
+    <button class="btn btn-gold"
+     style="margin-top:15px"
+     onclick="showPage('finance')">
+     Hisoblash →
+    </button>
+   </div>
+
+   <div class="tool">
+    <div class="tool-icon">◈</div>
+    <h4>Business Studio</h4>
+    <p>
+     E'lonlaringizni boshqarish.
+    </p>
+    <button class="btn"
+     style="margin-top:15px"
+     onclick="showPage('studio')">
+     Ochish →
+    </button>
+   </div>
+
+   <div class="tool">
+    <div class="tool-icon">⌕</div>
+    <h4>Smart Search</h4>
+    <p>
+     Mahsulotlarni qidirish va
+     kategoriyalar bo'yicha filtrlash.
+    </p>
+    <button class="btn"
+     style="margin-top:15px"
+     onclick="showPage('market')">
+     Qidirish →
+    </button>
+   </div>
+
+  </div>
+
  </div>
+
 </section>
 
-<section class="page" id="finance">
+
+<!-- AI -->
+<section class="page" id="page-ai">
+
  <div class="container section">
-  <div class="eyebrow">06 — KNOW YOUR NUMBERS</div><h2 style="font:600 42px Manrope;margin:14px 0" data-i18n="financeTitle">Finance tools</h2>
-  <p class="muted" style="font-size:12px;margin-bottom:25px" data-i18n="financeIntro">Estimate your product profit with a simple calculator.</p>
-  <div class="panel" style="max-width:650px">
-   <div class="field"><label data-i18n="sellingPrice">Selling price (UZS)</label><input id="sellPrice" type="number" min="0" placeholder="500000"></div>
-   <div class="field"><label data-i18n="costPrice">Product cost (UZS)</label><input id="costPrice" type="number" min="0" placeholder="300000"></div>
-   <div class="field"><label data-i18n="otherCosts">Other costs (UZS)</label><input id="otherCosts" type="number" min="0" placeholder="20000"></div>
-   <button class="btn btn-gold" onclick="calculateProfit()" data-i18n="calculate">Calculate profit</button>
-   <div class="stat" style="margin-top:20px"><small data-i18n="estimatedProfit">Estimated profit</small><strong id="profitResult">0 UZS</strong></div>
+
+  <div class="section-heading">
+   <div>
+    <div class="eyebrow">AI BUSINESS</div>
+    <h2>AI yordamchi</h2>
+   </div>
   </div>
+
+  <div class="panel">
+
+   <h3>Biznes yordamchisi</h3>
+
+   <div class="field">
+    <label>Savolingiz</label>
+    <textarea id="aiQuestion"
+     placeholder="Masalan: Telefon sotish uchun reklama yozib ber..."></textarea>
+   </div>
+
+   <button class="btn btn-gold"
+    onclick="askAI()">
+    Javob olish →
+   </button>
+
+   <div id="aiResult"
+    class="notice hidden"
+    style="margin-top:20px;white-space:pre-wrap">
+   </div>
+
+  </div>
+
  </div>
+
 </section>
-</main>
 
-<footer><div class="container footer-inner"><a class="logo" href="#" onclick="showPage('home');return false"><span class="logo-symbol">✳</span> FOYDORA</a><span>© 2026 FOYDORA. BUSINESS WITHOUT LIMITS.</span><span>Think · Create · Grow</span></div></footer>
 
-<div class="modal-backdrop" id="loginModal" onclick="if(event.target===this)closeLogin()">
+<!-- FINANCE -->
+<section class="page" id="page-finance">
+
+ <div class="container section">
+
+  <div class="section-heading">
+   <div>
+    <div class="eyebrow">FINANCE</div>
+    <h2>Finance Calculator</h2>
+   </div>
+  </div>
+
+  <div class="panel">
+
+   <div class="field">
+    <label>Daromad (UZS)</label>
+    <input id="financeIncome"
+     type="number"
+     placeholder="10000000">
+   </div>
+
+   <div class="field">
+    <label>Xarajat (UZS)</label>
+    <input id="financeExpense"
+     type="number"
+     placeholder="3000000">
+   </div>
+
+   <button class="btn btn-gold"
+    onclick="calculateFinance()">
+    Hisoblash
+   </button>
+
+   <div id="financeResult"
+    class="notice hidden"
+    style="margin-top:20px">
+   </div>
+
+  </div>
+
+ </div>
+
+</section>
+<!-- AUTH MODAL -->
+<div class="modal-backdrop" id="authModal">
  <div class="modal">
-  <button class="close" onclick="closeLogin()">×</button>
-  <h2 data-i18n="welcome">Welcome to FOYDORA</h2>
-  <p data-i18n="loginIntro">Sign in or create your business account.</p>
-  <div class="field"><label data-i18n="email">Email address</label><input type="email" id="loginEmail" placeholder="you@example.com"></div>
-  <div class="field"><label data-i18n="password">Password</label><input type="password" id="loginPassword" placeholder="••••••••"></div>
-  <button class="btn btn-gold" style="width:100%" onclick="demoLogin()" data-i18n="continue">Continue</button>
-  <div class="notice" data-i18n="loginNote">Account registration and secure sign-in will be connected to a server later.</div>
+
+  <button class="close" onclick="closeAuth()">×</button>
+
+  <h2 id="authTitle">FOYDORA</h2>
+  <p id="authSubtitle">Hisobingizga kiring.</p>
+
+  <form id="authForm">
+
+   <div class="field">
+    <label>Email</label>
+    <input id="authEmail"
+     type="email"
+     required
+     placeholder="email@example.com">
+   </div>
+
+   <div class="field">
+    <label>Parol</label>
+    <input id="authPassword"
+     type="password"
+     required
+     minlength="6"
+     placeholder="Parolingiz">
+   </div>
+
+   <button class="btn btn-gold"
+    style="width:100%"
+    id="authSubmit"
+    type="submit">
+    Kirish
+   </button>
+
+  </form>
+
+  <p style="margin-top:18px">
+   <span id="authSwitchText">Hisobingiz yo'qmi?</span>
+   <button class="btn"
+    id="authSwitch"
+    onclick="switchAuthMode()">
+    Ro'yxatdan o'tish
+   </button>
+  </p>
+
  </div>
 </div>
+
+
+<!-- PRODUCT MODAL -->
+<div class="modal-backdrop" id="productModal">
+ <div class="modal" style="max-height:90vh;overflow:auto">
+
+  <button class="close"
+   onclick="closeProductModal()">×</button>
+
+  <div id="productModalContent"></div>
+
+ </div>
+</div>
+
+
+<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
+
+</main>
+
+
+<footer>
+ <div class="container footer-inner">
+
+  <div>
+   <div class="logo">
+    <span class="logo-symbol">F</span>
+    FOYDORA
+   </div>
+
+   <p style="margin-top:10px">
+    Business Without Limits.
+   </p>
+  </div>
+
+  <div>
+   <p>© 2026 FOYDORA</p>
+   <p style="margin-top:8px">
+    Global Business Platform
+   </p>
+  </div>
+
+ </div>
+</footer>
 <script>
-const translations={
-uz:{home:"Bosh sahifa",market:"Marketplace",post:"E'lon joylashtirish",studio:"Business Studio",ai:"AI Assistant",finance:"Finance",login:"Kirish / Ro‘yxatdan o‘tish",heroeyebrow:"BIZNESNING YANGI DUNYOSI",heroTitle:"Biznesingiz.<br><em>Chegarasiz.</em>",heroText:"Mahsulotlaringizni namoyish eting, xaridorlar bilan bog‘laning va biznesingizni bitta platformada rivojlantiring.",explore:"Bozorni ko‘rish ↗",sell:"Sotishni boshlash",ecosystem:"Biznesingiz uchun kerakli hamma narsa.",ecosystemText:"Tadbirkorlar rivojlanishi uchun yaratilgan vositalar va imkoniyatlar.",marketDesc:"Mahsulotlaringizni joylashtiring va xaridorlar bilan bog‘laning.",studioDesc:"E'lonlaringizni boshqaring va biznesingizni kuzating.",aiDesc:"G‘oyalar, mahsulot tavsifi va marketing bo‘yicha yordam oling.",discover:"Ko‘rish →",marketTitle:"FOYDORA Marketplace",postProduct:"+ Mahsulot joylash",search:"Qidirish",all:"Hammasi",empty:"Hozircha mahsulot yo‘q. Birinchi bo‘lib e'lon joylashtiring!",postTitle:"Mahsulotingizni joylashtiring.",postSub:"Ma'lumotlarni kiriting va xaridorlar sizni topishiga imkon bering.",productDetails:"Mahsulot ma'lumotlari",productName:"Mahsulot nomi *",productPrice:"Narxi (so‘m) *",category:"Kategoriya",description:"Tavsif *",phone:"Sotuvchining telefon raqami *",media:"Mahsulot rasmi yoki videosi *",videoPlan:"Video e'lon muddati",sevenDays:"7 kun",thirtyDays:"30 kun",paymentNote:"Bu hozircha narx ko‘rinishi. Onlayn to‘lov keyingi versiyada ulanadi.",freePhoto:"Rasmli e'lon bepul. Videoli e'lon: 7 kun — 10 000 so‘m yoki 30 kun — 30 000 so‘m.",publish:"E'lonni joylashtirish",preview:"Ko‘rinishi",mediaPreview:"Rasm yoki video shu yerda ko‘rinadi.",phoneNote:"Telefon raqamingiz e'londa ko‘rinadi va xaridor siz bilan bevosita bog‘lana oladi.",studioTitle:"Business Studio",studioIntro:"Mahsulotlaringiz va biznesingiz haqidagi ma'lumotlar bir joyda.",myListings:"Mening e'lonlarim",photoAds:"Bepul rasmli e'lonlar",videoAds:"Videoli e'lonlar",yourProducts:"Mahsulotlaringiz",addNew:"+ Yangi e'lon",noMine:"Siz hali mahsulot joylashtirmagansiz.",aiTitle:"AI Assistant",aiIntro:"Biznes matnlaringizni tayyorlashni osonlashtiring.",marketingHelper:"Mahsulot tavsifi yordamchisi",whatProduct:"Nima sotyapsiz?",details:"Asosiy xususiyatlari",generate:"Tavsif yaratish",result:"Tayyor tavsif",aiNote:"Bu oddiy mahalliy matn yordamchisi namoyishi, hali haqiqiy AI xizmatiga ulanmagan.",financeTitle:"Moliyaviy vositalar",financeIntro:"Oddiy kalkulyator yordamida mahsulot foydasini hisoblang.",sellingPrice:"Sotish narxi (so‘m)",costPrice:"Mahsulot tannarxi (so‘m)",otherCosts:"Boshqa xarajatlar (so‘m)",calculate:"Foydani hisoblash",estimatedProfit:"Taxminiy foyda",welcome:"FOYDORA'ga xush kelibsiz",loginIntro:"Hisobingizga kiring yoki biznes profilingizni yarating.",email:"Elektron pochta",password:"Parol",continue:"Davom etish",loginNote:"Akkaunt va xavfsiz kirish tizimi keyinchalik serverga ulanadi.",call:"Qo‘ng‘iroq qilish",video:"VIDEO",photo:"RASM",added:"E'lon saqlandi!",needFile:"Iltimos, rasm yoki video tanlang.",invalidPhone:"Telefon raqamini to‘g‘ri kiriting.",profit:"Foyda",delete:"O‘chirish",loginDemo:"Bu hozircha namoyish. Haqiqiy akkaunt tizimi hali ulanmagan."},
-en:{home:"Home",market:"Marketplace",post:"Post an ad",studio:"Business Studio",ai:"AI Assistant",finance:"Finance",login:"Login / Sign up",heroeyebrow:"THE NEW WORLD OF BUSINESS",heroTitle:"Your business.<br><em>Without limits.</em>",heroText:"Showcase products, connect with customers and grow your business — all in one place.",explore:"Explore marketplace ↗",sell:"Start selling",ecosystem:"Everything your business needs.",ecosystemText:"Tools and opportunities designed to help entrepreneurs grow.",marketDesc:"Showcase your products and connect with buyers.",studioDesc:"Manage your listings and follow your business.",aiDesc:"Get help with ideas, descriptions and marketing.",discover:"Discover →",marketTitle:"FOYDORA Marketplace",postProduct:"+ Post a product",search:"Search",all:"All",empty:"No products yet. Be the first to post one!",postTitle:"Publish your product.",postSub:"Add your details and let customers discover it.",productDetails:"Product details",productName:"Product name *",productPrice:"Price (UZS) *",category:"Category",description:"Description *",phone:"Seller phone number *",media:"Product photo or video *",videoPlan:"Video listing period",sevenDays:"7 days",thirtyDays:"30 days",paymentNote:"Price preview only. Online payments will be connected later.",freePhoto:"Photo listing is free. Video: 10,000 UZS for 7 days or 30,000 UZS for 30 days.",publish:"Publish listing",preview:"Preview",mediaPreview:"Your photo or video will appear here.",phoneNote:"Your phone number appears on the listing so buyers can contact you directly.",studioTitle:"Business Studio",studioIntro:"Your products and business overview in one place.",myListings:"My listings",photoAds:"Free photo ads",videoAds:"Video ads",yourProducts:"Your products",addNew:"+ Add new",noMine:"You haven't published any products yet.",aiTitle:"AI Assistant",aiIntro:"Get a head start on your business content.",marketingHelper:"Product description helper",whatProduct:"What are you selling?",details:"Key details",generate:"Create description",result:"Suggested description",aiNote:"Basic local writing demo, not connected to a real AI service yet.",financeTitle:"Finance tools",financeIntro:"Estimate your product profit.",sellingPrice:"Selling price (UZS)",costPrice:"Product cost (UZS)",otherCosts:"Other costs (UZS)",calculate:"Calculate profit",estimatedProfit:"Estimated profit",welcome:"Welcome to FOYDORA",loginIntro:"Sign in or create your business account.",email:"Email address",password:"Password",continue:"Continue",loginNote:"Secure account features will be connected later.",call:"Call seller",video:"VIDEO",photo:"PHOTO",added:"Listing saved!",needFile:"Please select a photo or video.",invalidPhone:"Enter a valid phone number.",profit:"Profit",delete:"Delete",loginDemo:"Demo only. Real account system is not connected yet."},
-ru:{home:"Главная",market:"Маркетплейс",post:"Добавить объявление",studio:"Бизнес-студия",ai:"ИИ-помощник",finance:"Финансы",login:"Войти / Регистрация",heroeyebrow:"НОВЫЙ МИР БИЗНЕСА",heroTitle:"Ваш бизнес.<br><em>Без границ.</em>",heroText:"Представляйте товары, находите клиентов и развивайте бизнес на одной платформе.",explore:"Открыть маркетплейс ↗",sell:"Начать продавать",ecosystem:"Всё необходимое для вашего бизнеса.",ecosystemText:"Инструменты и возможности для предпринимателей.",marketDesc:"Размещайте товары и находите покупателей.",studioDesc:"Управляйте объявлениями и бизнесом.",aiDesc:"Помощь с идеями, описаниями и маркетингом.",discover:"Открыть →",marketTitle:"Маркетплейс FOYDORA",postProduct:"+ Добавить товар",search:"Поиск",all:"Все",empty:"Пока нет товаров. Разместите первое объявление!",postTitle:"Разместите товар.",postSub:"Добавьте информацию о товаре.",productDetails:"Информация о товаре",productName:"Название товара *",productPrice:"Цена (сум) *",category:"Категория",description:"Описание *",phone:"Телефон продавца *",media:"Фото или видео товара *",videoPlan:"Срок видеорекламы",sevenDays:"7 дней",thirtyDays:"30 дней",paymentNote:"Пока это предварительная цена. Онлайн-оплата появится позже.",freePhoto:"Фотообъявление бесплатно. Видео: 10 000 сум за 7 дней или 30 000 сум за 30 дней.",publish:"Опубликовать",preview:"Предпросмотр",mediaPreview:"Здесь появится фото или видео.",phoneNote:"Телефон будет виден покупателям.",studioTitle:"Бизнес-студия",studioIntro:"Ваши товары и бизнес в одном месте.",myListings:"Мои объявления",photoAds:"Бесплатные фото",videoAds:"Видеообъявления",yourProducts:"Ваши товары",addNew:"+ Добавить",noMine:"У вас пока нет объявлений.",aiTitle:"ИИ-помощник",aiIntro:"Помощь с бизнес-текстами.",marketingHelper:"Помощник описания товара",whatProduct:"Что вы продаёте?",details:"Основные детали",generate:"Создать описание",result:"Описание",aiNote:"Это локальная демонстрация, не подключённая к ИИ.",financeTitle:"Финансовые инструменты",financeIntro:"Рассчитайте прибыль.",sellingPrice:"Цена продажи (сум)",costPrice:"Себестоимость (сум)",otherCosts:"Другие расходы (сум)",calculate:"Рассчитать",estimatedProfit:"Прибыль",welcome:"Добро пожаловать в FOYDORA",loginIntro:"Войдите или создайте бизнес-аккаунт.",email:"Электронная почта",password:"Пароль",continue:"Продолжить",loginNote:"Настоящая система аккаунтов появится позже.",call:"Позвонить",video:"ВИДЕО",photo:"ФОТО",added:"Объявление сохранено!",needFile:"Выберите фото или видео.",invalidPhone:"Введите правильный номер.",profit:"Прибыль",delete:"Удалить",loginDemo:"Демонстрация. Аккаунты пока не подключены."},
-tr:{home:"Ana sayfa",market:"Pazar yeri",post:"İlan ver",studio:"İş stüdyosu",ai:"Yapay zekâ",finance:"Finans",login:"Giriş / Kayıt",heroeyebrow:"İŞ DÜNYASININ YENİ HALİ",heroTitle:"İşiniz.<br><em>Sınırsız.</em>",heroText:"Ürünlerinizi tanıtın, müşterilerle buluşun ve işinizi tek platformda büyütün.",explore:"Pazarı keşfet ↗",sell:"Satışa başla",ecosystem:"İşiniz için ihtiyacınız olan her şey.",ecosystemText:"Girişimciler için araçlar ve fırsatlar.",marketDesc:"Ürünlerinizi sergileyin ve alıcılarla buluşun.",studioDesc:"İlanlarınızı ve işinizi yönetin.",aiDesc:"Fikir, açıklama ve pazarlama desteği alın.",discover:"Keşfet →",marketTitle:"FOYDORA Pazaryeri",postProduct:"+ Ürün ekle",search:"Ara",all:"Tümü",empty:"Henüz ürün yok.",postTitle:"Ürününüzü yayınlayın.",postSub:"Ürün bilgilerini ekleyin.",productDetails:"Ürün bilgileri",productName:"Ürün adı *",productPrice:"Fiyat (UZS) *",category:"Kategori",description:"Açıklama *",phone:"Satıcı telefonu *",media:"Ürün fotoğrafı veya videosu *",videoPlan:"Video ilan süresi",sevenDays:"7 gün",thirtyDays:"30 gün",paymentNote:"Çevrimiçi ödeme daha sonra eklenecek.",freePhoto:"Fotoğraflı ilan ücretsiz. Video: 7 gün 10.000 veya 30 gün 30.000 UZS.",publish:"Yayınla",preview:"Önizleme",mediaPreview:"Fotoğraf veya video burada görünür.",phoneNote:"Telefon numaranız ilanda görünür.",studioTitle:"İş stüdyosu",studioIntro:"Ürünleriniz ve işiniz tek yerde.",myListings:"İlanlarım",photoAds:"Ücretsiz fotoğraf",videoAds:"Video ilanları",yourProducts:"Ürünleriniz",addNew:"+ Yeni ekle",noMine:"Henüz ilanınız yok.",aiTitle:"Yapay zekâ yardımcısı",aiIntro:"İş içeriklerinizi hazırlayın.",marketingHelper:"Ürün açıklama yardımcısı",whatProduct:"Ne satıyorsunuz?",details:"Özellikler",generate:"Açıklama oluştur",result:"Önerilen açıklama",aiNote:"Bu yerel bir demodur, gerçek AI bağlantısı değildir.",financeTitle:"Finans araçları",financeIntro:"Ürün kârınızı hesaplayın.",sellingPrice:"Satış fiyatı",costPrice:"Ürün maliyeti",otherCosts:"Diğer giderler",calculate:"Hesapla",estimatedProfit:"Tahmini kâr",welcome:"FOYDORA'ya hoş geldiniz",loginIntro:"Giriş yapın veya hesap oluşturun.",email:"E-posta",password:"Şifre",continue:"Devam et",loginNote:"Gerçek hesap sistemi daha sonra eklenecek.",call:"Satıcıyı ara",video:"VİDEO",photo:"FOTOĞRAF",added:"İlan kaydedildi!",needFile:"Fotoğraf veya video seçin.",invalidPhone:"Geçerli telefon girin.",profit:"Kâr",delete:"Sil",loginDemo:"Demo sürümüdür. Gerçek hesap sistemi bağlı değil."}
-};
-const extra={
-ar:{home:"الرئيسية",market:"السوق",post:"أضف إعلاناً",studio:"استوديو الأعمال",ai:"مساعد الذكاء الاصطناعي",finance:"المالية",login:"دخول / تسجيل",heroeyebrow:"عالم جديد للأعمال",heroTitle:"أعمالك.<br><em>بلا حدود.</em>",heroText:"اعرض منتجاتك وتواصل مع العملاء وطوّر أعمالك في مكان واحد.",explore:"استكشف السوق ↗",sell:"ابدأ البيع",ecosystem:"كل ما يحتاجه عملك.",ecosystemText:"أدوات وفرص لرواد الأعمال.",marketDesc:"اعرض منتجاتك وتواصل مع المشترين.",studioDesc:"أدر إعلاناتك وأعمالك.",aiDesc:"مساعدة في الأفكار والوصف والتسويق.",discover:"اكتشف →",marketTitle:"سوق FOYDORA",postProduct:"+ أضف منتجاً",search:"بحث",all:"الكل",empty:"لا توجد منتجات بعد.",postTitle:"انشر منتجك.",postSub:"أضف تفاصيل المنتج.",productDetails:"تفاصيل المنتج",productName:"اسم المنتج *",productPrice:"السعر *",category:"الفئة",description:"الوصف *",phone:"هاتف البائع *",media:"صورة أو فيديو المنتج *",videoPlan:"مدة إعلان الفيديو",sevenDays:"7 أيام",thirtyDays:"30 يوماً",paymentNote:"الدفع الإلكتروني سيضاف لاحقاً.",freePhoto:"الإعلان بالصور مجاني. الفيديو: 10,000 سوم لـ7 أيام أو 30,000 سوم لـ30 يوماً.",publish:"نشر الإعلان",preview:"معاينة",mediaPreview:"ستظهر الصورة أو الفيديو هنا.",phoneNote:"سيظهر رقم هاتفك في الإعلان.",studioTitle:"استوديو الأعمال",studioIntro:"منتجاتك وأعمالك في مكان واحد.",myListings:"إعلاناتي",photoAds:"إعلانات الصور المجانية",videoAds:"إعلانات الفيديو",yourProducts:"منتجاتك",addNew:"+ إضافة جديد",noMine:"ليس لديك إعلانات بعد.",aiTitle:"مساعد الذكاء الاصطناعي",aiIntro:"ساعد في إعداد محتوى عملك.",marketingHelper:"مساعد وصف المنتج",whatProduct:"ماذا تبيع؟",details:"التفاصيل",generate:"إنشاء الوصف",result:"الوصف المقترح",aiNote:"هذه تجربة محلية وليست خدمة ذكاء اصطناعي متصلة.",financeTitle:"الأدوات المالية",financeIntro:"احسب ربح منتجك.",sellingPrice:"سعر البيع",costPrice:"تكلفة المنتج",otherCosts:"تكاليف أخرى",calculate:"احسب الربح",estimatedProfit:"الربح المتوقع",welcome:"مرحباً بك في FOYDORA",loginIntro:"سجل الدخول أو أنشئ حساباً.",email:"البريد الإلكتروني",password:"كلمة المرور",continue:"متابعة",loginNote:"سيتم ربط الحسابات لاحقاً.",call:"اتصل بالبائع",video:"فيديو",photo:"صورة",added:"تم حفظ الإعلان!",needFile:"اختر صورة أو فيديو.",invalidPhone:"أدخل رقم هاتف صحيحاً.",profit:"الربح",delete:"حذف",loginDemo:"هذه نسخة تجريبية. الحسابات غير متصلة."},
-de:{home:"Startseite",market:"Marktplatz",post:"Anzeige erstellen",studio:"Business Studio",ai:"KI-Assistent",finance:"Finanzen",login:"Anmelden / Registrieren",heroeyebrow:"DIE NEUE WELT DES BUSINESS",heroTitle:"Dein Business.<br><em>Ohne Grenzen.</em>",heroText:"Präsentiere Produkte, verbinde dich mit Kunden und entwickle dein Geschäft an einem Ort.",explore:"Marktplatz entdecken ↗",sell:"Jetzt verkaufen",ecosystem:"Alles für dein Unternehmen.",ecosystemText:"Werkzeuge und Chancen für Unternehmer.",marketDesc:"Präsentiere Produkte und finde Käufer.",studioDesc:"Verwalte Anzeigen und dein Geschäft.",aiDesc:"Hilfe bei Ideen, Texten und Marketing.",discover:"Entdecken →",marketTitle:"FOYDORA Marktplatz",postProduct:"+ Produkt einstellen",search:"Suchen",all:"Alle",empty:"Noch keine Produkte vorhanden.",postTitle:"Produkt veröffentlichen.",postSub:"Füge deine Produktdetails hinzu.",productDetails:"Produktdetails",productName:"Produktname *",productPrice:"Preis (UZS) *",category:"Kategorie",description:"Beschreibung *",phone:"Telefon des Verkäufers *",media:"Produktfoto oder Video *",videoPlan:"Videolaufzeit",sevenDays:"7 Tage",thirtyDays:"30 Tage",paymentNote:"Online-Zahlung folgt später.",freePhoto:"Fotoanzeigen sind kostenlos. Video: 10.000 UZS für 7 Tage oder 30.000 UZS für 30 Tage.",publish:"Anzeige veröffentlichen",preview:"Vorschau",mediaPreview:"Foto oder Video erscheint hier.",phoneNote:"Deine Telefonnummer wird in der Anzeige angezeigt.",studioTitle:"Business Studio",studioIntro:"Produkte und Geschäft an einem Ort.",myListings:"Meine Anzeigen",photoAds:"Kostenlose Fotoanzeigen",videoAds:"Videoanzeigen",yourProducts:"Deine Produkte",addNew:"+ Neu hinzufügen",noMine:"Du hast noch keine Produkte.",aiTitle:"KI-Assistent",aiIntro:"Unterstützung für deine Geschäftstexte.",marketingHelper:"Produktbeschreibung",whatProduct:"Was verkaufst du?",details:"Details",generate:"Beschreibung erstellen",result:"Vorschlag",aiNote:"Lokale Demo, noch keine echte KI-Verbindung.",financeTitle:"Finanztools",financeIntro:"Berechne deinen Produktgewinn.",sellingPrice:"Verkaufspreis",costPrice:"Produktkosten",otherCosts:"Weitere Kosten",calculate:"Gewinn berechnen",estimatedProfit:"Geschätzter Gewinn",welcome:"Willkommen bei FOYDORA",loginIntro:"Melde dich an oder erstelle ein Konto.",email:"E-Mail",password:"Passwort",continue:"Weiter",loginNote:"Das echte Kontosystem folgt später.",call:"Verkäufer anrufen",video:"VIDEO",photo:"FOTO",added:"Anzeige gespeichert!",needFile:"Bitte Foto oder Video wählen.",invalidPhone:"Gültige Telefonnummer eingeben.",profit:"Gewinn",delete:"Löschen",loginDemo:"Demo. Kontosystem noch nicht verbunden."},
-fr:{home:"Accueil",market:"Marketplace",post:"Publier une annonce",studio:"Studio Business",ai:"Assistant IA",finance:"Finances",login:"Connexion / Inscription",heroeyebrow:"LE NOUVEAU MONDE DES AFFAIRES",heroTitle:"Votre entreprise.<br><em>Sans limites.</em>",heroText:"Présentez vos produits, trouvez des clients et développez votre activité au même endroit.",explore:"Explorer le marché ↗",sell:"Commencer à vendre",ecosystem:"Tout pour votre entreprise.",ecosystemText:"Des outils et des opportunités pour les entrepreneurs.",marketDesc:"Présentez vos produits et trouvez des acheteurs.",studioDesc:"Gérez vos annonces et votre activité.",aiDesc:"Aide pour les idées, les descriptions et le marketing.",discover:"Découvrir →",marketTitle:"Marketplace FOYDORA",postProduct:"+ Ajouter un produit",search:"Rechercher",all:"Tout",empty:"Aucun produit pour le moment.",postTitle:"Publiez votre produit.",postSub:"Ajoutez les informations du produit.",productDetails:"Détails du produit",productName:"Nom du produit *",productPrice:"Prix (UZS) *",category:"Catégorie",description:"Description *",phone:"Téléphone du vendeur *",media:"Photo ou vidéo du produit *",videoPlan:"Durée de l'annonce vidéo",sevenDays:"7 jours",thirtyDays:"30 jours",paymentNote:"Le paiement en ligne sera ajouté plus tard.",freePhoto:"Annonce photo gratuite. Vidéo : 10 000 UZS pour 7 jours ou 30 000 UZS pour 30 jours.",publish:"Publier",preview:"Aperçu",mediaPreview:"Votre photo ou vidéo apparaîtra ici.",phoneNote:"Votre numéro sera visible sur l'annonce.",studioTitle:"Studio Business",studioIntro:"Vos produits et votre activité au même endroit.",myListings:"Mes annonces",photoAds:"Annonces photo gratuites",videoAds:"Annonces vidéo",yourProducts:"Vos produits",addNew:"+ Ajouter",noMine:"Vous n'avez pas encore publié de produit.",aiTitle:"Assistant IA",aiIntro:"Préparez vos contenus professionnels.",marketingHelper:"Assistant de description produit",whatProduct:"Que vendez-vous ?",details:"Détails",generate:"Créer une description",result:"Description suggérée",aiNote:"Démo locale, pas encore connectée à un vrai service IA.",financeTitle:"Outils financiers",financeIntro:"Estimez votre bénéfice.",sellingPrice:"Prix de vente",costPrice:"Coût du produit",otherCosts:"Autres coûts",calculate:"Calculer le bénéfice",estimatedProfit:"Bénéfice estimé",welcome:"Bienvenue sur FOYDORA",loginIntro:"Connectez-vous ou créez un compte.",email:"E-mail",password:"Mot de passe",continue:"Continuer",loginNote:"Le système de compte sera ajouté plus tard.",call:"Appeler le vendeur",video:"VIDÉO",photo:"PHOTO",added:"Annonce enregistrée !",needFile:"Choisissez une photo ou vidéo.",invalidPhone:"Entrez un numéro valide.",profit:"Bénéfice",delete:"Supprimer",loginDemo:"Démo uniquement. Comptes non connectés."},
-es:{home:"Inicio",market:"Mercado",post:"Publicar anuncio",studio:"Estudio de negocio",ai:"Asistente IA",finance:"Finanzas",login:"Entrar / Registrarse",heroeyebrow:"EL NUEVO MUNDO DE LOS NEGOCIOS",heroTitle:"Tu negocio.<br><em>Sin límites.</em>",heroText:"Muestra productos, conecta con clientes y haz crecer tu negocio en un solo lugar.",explore:"Explorar mercado ↗",sell:"Empezar a vender",ecosystem:"Todo lo que necesita tu negocio.",ecosystemText:"Herramientas y oportunidades para emprendedores.",marketDesc:"Muestra tus productos y conecta con compradores.",studioDesc:"Gestiona tus anuncios y tu negocio.",aiDesc:"Ayuda con ideas, descripciones y marketing.",discover:"Descubrir →",marketTitle:"Mercado FOYDORA",postProduct:"+ Publicar producto",search:"Buscar",all:"Todo",empty:"Todavía no hay productos.",postTitle:"Publica tu producto.",postSub:"Añade los datos de tu producto.",productDetails:"Detalles del producto",productName:"Nombre del producto *",productPrice:"Precio (UZS) *",category:"Categoría",description:"Descripción *",phone:"Teléfono del vendedor *",media:"Foto o vídeo del producto *",videoPlan:"Duración del anuncio de vídeo",sevenDays:"7 días",thirtyDays:"30 días",paymentNote:"El pago en línea se añadirá más adelante.",freePhoto:"Anuncio con foto gratis. Vídeo: 10.000 UZS por 7 días o 30.000 UZS por 30 días.",publish:"Publicar anuncio",preview:"Vista previa",mediaPreview:"Tu foto o vídeo aparecerá aquí.",phoneNote:"Tu teléfono aparecerá en el anuncio.",studioTitle:"Estudio de negocio",studioIntro:"Tus productos y negocio en un solo lugar.",myListings:"Mis anuncios",photoAds:"Anuncios con foto gratis",videoAds:"Anuncios de vídeo",yourProducts:"Tus productos",addNew:"+ Añadir",noMine:"Aún no has publicado productos.",aiTitle:"Asistente IA",aiIntro:"Prepara contenido para tu negocio.",marketingHelper:"Ayuda para describir productos",whatProduct:"¿Qué vendes?",details:"Detalles",generate:"Crear descripción",result:"Descripción sugerida",aiNote:"Demostración local, todavía no conectada a una IA real.",financeTitle:"Herramientas financieras",financeIntro:"Calcula el beneficio de tu producto.",sellingPrice:"Precio de venta",costPrice:"Coste del producto",otherCosts:"Otros gastos",calculate:"Calcular beneficio",estimatedProfit:"Beneficio estimado",welcome:"Bienvenido a FOYDORA",loginIntro:"Inicia sesión o crea una cuenta.",email:"Correo electrónico",password:"Contraseña",continue:"Continuar",loginNote:"El sistema real de cuentas se añadirá después.",call:"Llamar al vendedor",video:"VÍDEO",photo:"FOTO",added:"¡Anuncio guardado!",needFile:"Selecciona una foto o vídeo.",invalidPhone:"Introduce un teléfono válido.",profit:"Beneficio",delete:"Eliminar",loginDemo:"Solo demostración. Las cuentas no están conectadas."},
-zh:{home:"首页",market:"商品市场",post:"发布商品",studio:"商业工作室",ai:"AI 助手",finance:"财务",login:"登录 / 注册",heroeyebrow:"商业新世界",heroTitle:"您的事业。<br><em>无限可能。</em>",heroText:"展示产品、联系客户，在一个平台发展您的业务。",explore:"探索市场 ↗",sell:"开始销售",ecosystem:"业务所需的一切。",ecosystemText:"为企业家打造的工具与机会。",marketDesc:"展示产品并联系买家。",studioDesc:"管理商品和业务。",aiDesc:"获取创意、产品描述和营销帮助。",discover:"探索 →",marketTitle:"FOYDORA 商品市场",postProduct:"+ 发布商品",search:"搜索",all:"全部",empty:"暂时没有商品。",postTitle:"发布您的产品。",postSub:"填写产品信息。",productDetails:"产品详情",productName:"产品名称 *",productPrice:"价格 (UZS) *",category:"类别",description:"描述 *",phone:"卖家电话 *",media:"产品照片或视频 *",videoPlan:"视频广告期限",sevenDays:"7天",thirtyDays:"30天",paymentNote:"在线支付将在后续版本加入。",freePhoto:"照片广告免费。视频：7天10,000 UZS，30天30,000 UZS。",publish:"发布商品",preview:"预览",mediaPreview:"照片或视频将在此显示。",phoneNote:"您的电话号码将显示在商品页面。",studioTitle:"商业工作室",studioIntro:"在一个地方管理产品和业务。",myListings:"我的商品",photoAds:"免费照片广告",videoAds:"视频广告",yourProducts:"您的产品",addNew:"+ 添加",noMine:"您还没有发布商品。",aiTitle:"AI 助手",aiIntro:"帮助准备商业内容。",marketingHelper:"产品描述助手",whatProduct:"您销售什么？",details:"产品特点",generate:"生成描述",result:"建议描述",aiNote:"本地演示，尚未连接真实 AI 服务。",financeTitle:"财务工具",financeIntro:"计算产品利润。",sellingPrice:"售价",costPrice:"产品成本",otherCosts:"其他费用",calculate:"计算利润",estimatedProfit:"预计利润",welcome:"欢迎来到 FOYDORA",loginIntro:"登录或创建账户。",email:"电子邮箱",password:"密码",continue:"继续",loginNote:"真实账户系统将在以后接入。",call:"联系卖家",video:"视频",photo:"照片",added:"商品已保存！",needFile:"请选择照片或视频。",invalidPhone:"请输入有效电话号码。",profit:"利润",delete:"删除",loginDemo:"演示版本，账户系统尚未连接。"},
-kk:{home:"Басты бет",market:"Маркетплейс",post:"Хабарландыру қосу",studio:"Бизнес студия",ai:"AI көмекші",finance:"Қаржы",login:"Кіру / Тіркелу",heroeyebrow:"БИЗНЕСТІҢ ЖАҢА ӘЛЕМІ",heroTitle:"Сіздің бизнесіңіз.<br><em>Шексіз.</em>",heroText:"Өнімдеріңізді көрсетіп, клиенттермен байланысып, бизнесіңізді бір жерде дамытыңыз.",explore:"Нарықты көру ↗",sell:"Сатуды бастау",ecosystem:"Бизнесіңізге қажеттінің бәрі.",ecosystemText:"Кәсіпкерлерге арналған құралдар мен мүмкіндіктер.",marketDesc:"Өнімдеріңізді орналастырып, сатып алушыларды табыңыз.",studioDesc:"Хабарландырулар мен бизнесті басқарыңыз.",aiDesc:"Идеялар мен маркетингке көмек алыңыз.",discover:"Көру →",marketTitle:"FOYDORA маркетплейсі",postProduct:"+ Өнім қосу",search:"Іздеу",all:"Барлығы",empty:"Әзірге өнім жоқ.",postTitle:"Өніміңізді жариялаңыз.",postSub:"Өнім мәліметтерін енгізіңіз.",productDetails:"Өнім туралы",productName:"Өнім атауы *",productPrice:"Бағасы (UZS) *",category:"Санат",description:"Сипаттама *",phone:"Сатушы телефоны *",media:"Өнім суреті немесе видеосы *",videoPlan:"Видео хабарландыру мерзімі",sevenDays:"7 күн",thirtyDays:"30 күн",paymentNote:"Онлайн төлем кейін қосылады.",freePhoto:"Суретті хабарландыру тегін. Видео: 7 күнге 10 000 UZS немесе 30 күнге 30 000 UZS.",publish:"Жариялау",preview:"Алдын ала көру",mediaPreview:"Сурет немесе видео осында көрінеді.",phoneNote:"Телефон нөміріңіз хабарландыруда көрсетіледі.",studioTitle:"Бизнес студия",studioIntro:"Өнімдеріңіз бен бизнесіңіз бір жерде.",myListings:"Менің хабарландыруларым",photoAds:"Тегін суретті хабарландырулар",videoAds:"Видео хабарландырулар",yourProducts:"Өнімдеріңіз",addNew:"+ Жаңа қосу",noMine:"Әзірге өнім жарияламадыңыз.",aiTitle:"AI көмекші",aiIntro:"Бизнес мәтіндерін дайындаңыз.",marketingHelper:"Өнім сипаттамасы көмекшісі",whatProduct:"Не сатасыз?",details:"Ерекшеліктері",generate:"Сипаттама жасау",result:"Ұсынылған сипаттама",aiNote:"Бұл жергілікті демо, нақты AI қызметі қосылмаған.",financeTitle:"Қаржы құралдары",financeIntro:"Өнім пайдасын есептеңіз.",sellingPrice:"Сату бағасы",costPrice:"Өнімнің өзіндік құны",otherCosts:"Басқа шығындар",calculate:"Пайданы есептеу",estimatedProfit:"Болжамды пайда",welcome:"FOYDORA-ға қош келдіңіз",loginIntro:"Кіріңіз немесе бизнес аккаунтын жасаңыз.",email:"Электрондық пошта",password:"Құпия сөз",continue:"Жалғастыру",loginNote:"Нақты аккаунт жүйесі кейін қосылады.",call:"Сатушыға қоңырау",video:"ВИДЕО",photo:"СУРЕТ",added:"Хабарландыру сақталды!",needFile:"Сурет немесе видео таңдаңыз.",invalidPhone:"Дұрыс телефон нөмірін енгізіңіз.",profit:"Пайда",delete:"Жою",loginDemo:"Демо нұсқа. Аккаунт жүйесі қосылмаған."}
-};
-const fallback=translations.en;
-let lang="uz",activeCategory="all";
-let products=JSON.parse(localStorage.getItem("foydoraProducts")||"[]");
-const $=id=>document.getElementById(id);
-function tr(key){return (translations[lang]||extra[lang]||fallback)[key]||(extra[lang]||fallback)[key]||fallback[key]||key}
-function applyLanguage(){
- lang=$("language").value;
- document.documentElement.lang=lang;
- document.documentElement.dir=lang==="ar"?"rtl":"ltr";
- document.querySelectorAll("[data-i18n]").forEach(el=>{
-  const key=el.dataset.i18n;const value=tr(key);
-  if(value)el.innerHTML=value;
- });
- $("searchProducts").placeholder=lang==="uz"?"Mahsulot yoki do‘kon qidirish...":"Search products or shops...";
- renderProducts();renderStudio();
+/* ===============================
+   FOYDORA — CORE JAVASCRIPT
+================================ */
+
+let currentCategory = "all";
+let authMode = "login";
+let currentUser = null;
+
+let products = JSON.parse(localStorage.getItem("foydora_products") || "[]");
+let favorites = JSON.parse(localStorage.getItem("foydora_favorites") || "[]");
+
+function saveProducts(){
+ localStorage.setItem("foydora_products",JSON.stringify(products));
 }
-$("language").addEventListener("change",applyLanguage);
-function showPage(id){
+
+function saveFavorites(){
+ localStorage.setItem("foydora_favorites",JSON.stringify(favorites));
+}
+
+/* NAVIGATION */
+
+function showPage(name){
  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
- $(id).classList.add("active");
- document.querySelectorAll(".navlinks a").forEach(a=>a.classList.toggle("active",a.dataset.page===id));
- $("navlinks").classList.remove("open");
+
+ const target=document.getElementById("page-"+name);
+ if(target)target.classList.add("active");
+
+ document.getElementById("navlinks").classList.remove("open");
+
+ if(name==="market")renderProducts();
+ if(name==="favorites")renderFavorites();
+ if(name==="studio")renderStudio();
+
  window.scrollTo({top:0,behavior:"smooth"});
- if(id==="studio")renderStudio();
- if(id==="market")renderProducts();
 }
-document.querySelectorAll(".navlinks a").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();showPage(a.dataset.page)}));
-$("menuToggle").onclick=()=>$("navlinks").classList.toggle("open");
-function money(n){return Number(n||0).toLocaleString("uz-UZ")+" so‘m"}
-function safe(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function toast(message){$("toast").textContent=message;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),3000)}
-function saveProducts(){localStorage.setItem("foydoraProducts",JSON.stringify(products))}
-function mediaHTML(p){
- if(p.type==="video")return `<video class="product-media video" src="${p.media}" muted controls playsinline></video>`;
- return `<img class="product-media" src="${p.media}" alt="${safe(p.name)}">`;
+
+function toggleMenu(){
+ document.getElementById("navlinks").classList.toggle("open");
 }
-function productCard(p,owner=false){
- return `<article class="card">${mediaHTML(p)}<div class="card-body"><div class="eyebrow">${p.type==="video"?tr("video"):tr("photo")} · ${safe(p.category)}</div><h3>${safe(p.name)}</h3><div class="card-price">${money(p.price)}</div><p>${safe(p.description)}</p><div class="card-meta">${safe(p.phone)}</div><div class="card-actions">${owner?`<button class="btn" onclick="deleteProduct('${p.id}')">${tr("delete")}</button>`:`<a class="btn btn-gold" href="tel:${safe(p.phone.replace(/[^+\\d]/g,''))}">${tr("call")}</a>`}</div></div></article>`;
+
+/* TOAST */
+
+function toast(message){
+ const t=document.getElementById("toast");
+ t.textContent=message;
+ t.classList.add("show");
+
+ clearTimeout(window.toastTimer);
+ window.toastTimer=setTimeout(()=>t.classList.remove("show"),3000);
 }
+
+/* CATEGORY */
+
+function setCategory(category,button){
+ currentCategory=category;
+
+ document.querySelectorAll("#categoryRow .chip")
+ .forEach(c=>c.classList.remove("active"));
+
+ if(button)button.classList.add("active");
+
+ renderProducts();
+}
+
+/* PRODUCTS */
+
 function renderProducts(){
- const q=$("searchProducts").value.toLowerCase();
- const list=products.filter(p=>(activeCategory==="all"||p.category===activeCategory)&&(`${p.name} ${p.description} ${p.category}`).toLowerCase().includes(q));
- $("productGrid").innerHTML=list.map(p=>productCard(p)).join("");
- $("emptyProducts").classList.toggle("hidden",list.length>0);
+ const grid=document.getElementById("productsGrid");
+ const empty=document.getElementById("emptyProducts");
+
+ if(!grid)return;
+
+ const search=(document.getElementById("searchInput")?.value||"")
+ .toLowerCase().trim();
+
+ const filtered=products.filter(p=>{
+  const matchesCategory=currentCategory==="all"||p.category===currentCategory;
+
+  const matchesSearch=
+   (p.name||"").toLowerCase().includes(search)||
+   (p.description||"").toLowerCase().includes(search)||
+   (p.city||"").toLowerCase().includes(search)||
+   (p.category||"").toLowerCase().includes(search);
+
+  return matchesCategory&&matchesSearch;
+ });
+
+ grid.innerHTML="";
+
+ if(filtered.length===0){
+  empty.classList.remove("hidden");
+  return;
+ }
+
+ empty.classList.add("hidden");
+
+ filtered.forEach(p=>{
+  const card=document.createElement("div");
+  card.className="card";
+
+  const mediaHTML=p.media&&p.media.length
+   ?p.media.map(m=>{
+      if(m.type.startsWith("video/")){
+       return `<video class="product-media video" controls preload="metadata" src="${m.data}"></video>`;
+      }
+      return `<img class="product-media" loading="lazy" src="${m.data}" alt="Mahsulot">`;
+    }).join("")
+   :`<div class="product-media" style="display:grid;place-items:center;font-size:40px;color:#b79b61">◇</div>`;
+
+  const isFav=favorites.includes(p.id);
+
+  card.innerHTML=`
+   ${mediaHTML}
+   <div class="card-body">
+    <div class="eyebrow">${escapeHTML(p.category||"Boshqa")}</div>
+    <h3>${escapeHTML(p.name)}</h3>
+    <div class="card-price">${formatPrice(p.price)} UZS</div>
+    <p>${escapeHTML(p.description||"")}</p>
+    <div class="card-meta">
+     ${escapeHTML(p.city||"")} · ${escapeHTML(p.phone||"")}
+    </div>
+
+    <div class="card-actions">
+     <button class="btn btn-gold"
+      onclick="openProduct('${p.id}')">
+      Batafsil
+     </button>
+
+     <button class="favorite-btn ${isFav?"active":""}"
+      onclick="toggleFavorite('${p.id}')">
+      ${isFav?"♥":"♡"}
+     </button>
+    </div>
+   </div>
+  `;
+
+  grid.appendChild(card);
+ });
 }
-function renderStudio(){
- const mine=products;
- $("listingCount").textContent=mine.length;
- $("photoCount").textContent=mine.filter(p=>p.type==="image").length;
- $("videoCount").textContent=mine.filter(p=>p.type==="video").length;
- $("myProducts").innerHTML=mine.map(p=>productCard(p,true)).join("");
- $("emptyMine").classList.toggle("hidden",mine.length>0);
+
+/* HTML SECURITY */
+
+function escapeHTML(value){
+ return String(value??"")
+ .replace(/&/g,"&amp;")
+ .replace(/</g,"&lt;")
+ .replace(/>/g,"&gt;")
+ .replace(/"/g,"&quot;")
+ .replace(/'/g,"&#039;");
 }
-$("searchProducts").addEventListener("input",renderProducts);
-document.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{
- document.querySelectorAll(".chip").forEach(c=>c.classList.remove("active"));
- b.classList.add("active");activeCategory=b.dataset.category;renderProducts();
-});
-let selectedFile=null,previewURL=null;
-$("productMedia").addEventListener("change",e=>{
- const file=e.target.files[0];selectedFile=file||null;
- $("videoPlans").style.display=file&&file.type.startsWith("video/")?"block":"none";
- if(previewURL)URL.revokeObjectURL(previewURL);
- if(!file){$("mediaPreview").textContent=tr("mediaPreview");return}
- previewURL=URL.createObjectURL(file);
- $("mediaPreview").innerHTML=file.type.startsWith("video/")?`<video src="${previewURL}" controls></video>`:`<img src="${previewURL}" alt="Preview">`;
-});
-$("productForm").addEventListener("submit",e=>{
- e.preventDefault();
- if(!selectedFile){toast(tr("needFile"));return}
- const phone=$("productPhone").value.trim();
- if(!/^[+0-9()\-\s]{7,20}$/.test(phone)){toast(tr("invalidPhone"));return}
- const reader=new FileReader();
- reader.onload=()=>{
-  const isVideo=selectedFile.type.startsWith("video/");
-  const plan=document.querySelector('input[name="videoPlan"]:checked');
-  const item={id:Date.now().toString(),name:$("productName").value.trim(),price:Number($("productPrice").value),category:$("productCategory").value,description:$("productDescription").value.trim(),phone,type:isVideo?"video":"image",media:reader.result,createdAt:Date.now(),plan:isVideo?(plan?Number(plan.value):10000):0};
-  products.unshift(item);
-  try{saveProducts()}catch(err){products.shift();toast("Fayl juda katta. Kichikroq rasm yoki video tanlang.");return}
-  $("productForm").reset();selectedFile=null;$("videoPlans").style.display="none";$("mediaPreview").textContent=tr("mediaPreview");
-  toast(tr("added"));renderProducts();renderStudio();showPage("market");
- };
- reader.readAsDataURL(selectedFile);
-});
-function deleteProduct(id){products=products.filter(p=>p.id!==id);saveProducts();renderProducts();renderStudio()}
-function generateDescription(){
- const name=$("aiProduct").value.trim(),details=$("aiDetails").value.trim();
- if(!name){toast(tr("whatProduct"));return}
- const uz=`${name} — sifat va qulaylikni qadrlaydiganlar uchun ajoyib tanlov.\n\n${details}\n\nBatafsil ma'lumot va buyurtma uchun sotuvchi bilan bog‘laning.`;
- const en=`Discover ${name}, a thoughtful choice for your needs.\n\n${details}\n\nContact the seller for more information and ordering.`;
- $("aiResult").value=lang==="uz"?uz:en;
+
+/* PRICE */
+
+function formatPrice(value){
+ return Number(value||0).toLocaleString("uz-UZ");
 }
-function calculateProfit(){
- const sell=Number($("sellPrice").value)||0,cost=Number($("costPrice").value)||0,other=Number($("otherCosts").value)||0;
- const result=sell-cost-other;
- $("profitResult").textContent=money(result);
- $("profitResult").style.color=result>=0?"var(--green)":"#e58c83";
+
+/* FAVORITES */
+
+function toggleFavorite(id){
+ if(favorites.includes(id)){
+  favorites=favorites.filter(x=>x!==id);
+  toast("Sevimlilardan olib tashlandi");
+ }else{
+  favorites.push(id);
+  toast("Sevimlilarga qo'shildi ♥");
+ }
+
+ saveFavorites();
+ renderProducts();
+ renderFavorites();
+ renderStudio();
 }
-function openLogin(){$("loginModal").classList.add("open")}
-function closeLogin(){$("loginModal").classList.remove("open")}
-function demoLogin(){toast(tr("loginDemo"));closeLogin()}
-applyLanguage();
-</script>
-</body>
- <!-- FIREBASE SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
- <script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyBrtG6zmS-uxVSk9eJBm2UKdeJOD2RqjsA",
-    authDomain: "foydora-502f7.firebaseapp.com",
-    projectId: "foydora-502f7",
-    storageBucket: "foydora-502f7.firebasestorage.app",
-    messagingSenderId: "915147509868",
-    appId: "1:915147509868:web:5d24120c8f9db1f28dc849"
+
+function renderFavorites(){
+ const grid=document.getElementById("favoritesGrid");
+ const empty=document.getElementById("emptyFavorites");
+
+ if(!grid)return;
+
+ const list=products.filter(p=>favorites.includes(p.id));
+
+ grid.innerHTML="";
+
+ empty.classList.toggle("hidden",list.length>0);
+
+ list.forEach(p=>{
+  const card=document.createElement("div");
+  card.className="card";
+
+  const mediaHTML=p.media&&p.media.length
+   ?p.media.map(m=>{
+    if(m.type.startsWith("video/")){
+     return `<video class="product-media" controls src="${m.data}"></video>`;
+    }
+    return `<img class="product-media" src="${m.data}" loading="lazy">`;
+   }).join("")
+   :`<div class="product-media" style="display:grid;place-items:center">◇</div>`;
+
+  card.innerHTML=`
+   ${mediaHTML}
+   <div class="card-body">
+    <h3>${escapeHTML(p.name)}</h3>
+    <div class="card-price">${formatPrice(p.price)} UZS</div>
+    <div class="card-actions">
+     <button class="btn btn-gold" onclick="openProduct('${p.id}')">Batafsil</button>
+     <button class="favorite-btn active" onclick="toggleFavorite('${p.id}')">♥</button>
+    </div>
+   </div>
+  `;
+
+  grid.appendChild(card);
+ });
+}
+
+/* PRODUCT DETAIL */
+
+function openProduct(id){
+ const p=products.find(x=>x.id===id);
+ if(!p)return;
+
+ const modal=document.getElementById("productModal");
+ const content=document.getElementById("productModalContent");
+
+ let mediaHTML="";
+
+ if(p.media&&p.media.length){
+  mediaHTML=p.media.map(m=>{
+   if(m.type.startsWith("video/")){
+    return `<video controls style="width:100%;max-height:300px" src="${m.data}"></video>`;
+   }
+   return `<img style="width:100%;max-height:300px;object-fit:contain" src="${m.data}">`;
+  }).join("");
+ }
+
+ content.innerHTML=`
+  ${mediaHTML}
+  <div class="eyebrow" style="margin-top:20px">${escapeHTML(p.category)}</div>
+  <h2 style="margin:10px 0">${escapeHTML(p.name)}</h2>
+  <div class="card-price">${formatPrice(p.price)} UZS</div>
+  <p style="margin:15px 0;line-height:1.8;color:#777">
+   ${escapeHTML(p.description||"")}
+  </p>
+  <div class="notice">
+   Shahar: ${escapeHTML(p.city||"Ko'rsatilmagan")}<br>
+   Telefon: ${escapeHTML(p.phone||"Ko'rsatilmagan")}
+  </div>
+  <button class="btn btn-gold" style="width:100%"
+   onclick="contactSeller('${p.id}')">
+   Sotuvchi bilan bog'lanish
+  </button>
+ `;
+
+ modal.classList.add("open");
+}
+
+function closeProductModal(){
+ document.getElementById("productModal").classList.remove("open");
+}
+
+function contactSeller(id){
+ const p=products.find(x=>x.id===id);
+ if(!p||!p.phone)return toast("Telefon raqami mavjud emas");
+
+ const phone=p.phone.replace(/[^\d+]/g,"");
+ window.open("https://wa.me/"+phone.replace(/\+/g,""),"_blank");
+}
+
+/* SELL FORM MEDIA PREVIEW */
+
+document.getElementById("productMedia").addEventListener("change",function(){
+ const preview=document.getElementById("mediaPreview");
+ const files=Array.from(this.files||[]);
+
+ preview.innerHTML="";
+
+ if(!files.length){
+  preview.innerHTML="Rasm yoki video tanlang";
+  return;
+ }
+
+ files.slice(0,5).forEach(file=>{
+  const reader=new FileReader();
+
+  reader.onload=e=>{
+   const el=file.type.startsWith("video/")
+    ?document.createElement("video")
+    :document.createElement("img");
+
+   el.src=e.target.result;
+   el.style.width="100%";
+   el.style.maxHeight="300px";
+   el.style.objectFit="contain";
+
+   if(el.tagName==="VIDEO")el.controls=true;
+
+   preview.appendChild(el);
   };
 
-  firebase.initializeApp(firebaseConfig);
+  reader.readAsDataURL(file);
+ });
+});
 
-  const db = firebase.firestore();
-  const auth = firebase.auth();
+/* LISTING CREATE */
 
-  console.log("FOYDORA Firebase muvaffaqiyatli ulandi!");
+document.getElementById("productForm").addEventListener("submit",async function(e){
+ e.preventDefault();
+
+ const files=Array.from(document.getElementById("productMedia").files||[]);
+
+ if(files.length>5){
+  toast("Eng ko'pi bilan 5 ta media fayl");
+  return;
+ }
+
+ const media=[];
+
+ try{
+  for(const file of files){
+   if(file.size>4*1024*1024){
+    toast("Har bir fayl 4 MB dan kichik bo'lishi kerak");
+    return;
+   }
+
+   const data=await readFile(file);
+
+   media.push({
+    type:file.type,
+    data:data
+   });
+  }
+ }catch(err){
+  toast("Fayllarni o'qishda xatolik");
+  return;
+ }
+
+ const duration=document.querySelector('input[name="listingDuration"]:checked')?.value||"7";
+
+ const product={
+  id:"p_"+Date.now()+"_"+Math.random().toString(36).slice(2,8),
+  name:document.getElementById("productName").value.trim(),
+  category:document.getElementById("productCategory").value,
+  price:Number(document.getElementById("productPrice").value),
+  city:document.getElementById("productCity").value.trim(),
+  phone:document.getElementById("productPhone").value.trim(),
+  description:document.getElementById("productDescription").value.trim(),
+  media:media,
+  duration:Number(duration),
+  createdAt:Date.now(),
+  owner:currentUser?.uid||null
+ };
+
+ products.unshift(product);
+
+ try{
+  saveProducts();
+ }catch(err){
+  products.shift();
+  toast("Brauzer xotirasi to'ldi. Fayllarni kamaytiring.");
+  return;
+ }
+
+ this.reset();
+ document.getElementById("mediaPreview").innerHTML="Rasm yoki video tanlang";
+
+ renderProducts();
+ renderStudio();
+
+ toast("E'lon yaratildi!");
+
+ showPage("market");
+});
+
+function readFile(file){
+ return new Promise((resolve,reject)=>{
+  const reader=new FileReader();
+  reader.onload=()=>resolve(reader.result);
+  reader.onerror=()=>reject(reader.error);
+  reader.readAsDataURL(file);
+ });
+}
+
+/* STUDIO */
+
+function renderStudio(){
+ const listings=products.filter(p=>p.owner===currentUser?.uid);
+
+ document.getElementById("statListings").textContent=products.length;
+ document.getElementById("statFavorites").textContent=favorites.length;
+ document.getElementById("statActive").textContent=products.length;
+
+ const container=document.getElementById("myListings");
+ if(!container)return;
+
+ container.innerHTML="";
+
+ if(!listings.length){
+  container.innerHTML=`
+   <div class="empty">
+    Hozircha shaxsiy e'lonlaringiz yo'q.
+    <br><br>
+    <button class="btn btn-gold" onclick="showPage('sell')">
+     E'lon joylashtirish
+    </button>
+   </div>
+  `;
+  return;
+ }
+
+ listings.forEach(p=>{
+  const row=document.createElement("div");
+  row.style.cssText="padding:15px;border-bottom:1px solid #00000015;display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap";
+
+  row.innerHTML=`
+   <div>
+    <b>${escapeHTML(p.name)}</b>
+    <div class="card-meta">${formatPrice(p.price)} UZS</div>
+   </div>
+   <button class="btn" onclick="deleteProduct('${p.id}')">O'chirish</button>
+  `;
+
+  container.appendChild(row);
+ });
+}
+
+function deleteProduct(id){
+ if(!confirm("E'lonni o'chirmoqchimisiz?"))return;
+
+ products=products.filter(p=>p.id!==id);
+ favorites=favorites.filter(x=>x!==id);
+
+ saveProducts();
+ saveFavorites();
+
+ renderProducts();
+ renderFavorites();
+ renderStudio();
+
+ toast("E'lon o'chirildi");
+}
+
+/* FINANCE */
+
+function calculateFinance(){
+ const income=Number(document.getElementById("financeIncome").value);
+ const expense=Number(document.getElementById("financeExpense").value);
+
+ if(!Number.isFinite(income)||!Number.isFinite(expense)||income<0||expense<0){
+  toast("To'g'ri qiymat kiriting");
+  return;
+ }
+
+ const profit=income-expense;
+
+ const result=document.getElementById("financeResult");
+ result.classList.remove("hidden");
+
+ result.innerHTML=`
+  <b>Daromad:</b> ${formatPrice(income)} UZS<br>
+  <b>Xarajat:</b> ${formatPrice(expense)} UZS<br>
+  <hr style="margin:12px 0;border-color:#00000015">
+  <b>Foyda:</b> ${formatPrice(profit)} UZS
+  <br>
+  <b>Foyda marjasi:</b> ${income?((profit/income)*100).toFixed(2):0}%
+ `;
+}
+
+/* AUTH UI */
+
+function openAuth(){
+ document.getElementById("authModal").classList.add("open");
+}
+
+function closeAuth(){
+ document.getElementById("authModal").classList.remove("open");
+}
+
+function switchAuthMode(){
+ authMode=authMode==="login"?"register":"login";
+
+ document.getElementById("authTitle").textContent=
+  authMode==="login"?"FOYDORA":"Ro'yxatdan o'tish";
+
+ document.getElementById("authSubtitle").textContent=
+  authMode==="login"?"Hisobingizga kiring.":"Yangi hisob yarating.";
+
+ document.getElementById("authSubmit").textContent=
+  authMode==="login"?"Kirish":"Ro'yxatdan o'tish";
+
+ document.getElementById("authSwitchText").textContent=
+  authMode==="login"?"Hisobingiz yo'qmi?":"Hisobingiz bormi?";
+
+ document.getElementById("authSwitch").textContent=
+  authMode==="login"?"Ro'yxatdan o'tish":"Kirish";
+}
+
+/* INITIALIZE */
+
+renderProducts();
+renderFavorites();
+renderStudio();
+
 </script>
+<!-- FIREBASE SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+
+<script>
+/* ===============================
+   FIREBASE AUTHENTICATION
+================================ */
+
+const firebaseConfig = {
+ apiKey: "AIzaSyBrt6Gzm-uxVSk9eJBm2UKdeJOD2RqjsA",
+ authDomain: "foydora-502f7.firebaseapp.com",
+ projectId: "foydora-502f7",
+ storageBucket: "foydora-502f7.firebasestorage.app",
+ messagingSenderId: "915147509868",
+ appId: "1:915147509868:web:5d24120c8f9db1f28dc849"
+};
+
+let firebaseReady=false;
+let auth=null;
+
+try{
+ if(!firebase.apps.length){
+  firebase.initializeApp(firebaseConfig);
+ }
+ auth=firebase.auth();
+ firebaseReady=true;
+}catch(error){
+ console.error("Firebase:",error);
+ toast("Firebase ulanishida xatolik");
+}
+
+/* AUTH STATE */
+
+if(firebaseReady){
+ auth.onAuthStateChanged(user=>{
+  currentUser=user;
+
+  const loginButton=document.querySelector(".nav-actions .btn");
+
+  if(loginButton){
+   loginButton.textContent=user?"Chiqish":"Kirish";
+   loginButton.onclick=user?logout:openAuth;
+  }
+
+  renderStudio();
+ });
+}
+
+/* LOGIN / REGISTER */
+
+document.getElementById("authForm").addEventListener("submit",async function(e){
+ e.preventDefault();
+
+ if(!firebaseReady){
+  toast("Firebase ulanmagan");
+  return;
+ }
+
+ const email=document.getElementById("authEmail").value.trim();
+ const password=document.getElementById("authPassword").value;
+
+ try{
+  if(authMode==="login"){
+   await auth.signInWithEmailAndPassword(email,password);
+   toast("Muvaffaqiyatli kirdingiz!");
+  }else{
+   await auth.createUserWithEmailAndPassword(email,password);
+   toast("Hisob yaratildi!");
+  }
+
+  closeAuth();
+  this.reset();
+
+ }catch(error){
+  const messages={
+   "auth/invalid-email":"Email noto'g'ri",
+   "auth/user-not-found":"Bu hisob topilmadi",
+   "auth/wrong-password":"Parol noto'g'ri",
+   "auth/invalid-credential":"Email yoki parol noto'g'ri",
+   "auth/email-already-in-use":"Bu email band",
+   "auth/weak-password":"Parol kamida 6 belgidan iborat bo'lishi kerak",
+   "auth/network-request-failed":"Internet bilan bog'lanishda xatolik"
+  };
+
+  toast(messages[error.code]||error.message);
+ }
+});
+
+/* LOGOUT */
+
+async function logout(){
+ if(!firebaseReady)return;
+
+ try{
+  await auth.signOut();
+  toast("Hisobdan chiqdingiz");
+ }catch(error){
+  toast("Chiqishda xatolik");
+ }
+}
+
+/* ===============================
+   AI BUSINESS HELPER
+================================ */
+
+/* Bu lokal yordamchi.
+   Haqiqiy AI API bilan ulanmagan. */
+
+function askAI(){
+ const q=document.getElementById("aiQuestion").value.trim();
+ const result=document.getElementById("aiResult");
+
+ if(!q){
+  toast("Savolingizni yozing");
+  return;
+ }
+
+ let answer="";
+
+ const text=q.toLowerCase();
+
+ if(text.includes("reklama")||text.includes("sot")){
+  answer=
+  "REKLAMA STRATEGIYASI\n\n"+
+  "1. Mahsulotning eng muhim xususiyatini aniqlang.\n"+
+  "2. Mahsulot rasmlarini sifatli joylashtiring.\n"+
+  "3. Narx va mahsulot afzalliklarini aniq yozing.\n"+
+  "4. Xaridor uchun ishonchli tavsif yarating.\n"+
+  "5. E'lonni ijtimoiy tarmoqlarda ham tarqating.\n\n"+
+  "FOYDORA orqali mahsulotingizni joylashtirib, xaridorlarni topishga harakat qiling.";
+ }
+ else if(text.includes("biznes")||text.includes("idea")||text.includes("g'oya")){
+  answer=
+  "BIZNES G'OYALAR\n\n"+
+  "1. Internet orqali mahsulot savdosi.\n"+
+  "2. Mahalliy xizmatlar marketplace.\n"+
+  "3. Raqamli mahsulotlar savdosi.\n"+
+  "4. Kichik bizneslar uchun reklama xizmatlari.\n"+
+  "5. Mahsulotlarni yetkazib berish.\n\n"+
+  "Boshlashdan oldin xaridorlar talabini va xarajatlarni o'rganing.";
+ }
+ else if(text.includes("narx")||text.includes("foyda")){
+  answer=
+  "NARX VA FOYDA\n\n"+
+  "1. Mahsulot tannarxini hisoblang.\n"+
+  "2. Yetkazib berish xarajatlarini qo'shing.\n"+
+  "3. Reklama xarajatlarini hisobga oling.\n"+
+  "4. Foyda miqdorini belgilang.\n"+
+  "5. Bozor narxlarini solishtiring.\n\n"+
+  "Finance Calculator orqali daromad va xarajatlarni hisoblang.";
+ }
+ else{
+  answer=
+  "BIZNES MASLAHATI\n\n"+
+  "Savolingiz bo'yicha boshlang'ich tavsiyalar:\n\n"+
+  "1. Maqsadingizni aniq belgilang.\n"+
+  "2. Bozorni o'rganing.\n"+
+  "3. Xarajatlarni hisoblang.\n"+
+  "4. Mijozlarni aniqlang.\n"+
+  "5. Kichik qadam bilan boshlang.\n"+
+  "6. Natijalarni kuzatib, strategiyani o'zgartiring.\n\n"+
+  "Bu FOYDORA ichidagi oddiy lokal yordamchi bo'lib, haqiqiy AI modeliga ulanmagan.";
+ }
+
+ result.textContent=answer;
+ result.classList.remove("hidden");
+}
+
+/* ===============================
+   MULTILINGUAL UI
+================================ */
+
+const translations={
+ uz:{
+  home:"Bosh sahifa",
+  market:"Marketplace",
+  sell:"Sotish",
+  studio:"Business Studio",
+  tools:"Tools",
+  favorites:"Sevimlilar",
+  search:"Mahsulot, xizmat yoki kalit so'z...",
+  listing:"E'lon joylashtirish",
+  explore:"Biznes imkoniyatlari",
+  products:"Mahsulotlar"
+ },
+ en:{
+  home:"Home",
+  market:"Marketplace",
+  sell:"Sell",
+  studio:"Business Studio",
+  tools:"Tools",
+  favorites:"Favorites",
+  search:"Product, service or keyword...",
+  listing:"Create listing",
+  explore:"Business opportunities",
+  products:"Products"
+ },
+ ru:{
+  home:"Главная",
+  market:"Маркетплейс",
+  sell:"Продать",
+  studio:"Бизнес студия",
+  tools:"Инструменты",
+  favorites:"Избранное",
+  search:"Товар, услуга или ключевое слово...",
+  listing:"Создать объявление",
+  explore:"Бизнес возможности",
+  products:"Товары"
+ },
+ tr:{
+  home:"Ana sayfa",
+  market:"Pazar",
+  sell:"Satış",
+  studio:"İş stüdyosu",
+  tools:"Araçlar",
+  favorites:"Favoriler",
+  search:"Ürün, hizmet veya anahtar kelime...",
+  listing:"İlan oluştur",
+  explore:"İş fırsatları",
+  products:"Ürünler"
+ },
+ ar:{
+  home:"الرئيسية",
+  market:"السوق",
+  sell:"بيع",
+  studio:"استوديو الأعمال",
+  tools:"الأدوات",
+  favorites:"المفضلة",
+  search:"المنتج أو الخدمة...",
+  listing:"إنشاء إعلان",
+  explore:"فرص الأعمال",
+  products:"المنتجات"
+ },
+ de:{
+  home:"Startseite",
+  market:"Marktplatz",
+  sell:"Verkaufen",
+  studio:"Business Studio",
+  tools:"Werkzeuge",
+  favorites:"Favoriten",
+  search:"Produkt, Dienstleistung oder Stichwort...",
+  listing:"Anzeige erstellen",
+  explore:"Geschäftsmöglichkeiten",
+  products:"Produkte"
+ },
+ fr:{
+  home:"Accueil",
+  market:"Marketplace",
+  sell:"Vendre",
+  studio:"Business Studio",
+  tools:"Outils",
+  favorites:"Favoris",
+  search:"Produit, service ou mot-clé...",
+  listing:"Créer une annonce",
+  explore:"Opportunités commerciales",
+  products:"Produits"
+ },
+ es:{
+  home:"Inicio",
+  market:"Marketplace",
+  sell:"Vender",
+  studio:"Business Studio",
+  tools:"Herramientas",
+  favorites:"Favoritos",
+  search:"Producto, servicio o palabra clave...",
+  listing:"Crear anuncio",
+  explore:"Oportunidades de negocio",
+  products:"Productos"
+ },
+ zh:{
+  home:"首页",
+  market:"市场",
+  sell:"出售",
+  studio:"商业工作室",
+  tools:"工具",
+  favorites:"收藏",
+  search:"商品、服务或关键词...",
+  listing:"发布商品",
+  explore:"商业机会",
+  products:"商品"
+ },
+ kk:{
+  home:"Басты бет",
+  market:"Маркетплейс",
+  sell:"Сату",
+  studio:"Бизнес студия",
+  tools:"Құралдар",
+  favorites:"Таңдаулылар",
+  search:"Өнім, қызмет немесе сөз...",
+  listing:"Жарнама жариялау",
+  explore:"Бизнес мүмкіндіктері",
+  products:"Өнімдер"
+ }
+};
+
+function changeLanguage(lang){
+ const t=translations[lang]||translations.uz;
+
+ document.querySelectorAll("[data-i]").forEach(el=>{
+  const key=el.dataset.i;
+  if(t[key])el.textContent=t[key];
+ });
+
+ const search=document.getElementById("searchInput");
+ if(search)search.placeholder=t.search;
+
+ document.documentElement.lang=lang;
+
+ if(lang==="ar"){
+  document.documentElement.dir="rtl";
+ }else{
+  document.documentElement.dir="ltr";
+ }
+
+ localStorage.setItem("foydora_lang",lang);
+}
+
+/* RESTORE LANGUAGE */
+
+const savedLanguage=localStorage.getItem("foydora_lang")||"uz";
+
+document.getElementById("language").value=savedLanguage;
+changeLanguage(savedLanguage);
+
+/* ===============================
+   FINAL INITIALIZATION
+================================ */
+
+renderProducts();
+renderFavorites();
+renderStudio();
+
+</script>
+
+</body>
 </html>
